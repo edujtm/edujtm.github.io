@@ -5,7 +5,7 @@ import Layout from '../components/Layout';
 import Head from '../components/Head';
 import blogStyles from './blog.module.scss';
 
-const BlogPage = () => {
+const BlogList = () => {
 
   const data = useStaticQuery(graphql`
     query {
@@ -45,7 +45,7 @@ const BlogPage = () => {
     <Layout>
       <Head title="blog" />
       <h1>Blog</h1>
-      <p>lorem ipsum dolom amen eh nois</p>
+      <p>Small posts about computer science stuff that I found useful to me.</p>
       <h2>Recent Posts</h2>
       <ol className={blogStyles.posts}>
         {blogList}
@@ -54,4 +54,4 @@ const BlogPage = () => {
   );
 };
 
-export default BlogPage;
+export default BlogList;

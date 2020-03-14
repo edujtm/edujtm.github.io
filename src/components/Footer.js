@@ -18,7 +18,7 @@ const Footer = () => {
 
   return (
       <footer className={footerStyles.footer}>
-        <p>Created by {author} with Gatsby.js</p>
+        <p>Created by {author} with <a href="https://www.gatsbyjs.org/">Gatsby.js</a></p>
       </footer>
   );
 };

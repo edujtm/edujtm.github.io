@@ -9,10 +9,10 @@ const ContactMe = () => {
         <Head title="Contact Me"/>
         <h2>Contact information</h2>
         <ul>
-          <li>Telefone: 12347575775</li>
           <li>Email: eduzemacedo@gmail.com</li>
           <li>StackOverflow: <a href="https://stackoverflow.com/users/8310836/eduardo-macedo">Eduardo Macedo</a></li>
           <li>GitHub: <a href="https://github.com/edujtm">edujtm</a></li>
+          <li>LinkedIn: <a href="https://www.linkedin.com/in/eduardo-macedo-724938b1/">Eduardo Macedo</a></li>
         </ul>
       </Layout>
   );

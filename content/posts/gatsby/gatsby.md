@@ -1,6 +1,7 @@
 ---
 title: "Gatsby Static Website Generation"
 date: "2020-03-13"
+topic: "web-dev"
 ---
 
 ![Neon City Alleys](./neon_city.png)
