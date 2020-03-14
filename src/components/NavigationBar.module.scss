@@ -1,0 +1,50 @@
+$animate: all 0.2s ease-in-out;
+
+.nav-list {
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+}
+
+.nav-item {
+  color: #999999;
+  font-size: .9rem;
+  margin-right: 1.3rem;
+  padding: 0 2px;
+  text-decoration: none;
+  transition: $animate;
+  position: relative;
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: -7px;
+    width: 0px;
+    height: 2px;
+    margin: 2px 0 0;
+    transition: $animate;
+    transition-duration: 0.25s;
+    opacity: 0;
+    background-color: #fb8177;
+  }
+  &:before {
+    left: 50%;
+  }
+  &:after {
+    right: 50%;
+  }
+  &:hover {
+    cursor: pointer;
+    color: #666666;
+    &:before,
+    &:after {
+      opacity: 1;
+      width: 50%;
+    }
+  }
+}
+
+
+.active-nav-item {
+  color: #333333;
+}
