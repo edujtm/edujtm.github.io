@@ -32,8 +32,17 @@ module.exports = {
               linkImagesToOriginal: false,
             },
           },
+          'gatsby-remark-prismjs',
         ]
       },
+    },
+    {
+      resolve: 'gatsby-plugin-web-font-loader',
+      options: {
+        google: {
+          families: ['Roboto']
+        }
+      }
     }
   ]
 }
