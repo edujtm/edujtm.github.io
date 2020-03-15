@@ -1,0 +1,1 @@
+{"data":{"allMarkdownRemark":{"edges":[{"node":{"id":"20cc89bd-0ce1-5d55-9b0b-70d5e4b9d188","frontmatter":{"title":"A fix for g++ not being able to find OpenCV dependencies on Ubuntu 18.04","date":"2020-03-14"},"fields":{"slug":"opencv-header-problems"}}}]}}}
