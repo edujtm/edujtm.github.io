@@ -98,7 +98,7 @@ sudo mv opencv.conf /etc/ld.so.conf.d/
 sudo ldconfig
 ```
 \
-Because this was an OS level issue, you compiled binaries should work just fine, even without recompiling them.
+Because this was an OS level issue, your compiled binaries should work just fine, even without recompiling them.
 
 ## TL;DR
 
