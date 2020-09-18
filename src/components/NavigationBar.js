@@ -6,14 +6,14 @@ import navigationBarStyles from './NavigationBar.module.scss';
 const NavigationBar = ({ navItems }) => {
   return (
     <nav>
-        <ul className={navigationBarStyles.navList}>
-        	{navItems.map((item) => (
-						<li>		
-		  				{createNavItem(item)}	
-						</li>
-					))} 
-        </ul>
-      </nav>
+    	<ul className={navigationBarStyles.navList}>
+      	{navItems.map((item) => (
+					<li>		
+		  			{createNavItem(item)}	
+					</li>
+				))} 
+      </ul>
+    </nav>
   );
 }
 
