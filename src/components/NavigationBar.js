@@ -3,49 +3,29 @@ import { Link } from 'gatsby';
 
 import navigationBarStyles from './NavigationBar.module.scss';
 
-const NavigationBar = () => {
+const NavigationBar = ({ navItems }) => {
   return (
     <nav>
         <ul className={navigationBarStyles.navList}>
-          <li>
-            <Link 
-              className={navigationBarStyles.navItem} 
-              activeClassName={navigationBarStyles.activeNavItem}
-              to="/"
-            >
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link 
-              className={navigationBarStyles.navItem} 
-              activeClassName={navigationBarStyles.activeNavItem}
-              to="/blog"
-            >
-              Blog
-            </Link>
-          </li>
-          <li>
-            <Link 
-              className={navigationBarStyles.navItem} 
-              activeClassName={navigationBarStyles.activeNavItem}
-              to="/about"
-            >
-              About
-            </Link>
-          </li>
-          <li>
-            <Link 
-              className={navigationBarStyles.navItem} 
-              activeClassName={navigationBarStyles.activeNavItem}
-              to="/contact"
-            >
-              Contact
-            </Link>
-          </li>
+         	{navItems.map((item) => (
+						<li>		
+							{createNavItem(item)}	
+						</li>
+					))} 
         </ul>
       </nav>
   );
 }
+
+const createNavItem = ({ displayName, relativePath }) => {
+	return (
+		<Link 
+			className={navigationBarStyles.navItem}
+			activeClassName={navigationBarStyles.activeNavItem}
+			to={relativePath}>
+			{displayName}
+		</Link>
+	);
+};
 
 export default NavigationBar;

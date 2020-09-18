@@ -5,6 +5,25 @@ import NavigationBar from './NavigationBar';
 
 import headerStyles from './Header.module.scss';
 
+const items = [
+	{
+			displayName: "Home",
+			relativePath: "/"
+	},
+	{
+			displayName: "Blog",
+			relativePath: "/blog"
+	},
+	{
+			displayName: "About",
+			relativePath: "/about"
+	},
+	{
+			displayName: "Contact",
+			relativePath: "/contact"
+	},
+];
+
 const Header = () => {
   const data = useStaticQuery(graphql`
     query {
@@ -25,7 +44,7 @@ const Header = () => {
             {title}
           </Link>
         </h1>
-        <NavigationBar />        
+        <NavigationBar navItems={items} />
       </header>
   );
 }

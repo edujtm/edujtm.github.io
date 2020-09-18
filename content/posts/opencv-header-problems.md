@@ -1,6 +1,6 @@
 ---
 title: "A fix for g++ not being able to find OpenCV dependencies on Ubuntu 18.04"
-date: "2020-03-14"
+date: "14/03/2020"
 ---
 
 ## The Issue
@@ -117,7 +117,7 @@ g++ my_sample_file.cpp -o my_sample_file `pkg-config --cflags --libs <OpenCV_Hom
 Create a *.conf* file pointing to the OpenCV shared libraries folder, place it at `/etc/ld.so.conf.d/` and run ldconfig.
 
 ```bash
-echo "/home/edujtm/Code/local/OpenCV-3.4.4/lib" > opencv.conf
+echo "<OpenCV_Home_Dir>/installation/OpenCV-3.4.4/lib" > opencv.conf
 sudo mv opencv.conf /etc/ld.so.conf.d/
 sudo ldconfig
 ```
