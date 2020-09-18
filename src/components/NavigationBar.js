@@ -7,9 +7,9 @@ const NavigationBar = ({ navItems }) => {
   return (
     <nav>
         <ul className={navigationBarStyles.navList}>
-         	{navItems.map((item) => (
+        	{navItems.map((item) => (
 						<li>		
-							{createNavItem(item)}	
+		  				{createNavItem(item)}	
 						</li>
 					))} 
         </ul>
@@ -18,14 +18,14 @@ const NavigationBar = ({ navItems }) => {
 }
 
 const createNavItem = ({ displayName, relativePath }) => {
-	return (
+  return (
 		<Link 
-			className={navigationBarStyles.navItem}
-			activeClassName={navigationBarStyles.activeNavItem}
-			to={relativePath}>
-			{displayName}
+	  	className={navigationBarStyles.navItem}
+	  	activeClassName={navigationBarStyles.activeNavItem}
+	  	to={relativePath}>
+				{displayName}
 		</Link>
-	);
+  );
 };
 
 export default NavigationBar;

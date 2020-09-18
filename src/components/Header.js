@@ -6,22 +6,22 @@ import NavigationBar from './NavigationBar';
 import headerStyles from './Header.module.scss';
 
 const items = [
-	{
-			displayName: "Home",
-			relativePath: "/"
-	},
-	{
-			displayName: "Blog",
-			relativePath: "/blog"
-	},
-	{
-			displayName: "About",
-			relativePath: "/about"
-	},
-	{
-			displayName: "Contact",
-			relativePath: "/contact"
-	},
+  {
+    displayName: "Home",
+    relativePath: "/"
+  },
+  {
+    displayName: "Blog",
+    relativePath: "/blog"
+  },
+  {
+    displayName: "About",
+    relativePath: "/about"
+  },
+  {
+    displayName: "Contact",
+    relativePath: "/contact"
+  },
 ];
 
 const Header = () => {
