@@ -6,12 +6,12 @@ import navigationBarStyles from './NavigationBar.module.scss';
 const NavigationBar = ({ navItems }) => {
   return (
     <nav>
-    	<ul className={navigationBarStyles.navList}>
-      	{navItems.map((item) => (
-					<li>		
-		  			{createNavItem(item)}	
-					</li>
-				))} 
+      <ul className={navigationBarStyles.navList}>
+        {navItems.map((item) => (
+		  <li>		
+		  	{createNavItem(item)}	
+          </li>
+        ))} 
       </ul>
     </nav>
   );
@@ -19,12 +19,12 @@ const NavigationBar = ({ navItems }) => {
 
 const createNavItem = ({ displayName, relativePath }) => {
   return (
-		<Link 
-	  	className={navigationBarStyles.navItem}
-	  	activeClassName={navigationBarStyles.activeNavItem}
-	  	to={relativePath}>
-				{displayName}
-		</Link>
+    <Link 
+      className={navigationBarStyles.navItem}
+      activeClassName={navigationBarStyles.activeNavItem}
+      to={relativePath}>
+        {displayName}
+    </Link>
   );
 };
 
