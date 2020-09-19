@@ -1,0 +1,16 @@
+
+.profile-container {
+  display: flex; 
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.profile-picture {
+  margin: auto 30px auto auto;
+  flex: 2;
+}
+
+.profile-description {
+  flex: 8;
+}

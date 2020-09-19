@@ -17,9 +17,18 @@ module.exports = {
       options: {
         name: 'content',
         path: `${__dirname}/content/`,
+        ignore: [`${__dirname}/content/non-published/**`]
+      },
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'images',
+        path: `${__dirname}/src/images`
       },
     },
     'gatsby-plugin-sharp',
+    'gatsby-transformer-sharp',
     {
       resolve: 'gatsby-transformer-remark',
       options: {
