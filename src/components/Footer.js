@@ -18,7 +18,8 @@ const Footer = () => {
 
   return (
       <footer className={footerStyles.footer}>
-        <p>Created by {author} with <a href="https://www.gatsbyjs.org/">Gatsby.js</a></p>
+        <p>Created by {author} with <a href="https://www.gatsbyjs.org/">Gatsby.js</a> | 
+        <a href="https://icons8.com/icons/set/fireplace">Fireplace Icon</a> by <a href="https://icons8.com/">Icons8 </a> </p>
       </footer>
   );
 };
