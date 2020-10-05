@@ -11,7 +11,7 @@ const BlogList = () => {
     query {
       allMarkdownRemark(
         sort: {
-          fields: frontmatter___date
+          fields: [frontmatter___date]
           order: DESC
         } 
       ) {
@@ -19,7 +19,7 @@ const BlogList = () => {
           node {
             frontmatter {
               title
-              date
+              date(formatString: "DD/MM/YYYY")
             }
             fields {
               slug
