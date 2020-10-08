@@ -223,14 +223,15 @@ To test performance of the three scripts, I used the [original image](https://un
           << "[us]" << std::endl;
 ```
 <br />
+<p>
 These were the obtained results: 
-<br/><br/>
+</p>
 
-|Script | Time elapsed |
-| ---- | ---- |
-| for-loop | 3855 [&#181s] |
-| roi-broadcasting | 265 [&#181s] |
-| roi-bitwise | 163 [&#181s] |
+|Script | Time elapsed (g++ -O2) |
+| ---- | ---- | ---- |
+| for-loop |  1308 (+/- 77) [&#181s] |
+| roi-broadcasting | 67 (+/- 44) [&#181s] |
+| roi-bitwise | 45 (+/- 46) [&#181s] |
 
 I've ran the scripts multiple times and the execution time fluctuate around these values. As we can see the for-loop version is an order of magnitude slower and we should avoid using it if there's a better option available.
 
@@ -287,7 +288,7 @@ int main(int argc, char* argv[]) {
 ```
 <br/>
 <p>
-After a few copies data copies, we obtain the desired quadrant shift. This is much more legible than if we were to calculate the new position for each pixel in a for loop. 
+After a few data copies, we obtain the desired quadrant shift. This is much more legible than if we were to calculate the new position for each pixel in a for loop. 
 
 The problem with this implementation is that it assumes that the image width and height are divisible by 2. A better implementation would check the size of the image and treat this accordingly.
 </p>
