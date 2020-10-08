@@ -265,27 +265,32 @@ If you run the resulting binary, you'll get the same results as before.
           std<span class="token operator">::</span>chrono<span class="token operator">::</span>duration_cast<span class="token operator">&lt;</span>std<span class="token operator">::</span>chrono<span class="token operator">::</span>microseconds<span class="token operator">></span><span class="token punctuation">(</span>end <span class="token operator">-</span> begin<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">count</span><span class="token punctuation">(</span><span class="token punctuation">)</span> 
           <span class="token operator">&lt;&lt;</span> <span class="token string">"[us]"</span> <span class="token operator">&lt;&lt;</span> std<span class="token operator">::</span>endl<span class="token punctuation">;</span></code></pre></div>
 <br />
+<p>
 These were the obtained results: 
-<br/><br/>
+</p>
 <table>
 <thead>
 <tr>
 <th>Script</th>
-<th>Time elapsed</th>
+<th>Time elapsed (g++ -O2)</th>
+<th></th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>for-loop</td>
-<td>3855 [µs]</td>
+<td>1308 (+/- 77) [µs]</td>
+<td></td>
 </tr>
 <tr>
 <td>roi-broadcasting</td>
-<td>265 [µs]</td>
+<td>67 (+/- 44) [µs]</td>
+<td></td>
 </tr>
 <tr>
 <td>roi-bitwise</td>
-<td>163 [µs]</td>
+<td>45 (+/- 46) [µs]</td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -356,6 +361,6 @@ These were the obtained results:
 <span class="token punctuation">}</span></code></pre></div>
 <br/>
 <p>
-After a few copies data copies, we obtain the desired quadrant shift. This is much more legible than if we were to calculate the new position for each pixel in a for loop. 
+After a few data copies, we obtain the desired quadrant shift. This is much more legible than if we were to calculate the new position for each pixel in a for loop. 
 <p>The problem with this implementation is that it assumes that the image width and height are divisible by 2. A better implementation would check the size of the image and treat this accordingly.</p>
 </p></div></div><footer class="Footer-module--footer--3yGWB"><p>Created by <!-- -->Eduardo Macedo<!-- --> with <a href="https://www.gatsbyjs.org/">Gatsby.js</a><span> | </span><a href="https://icons8.com/icons/set/fireplace">Fireplace Icon</a> by <a href="https://icons8.com/">Icons8 </a> </p></footer></div></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/blog/opencv-image-manipulation";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"app":["/app-d542304e5dd43fcc15d7.js"],"component---src-templates-blog-js":["/component---src-templates-blog-js-d9b1752aa94e680343c3.js"],"component---src-pages-404-js":["/component---src-pages-404-js-3f69c75eb4cb9d9e9f4b.js"],"component---src-pages-about-js":["/component---src-pages-about-js-a07c5010519a9b656571.js"],"component---src-pages-blog-js":["/component---src-pages-blog-js-b9a8c84f15d11fe1cf9b.js"],"component---src-pages-contact-js":["/component---src-pages-contact-js-9c78996335b2595ce5b3.js"],"component---src-pages-index-js":["/component---src-pages-index-js-2282d6a3ec01f4ebfe39.js"]};/*]]>*/</script><script src="/component---src-templates-blog-js-d9b1752aa94e680343c3.js" async=""></script><script src="/commons-4c1b28b38614419ffced.js" async=""></script><script src="/styles-4f9fb81ff0cc2dbc3273.js" async=""></script><script src="/app-d542304e5dd43fcc15d7.js" async=""></script><script src="/webpack-runtime-11a928335baca9ccf693.js" async=""></script></body></html>
