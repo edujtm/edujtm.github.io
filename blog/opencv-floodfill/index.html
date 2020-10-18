@@ -1,0 +1,452 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><style data-href="/styles.2531bcf75cdacd2bf0d8.css">code[class*=language-],pre[class*=language-]{color:#a9b7c6;font-family:Consolas,Monaco,Andale Mono,monospace;direction:ltr;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;line-height:1.5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-ms-hyphens:none;hyphens:none}code[class*=language-]::selection,code[class*=language-] ::selection,pre[class*=language-]::selection,pre[class*=language-] ::selection{color:inherit;background:rgba(33,66,131,.85)}pre[class*=language-]{padding:1em;margin:.5em 0;overflow:auto}:not(pre)>code[class*=language-],pre[class*=language-]{background:#2b2b2b}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em}.token.cdata,.token.comment,.token.prolog{color:grey}.token.atrule,.token.boolean,.token.delimiter,.token.important,.token.keyword,.token.selector{color:#cc7832}.token.attr-name,.token.operator,.token.punctuation{color:#a9b7c6}.token.builtin,.token.doctype,.token.tag,.token.tag .punctuation{color:#e8bf6a}.token.entity,.token.number,.token.symbol{color:#6897bb}.token.constant,.token.property,.token.variable{color:#9876aa}.token.char,.token.string{color:#6a8759}.token.attr-value,.token.attr-value .punctuation{color:#a5c261}.token.attr-value .punctuation:first-child{color:#a9b7c6}.token.url{color:#287bde;text-decoration:underline}.token.function{color:#ffc66d}.token.regex{background:#364135}.token.bold{font-weight:700}.token.italic{font-style:italic}.token.inserted{background:#294436}.token.deleted{background:#484a4a}code.language-css .token.property,code.language-css .token.property+.token.punctuation{color:#a9b7c6}code.language-css .token.id,code.language-css .token.selector>.token.attribute,code.language-css .token.selector>.token.class,code.language-css .token.selector>.token.pseudo-class,code.language-css .token.selector>.token.pseudo-element{color:#ffc66d}.command-line-prompt{border-right:1px solid #999;display:block;float:left;font-size:100%;letter-spacing:-1px;margin-right:1em;pointer-events:none;-webkit-user-select:none;-ms-user-select:none;user-select:none}.NavigationBar-module--nav-list--VWmL8{display:flex;list-style-type:none;margin:0}.NavigationBar-module--nav-item--1bjuq{color:#999;font-size:.9rem;margin-right:1.3rem;padding:0 2px;text-decoration:none;-webkit-transition:all .2s ease-in-out;transition:all .2s ease-in-out;position:relative}.NavigationBar-module--nav-item--1bjuq:after,.NavigationBar-module--nav-item--1bjuq:before{content:"";position:absolute;bottom:-7px;width:0;height:2px;margin:2px 0 0;-webkit-transition:all .2s ease-in-out;transition:all .2s ease-in-out;-webkit-transition-duration:.25s;transition-duration:.25s;opacity:0;background-color:#fb8177}.NavigationBar-module--nav-item--1bjuq:before{left:50%}.NavigationBar-module--nav-item--1bjuq:after{right:50%}.NavigationBar-module--nav-item--1bjuq:hover{cursor:pointer;color:#666}.NavigationBar-module--nav-item--1bjuq:hover:after,.NavigationBar-module--nav-item--1bjuq:hover:before{opacity:1;width:50%}.NavigationBar-module--active-nav-item--3YWLJ{color:#333}.Header-module--header--2E8ew{padding:1rem 0 3rem}.Header-module--title--1WXgF{color:#000;font-size:3rem;text-decoration:none}.Footer-module--footer--3yGWB{margin-top:3rem}html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}article,aside,details,figcaption,figure,footer,header,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block}audio:not([controls]){display:none;height:0}progress{vertical-align:baseline}[hidden],template{display:none}a{color:#fb8177;text-decoration:none;background-color:transparent;-webkit-text-decoration-skip:objects}a:active,a:hover{color:#cb7a64;outline-width:0}abbr[title]{border-bottom:none;text-decoration:underline;-webkit-text-decoration:underline dotted;text-decoration:underline dotted}b,strong{font-weight:inherit;font-weight:bolder}dfn{font-style:italic}h1{font-size:2em;margin:.67em 0}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}svg:not(:root){overflow:hidden}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}button,input,optgroup,select,textarea{font:inherit;margin:0}optgroup{font-weight:700}button,input{overflow:visible}button,select{text-transform:none}[type=reset],[type=submit],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-input-placeholder{color:inherit;opacity:.54}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}html{font:112.5%/1.45em,georgia,serif;box-sizing:border-box;overflow-y:scroll}*,:after,:before{box-sizing:inherit}body{color:rgba(0,0,0,.8);font-family:sans-serif;font-weight:400;word-wrap:break-word;-webkit-font-kerning:normal;font-kerning:normal;-ms-font-feature-settings:"kern","liga","clig","calt";font-feature-settings:"kern","liga","clig","calt"}img{max-width:100%;padding:0;margin:0 0 1.45rem}h1{font-size:2.25rem}h1,h2{padding:0;margin:0 0 1.45rem;color:inherit;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;font-weight:700;text-rendering:optimizeLegibility;line-height:1.1}h2{font-size:1.62671rem}h3{font-size:1.38316rem}h3,h4{padding:0;margin:0 0 1.45rem;color:inherit;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;font-weight:700;text-rendering:optimizeLegibility;line-height:1.1}h4{font-size:1rem}h5{font-size:.85028rem}h5,h6{padding:0;margin:0 0 1.45rem;color:inherit;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;font-weight:700;text-rendering:optimizeLegibility;line-height:1.1}h6{font-size:.78405rem}hgroup{padding:0;margin:0 0 1.45rem}ol,ul{padding:0;margin:0 0 1.45rem 1.45rem;list-style-position:outside;list-style-image:none}dd,dl,p{padding:0;margin:0 0 1.45rem}p{font-family:Zilla Slab,Merriweather,Oswald,sans-serif;font-size:1.2em}figure{padding:0}figure,pre{margin:0 0 1.45rem}pre{font-size:.85rem;line-height:1.42;background:rgba(0,0,0,.04);border-radius:3px;overflow:auto;word-wrap:normal;padding:1.45rem}table{font-size:1rem;line-height:1.45rem;border-collapse:collapse;width:100%}fieldset,table{padding:0;margin:0 0 1.45rem}blockquote{padding:0;margin:0 1.45rem 1.45rem}form,iframe,noscript{padding:0;margin:0 0 1.45rem}hr{padding:0;margin:0 0 calc(1.45rem - 1px);background:rgba(0,0,0,.2);border:none;height:1px}address{padding:0;margin:0 0 1.45rem}b,dt,strong,th{font-weight:700}li{font-family:Zilla Slab,sans-serif;font-size:1.1em;margin-bottom:.725rem}ol li,ul li{padding-left:0}li>ol,li>ul{margin-left:1.45rem;margin-bottom:.725rem;margin-top:.725rem}blockquote :last-child,li :last-child,p :last-child{margin-bottom:0}li>p{margin-bottom:.725rem}code,kbd,samp{font-size:.85rem;line-height:1.45rem}abbr,abbr[title],acronym{border-bottom:1px dotted rgba(0,0,0,.5);cursor:help}abbr[title]{text-decoration:none}td,th,thead{text-align:left}td,th{border-bottom:1px solid rgba(0,0,0,.12);font-feature-settings:"tnum";-moz-font-feature-settings:"tnum";-ms-font-feature-settings:"tnum";-webkit-font-feature-settings:"tnum";padding:.725rem .96667rem calc(.725rem - 1px)}td:first-child,th:first-child{padding-left:0}td:last-child,th:last-child{padding-right:0}code,tt{background-color:rgba(0,0,0,.04);border-radius:3px;font-family:SFMono-Regular,Consolas,Roboto Mono,Droid Sans Mono,Liberation Mono,Menlo,Courier,monospace;padding:.2em 0}pre code{background:none;line-height:1.42}code:after,code:before,tt:after,tt:before{letter-spacing:-.2em;content:" "}pre code:after,pre code:before,pre tt:after,pre tt:before{content:""}@media only screen and (max-width:480px){html{font-size:100%}}.command-line-prompt>span:before{color:#999;content:" ";display:block;padding-right:.8em}.command-line-prompt>span[data-user]:before{content:"[" attr(data-user) "@" attr(data-host) "] $"}.command-line-prompt>span[data-user=root]:before{content:"[" attr(data-user) "@" attr(data-host) "] #"}.command-line-prompt>span[data-prompt]:before{content:attr(data-prompt)}.Layout-module--container--2DmHh{margin:0 auto;max-width:750px;padding:1rem;display:flex;flex-direction:column;min-height:100vh}.Layout-module--content--3KiRz{flex:1 1}.RoundImage-module--round-image--3WuE7{border-radius:50%}.About-module--profile-container--312zr{display:flex;flex-direction:row;align-items:stretch;justify-content:center}.About-module--profile-picture--sN322{margin:auto 30px auto auto;flex:2 1}.About-module--profile-description--20AZi{flex:8 1}@-webkit-keyframes blog-module--shadow-drop-2-center--UKVRN{0%{-webkit-transform:translateZ(0);transform:translateZ(0);box-shadow:0 0 0 0 transparent}to{-webkit-transform:translateZ(50px);transform:translateZ(50px);box-shadow:0 0 20px 0 rgba(0,0,0,.35)}}@keyframes blog-module--shadow-drop-2-center--UKVRN{0%{-webkit-transform:translateZ(0);transform:translateZ(0);box-shadow:0 0 0 0 transparent}to{-webkit-transform:translateZ(50px);transform:translateZ(50px);box-shadow:0 0 20px 0 rgba(0,0,0,.35)}}.blog-module--posts--a25pe{list-style-type:none;margin:0}.blog-module--post--1jMia{margin:1rem 0}.blog-module--post--1jMia a{color:#000;display:block;padding:1.5rem 1.2rem;text-decoration:none;border-radius:12px;border:1px solid #fb8177}.blog-module--post--1jMia a:hover{-webkit-animation:blog-module--shadow-drop-2-center--UKVRN .4s cubic-bezier(.25,.46,.45,.94) both;animation:blog-module--shadow-drop-2-center--UKVRN .4s cubic-bezier(.25,.46,.45,.94) both}.blog-module--post--1jMia h2{margin-bottom:0}.blog-module--post--1jMia p{color:#777;font-size:.8rem;font-style:italic}</style><meta name="generator" content="Gatsby 2.19.7"/><title data-react-helmet="true">Using OpenCV flood fill as a selection mechanism | Edu&#x27;s coding fireplace</title><style type="text/css">
+    .anchor.before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: translateX(-100%);
+      padding-right: 4px;
+    }
+    .anchor.after {
+      display: inline-block;
+      padding-left: 4px;
+    }
+    h1 .anchor svg,
+    h2 .anchor svg,
+    h3 .anchor svg,
+    h4 .anchor svg,
+    h5 .anchor svg,
+    h6 .anchor svg {
+      visibility: hidden;
+    }
+    h1:hover .anchor svg,
+    h2:hover .anchor svg,
+    h3:hover .anchor svg,
+    h4:hover .anchor svg,
+    h5:hover .anchor svg,
+    h6:hover .anchor svg,
+    h1 .anchor:focus svg,
+    h2 .anchor:focus svg,
+    h3 .anchor:focus svg,
+    h4 .anchor:focus svg,
+    h5 .anchor:focus svg,
+    h6 .anchor:focus svg {
+      visibility: visible;
+    }
+  </style><script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+      var hash = window.decodeURI(location.hash.replace('#', ''))
+      if (hash !== '') {
+        var element = document.getElementById(hash)
+        if (element) {
+          var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+          var clientTop = document.documentElement.clientTop || document.body.clientTop || 0
+          var offset = element.getBoundingClientRect().top + scrollTop - clientTop
+          // Wait for the browser to finish rendering before scrolling.
+          setTimeout((function() {
+            window.scrollTo(0, offset - 0)
+          }), 0)
+        }
+      }
+    })
+  </script><link as="script" rel="preload" href="/webpack-runtime-81cfcbb7cb54bf69c51b.js"/><link as="script" rel="preload" href="/app-d542304e5dd43fcc15d7.js"/><link as="script" rel="preload" href="/styles-4f9fb81ff0cc2dbc3273.js"/><link as="script" rel="preload" href="/commons-4c1b28b38614419ffced.js"/><link as="script" rel="preload" href="/component---src-templates-blog-js-d9b1752aa94e680343c3.js"/><link as="fetch" rel="preload" href="/page-data/blog/opencv-floodfill/page-data.json" crossorigin="anonymous"/></head><body><div id="___gatsby"><div style="outline:none" tabindex="-1" role="group" id="gatsby-focus-wrapper"><div class="Layout-module--container--2DmHh"><div class="Layout-module--content--3KiRz"><header class="Header-module--header--2E8ew"><h1><a class="Header-module--title--1WXgF" href="/">Edu&#x27;s coding fireplace</a></h1><nav><ul class="NavigationBar-module--nav-list--VWmL8"><li><a class="NavigationBar-module--nav-item--1bjuq" href="/">Home</a></li><li><a class="NavigationBar-module--nav-item--1bjuq" href="/blog">Blog</a></li><li><a class="NavigationBar-module--nav-item--1bjuq" href="/about">About</a></li><li><a class="NavigationBar-module--nav-item--1bjuq" href="/contact">Contact</a></li></ul></nav></header><h1>Using OpenCV flood fill as a selection mechanism</h1><p>16/10/2020</p><div><p>Due to the complexity of regions in an image, its not simple to select complex regions of interest in order to do operations on them. We need to have a way to make this region stand out from the rest of the picture, but we need to deal with noise, complex shapes and other objects that might be in the way of what we're trying to do.</p>
+<p>One way to to tackle this problem is to try and generate a binary image that highlights regions of the image that we might be interested in. Since binary images only have two possible values, we can use all the others for tagging regions for post-processing and act accordingly depending on each tag. Assuming that those regions are separated by the background, we can use <a href="https://docs.opencv.org/4.4.0/d7/d1b/group__imgproc__misc.html#gaf1f55a048f8a45bc3383586e80b1f0d0">cv::floodFill</a> to label the different regions.</p>
+<p>The <code class="language-text">cv::floodFill()</code> function works in the same way as the bucket functionality that's present in a lot of image manipulation programs available. It fills every neighbouring pixel with similar intensities to the starting point with a given new intensity. This is the API available in OpenCV for the flood fill algorithm:</p>
+<div class="gatsby-highlight" data-language="cpp"><pre class="language-cpp"><code class="language-cpp"><span class="token keyword">int</span> cv<span class="token operator">::</span><span class="token function">floodFill</span><span class="token punctuation">(</span>
+	cv<span class="token operator">::</span>InputOutputArray image<span class="token punctuation">,</span>       <span class="token comment">// The image for which a region will be filled with newVal</span>
+	cv<span class="token operator">::</span>Point seedPoint<span class="token punctuation">,</span>              <span class="token comment">// The place point we want to start filling</span>
+	cv<span class="token operator">::</span>Scalar newVal<span class="token punctuation">,</span>                <span class="token comment">// The new intensity/color</span>
+	cv<span class="token operator">::</span>Rect <span class="token operator">*</span>rect <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>               <span class="token comment">// An output rectangle that bounds the painted region</span>
+	cv<span class="token operator">::</span>Scalar lowDiff <span class="token operator">=</span> <span class="token function">Scalar</span><span class="token punctuation">(</span><span class="token punctuation">)</span>     <span class="token comment">// The lower bound is given by neighbour intensity minus lowDiff</span>
+	cv<span class="token operator">::</span>Scalar highDiff <span class="token operator">=</span> <span class="token function">Scalar</span><span class="token punctuation">(</span><span class="token punctuation">)</span>    <span class="token comment">// The upper bound is given by neighbour intensity plus highDiff </span>
+	<span class="token keyword">int</span> flags                         <span class="token comment">// A set of flags that change the algorithm (e.g. type of connectivity)</span>
+<span class="token punctuation">)</span></code></pre></div>
+<p><i>There's another definition that accepts a mask to select the regions which can be filled, but works in the same way. The mask also will have the painted image regions as non-zero values after the operation.</i></p>
+<p>Let's see an example about how we might use it for selecting regions.</p>
+<h2 id="a-labeling-problem" style="position:relative;"><a href="#a-labeling-problem" aria-label="a labeling problem permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>A labeling problem</h2>
+<p>Let's say that after processing an image, we got the following binary image with white bubbles inside.</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 256px;"
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 100%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAIAAAAC64paAAAACXBIWXMAAAsTAAALEwEAmpwYAAAC4ElEQVQ4y41TPUiqYRR+Lf9INIOwH0PszzSxgorCSLAfIy1Is6GEBAU3iwLtP6JokGhoKAQXB9sCGzQIHILGHBrcbGqoIRpsMhq8j56v717u5V7uGb7ved/3vOc85zznZXV1dXd3dyqVqqam5vDwMB6Pj42NMcaqqqpYxQQCAb7Nzc3ZbHZnZ4c2PR7P5+cna21tDQaDv/ohyubmZn9/P7DBYDg+PtZoNMDV1dXs20QiES4ySoJjrCkbuESj0YmJCeDt7e1SqdTZ2UmXu7q6KNBPs9lsFxcXs7Ozv4WHKZVKnU5HWCqVFgqF9/f32tpaLAcGBsq7fX19Dw8Pfr+fPFZWVkZHR/8MBFtYWHA6nVTd9fU1k0gkYNvT04Nr2BIKhc/Pz2gbfxmtUqvVfHJ0AXSAcYVdXl6azWaqnELKZDKxWIw6af/09PTq6gpBgV0uF2iDKSfHzMzM2toaFpAhEAgA4Ca+GxsboVCIipqfn0dceMsqJpfLU6mU3W5n5+fnQ0NDcEomk29vb93d3USe/dNub29fXl4YlUq1LS0tNTQ0UJObmpqIG2SnWMiBXhJGp3K5HDcYoEoC0pnD4Xh6ejIajcD39/dWqxXA6/V+fHxgCijZyMgI11IU8PX11dHRQQdzc3PhcPjs7AwY+re1tVFcsOBnsZwVjcGvsbFxcXERu1tbW2gpxnt3d5cfTM610ryDg4OTkxNizjA0eBW8qiCMMaBu+3w+Skhji/vDw8MgNT4+zj2E6elp9t9G+fEKjo6OIpEIt9br9RQPhnlqb28HaGlpWV1dpebf3NzEYrH6+nos0YJEIpHJZCrUGdvf3y8Wi729vcCvr6+Pj48AqDydTgMoFAp47+3t8bouLy+73W7u0VsslvX1dfDBMbJNTU39jTPGFgPHbWm1WpPJxJ+RQdLy9H3LDp2ReXBwkErAeE1OTpb9QCafz2NIeD0gJl44CuYlgDylikE/2iS+PwDvkNUrAdKrAwAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="Binary image with white bubbles"
+        title="Binary image with white bubbles"
+        src="/static/b3c8f7ee7ad690e7b1e1a9cc828ae9ee/6f3f2/bolhas.png"
+        srcset="/static/b3c8f7ee7ad690e7b1e1a9cc828ae9ee/4dcb9/bolhas.png 188w,
+/static/b3c8f7ee7ad690e7b1e1a9cc828ae9ee/6f3f2/bolhas.png 256w"
+        sizes="(max-width: 256px) 100vw, 256px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+      />
+    </span></p>
+<p>Suppose we're tasked with counting the number of bubbles inside the image, using some algorithm of our choice. How can we go about solving this task? It's easy to count the bubbles by eye, but it's not simple to give the same information to the computer. If we try counting white pixels, we need to make sure that we don't count the same region more than once. In order to avoid this, we need to remove all other pixels that belong to a region when we find the first pixel of that region, that's where flood fill comes in.</p>
+<p>This idea might be implemented like this:</p>
+<div class="gatsby-highlight" data-language="cpp"><pre class="language-cpp"><code class="language-cpp"><span class="token keyword">int</span> objects_qnt <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+cv<span class="token operator">::</span>Mat image <span class="token operator">=</span> <span class="token comment">/* binary image */</span>
+
+<span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> image<span class="token punctuation">.</span>rows<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token comment">// Optimization that avoids recalculating row offset on every pixel</span>
+	uchar<span class="token operator">*</span> row_ptr <span class="token operator">=</span> image<span class="token punctuation">.</span>ptr<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>  
+
+	<span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> image<span class="token punctuation">.</span>cols<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">,</span> row_ptr<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">*</span>row_ptr <span class="token operator">==</span> <span class="token number">255</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+			cv<span class="token operator">::</span>Point loc <span class="token punctuation">{</span> j<span class="token punctuation">,</span> i <span class="token punctuation">}</span><span class="token punctuation">;</span>
+			objects_qnt<span class="token operator">++</span><span class="token punctuation">;</span>
+			<span class="token comment">// We label the region with </span>
+			cv<span class="token operator">::</span><span class="token function">floodFill</span><span class="token punctuation">(</span>image<span class="token punctuation">,</span> loc<span class="token punctuation">,</span> objects_qnt<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre></div>
+<br/>
+<p>One thing that is important to note is the change in axis between the image (i, j) coordinates and the <code class="language-text">cv::Point { j, i }</code> instantiation. The matrix notation has (row, column) indexing while the point have an x for horizontal and y for vertical representation. This change is illustrated below:</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 605px;"
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 65.42553191489361%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAAAsSAAALEgHS3X78AAABX0lEQVQ4y41S2Y6DMAzk/7+vL+3btoJuxSYQCEfOWTssKGVpVUujGCsZz9gU4+TRKAvVOXDufIQePWph8CMtWqqniPgoihAjQljgXEAtDTUwENSk7S3Kx4jZUqMYYIxJsNZucM7Be5/AeZGzWxeJbEavJIZ7hZ6gv+9QZQl5uWDQGuM4YhiGBM5XTNOEuq4XwtkEyNai0x6SCHUj4YUkm+STOvMZiCDO81u7mhomQrbtaXZJYWcWQqXS2ALZYsQQlpPuHoGj73sU6wfHNAd8lWRFNUTYJRLXdXBE7slWyBTm79acx1DkBUcKRUsKRQ0n5aGtXNGekGdZ7Is0LajHA+Z6TZaPrL1SuBHml/lX0CSdl8GW94//CcjebpafbTtoGu4re0eE4a/xtuU9Yb8jfIc80pb3hGyZpX8aVVXhdDrhfD5D0iIPFQohUjdFvwujbduEpmmewDW+y6S32y2dvxlr/GLR1SzKAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="Change in axis between matrix and point"
+        title="Change in axis between matrix and point"
+        src="/static/431cd2520fb32ef27a207b4122c096fc/90cbd/opencv-axis.png"
+        srcset="/static/431cd2520fb32ef27a207b4122c096fc/4dcb9/opencv-axis.png 188w,
+/static/431cd2520fb32ef27a207b4122c096fc/5ff7e/opencv-axis.png 375w,
+/static/431cd2520fb32ef27a207b4122c096fc/90cbd/opencv-axis.png 605w"
+        sizes="(max-width: 605px) 100vw, 605px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+      />
+    </span></p>
+<p>The implementation above would count all the bubbles in the picture and leave them marked for post-processing. The problem here is that we can't count more than the maximum limit given by the <strong>unsigned char</strong> type. As soon as we get to 255 objects, the region would be repainted in white and counted multiple times.</p>
+<p>We need to convert the image to another type, but <code class="language-text">cv::floodFill()</code> only works with <strong>8-bit integer</strong> and <strong>floating point</strong> images. Given these options, we can choose the <strong>float</strong> type which will give us a big counting limit. OpenCV gives us <a href="https://docs.opencv.org/4.4.0/d3/d63/classcv_1_1Mat.html#adf88c60c5b4980e05bb556080916978b">Mat::convertTo()</a> that changes the underlying type, but does not rescale intensities to the new range. With these constraints, we arrive at this solution:</p>
+<div class="gatsby-highlight" data-language="cpp"><pre class="language-cpp"><code class="language-cpp"><span class="token comment">/*
+ * The template here is used so that we can do the rescaling for multiple data types.
+ */</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> DataType<span class="token operator">></span>
+cv<span class="token operator">::</span>Mat <span class="token function">rescale_intensities</span><span class="token punctuation">(</span>cv<span class="token operator">::</span>Mat input<span class="token punctuation">,</span> DataType new_min<span class="token punctuation">,</span> DataType new_max<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">static_assert</span><span class="token punctuation">(</span>std<span class="token operator">::</span>is_arithmetic<span class="token operator">&lt;</span>DataType<span class="token operator">></span><span class="token operator">::</span>value<span class="token punctuation">,</span> <span class="token string">"data type for rescaling intensities must be numeric"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    cv<span class="token operator">::</span>Mat temp <span class="token operator">=</span> input<span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">double</span> input_min<span class="token punctuation">,</span> input_max<span class="token punctuation">;</span>
+    cv<span class="token operator">::</span><span class="token function">minMaxLoc</span><span class="token punctuation">(</span>temp<span class="token punctuation">,</span> <span class="token operator">&amp;</span>input_min<span class="token punctuation">,</span> <span class="token operator">&amp;</span>input_max<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    cv<span class="token operator">::</span>Mat result <span class="token operator">=</span> <span class="token punctuation">(</span>new_max <span class="token operator">-</span> new_min<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span>temp <span class="token operator">-</span> input_min<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token punctuation">(</span>input_max <span class="token operator">-</span> input_min<span class="token punctuation">)</span> <span class="token operator">+</span> new_min<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">/* image pre-processing code */</span>
+
+    <span class="token comment">// The way we count the objects is dependent on the</span>
+    <span class="token comment">// data representation type.</span>
+    <span class="token comment">// The maximum number of objects we can count is defined</span>
+    <span class="token comment">// by the maximum amount the type can hold.</span>
+    cv<span class="token operator">::</span>Mat float_image <span class="token operator">=</span> <span class="token comment">/* some binary image */</span><span class="token punctuation">;</span>
+    image<span class="token punctuation">.</span><span class="token function">convertTo</span><span class="token punctuation">(</span>float_image<span class="token punctuation">,</span> CV_32FC1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// convertTo only changes the type, we still need to change the </span>
+    <span class="token comment">// image intensities</span>
+    cv<span class="token operator">::</span>Mat rescaled_image <span class="token operator">=</span> <span class="token function">rescale_intensities</span><span class="token punctuation">(</span>int_image<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword">float</span><span class="token punctuation">)</span> <span class="token number">0.</span><span class="token punctuation">,</span> std<span class="token operator">::</span>numeric_limits<span class="token operator">&lt;</span><span class="token keyword">float</span><span class="token operator">></span><span class="token operator">::</span><span class="token function">max</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/* image post-processing code */</span>
+<span class="token punctuation">}</span></code></pre></div>
+<br/>
+<p>This maps the old intensity range to the whole range of positive values that float can represent. This way we won't have any problems when the counter reaches 255, which is the value used for white in the old range. With this, we reach the final solution to the bubble counting problem:</p>
+<div class="gatsby-highlight" data-language="cpp"><pre class="language-cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// The way we count the objects is dependent on the</span>
+    <span class="token comment">// data representation type.</span>
+    <span class="token comment">// The maximum number of objects we can count is defined</span>
+    <span class="token comment">// by the maximum amount the type can hold.</span>
+    cv<span class="token operator">::</span>Mat float_image <span class="token operator">=</span> <span class="token comment">/* some binary image */</span><span class="token punctuation">;</span>
+    image<span class="token punctuation">.</span><span class="token function">convertTo</span><span class="token punctuation">(</span>float_image<span class="token punctuation">,</span> CV_32FC1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// convertTo only changes the type, we still need to change the </span>
+    <span class="token comment">// image intensities</span>
+    cv<span class="token operator">::</span>Mat rescaled_image <span class="token operator">=</span> <span class="token function">rescale_intensities</span><span class="token punctuation">(</span>int_image<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword">float</span><span class="token punctuation">)</span> <span class="token number">0.</span><span class="token punctuation">,</span> std<span class="token operator">::</span>numeric_limits<span class="token operator">&lt;</span><span class="token keyword">float</span><span class="token operator">></span><span class="token operator">::</span><span class="token function">max</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">float</span> object_qnt <span class="token operator">=</span> <span class="token number">0.0</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> image<span class="token punctuation">.</span>rows<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// Optimization that avoids recalculating row offset on every pixel</span>
+      <span class="token keyword">float</span><span class="token operator">*</span> row_ptr <span class="token operator">=</span> rescaled_image<span class="token punctuation">.</span>ptr<span class="token operator">&lt;</span><span class="token keyword">float</span><span class="token operator">></span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>  
+
+      <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> image<span class="token punctuation">.</span>cols<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">,</span> row_ptr<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>std<span class="token operator">::</span><span class="token function">abs</span><span class="token punctuation">(</span><span class="token operator">*</span>row_ptr <span class="token operator">==</span> std<span class="token operator">::</span>numeric_limits<span class="token operator">&lt;</span><span class="token keyword">float</span><span class="token operator">></span><span class="token operator">::</span><span class="token function">max</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">0.001</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          cv<span class="token operator">::</span>Point loc <span class="token punctuation">{</span> j<span class="token punctuation">,</span> i <span class="token punctuation">}</span><span class="token punctuation">;</span>
+          object_qnt<span class="token operator">++</span><span class="token punctuation">;</span>
+          <span class="token comment">// We label the region with the quantity of objects</span>
+          cv<span class="token operator">::</span><span class="token function">floodFill</span><span class="token punctuation">(</span>image<span class="token punctuation">,</span> loc<span class="token punctuation">,</span> objects_qnt<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"The figure has "</span> <span class="token operator">&lt;&lt;</span> object_qnt <span class="token operator">&lt;&lt;</span> <span class="token string">" bubbles."</span> <span class="token operator">&lt;&lt;</span> std<span class="token operator">::</span>endl<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre></div>
+  <br/>
+<p>Notice that we're now using an approximation equality comparison due to floating point rouding errors. Running the binary gives us the answer.</p>
+<div class="gatsby-highlight" data-language="bash"><pre class="language-bash"><code class="language-bash"><span class="command-line-prompt"><span data-user=edujtm data-host=localhost></span><span></span></span>./build/labeling <span class="token punctuation">..</span>/bubbles.png
+The figure has <span class="token number">32</span> bubbles.</code></pre></div>
+<br/>
+<p>If we convert the image to <strong>unsigned char</strong> and show it with <code class="language-text">cv::imshow()</code>, we get the following result:</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 256px;"
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 100%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAIAAAAC64paAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABS0lEQVQ4y42T226EMAxEQ7mUOwiEViAhxP//ZA+YdUy6qPXDrgnjmbEdnHMuiiJ3RvQO9ym+zlBkkiQfYS6OY6HgVwuC8BqBGqxyQmWapoG10A+IvxWc+z5Dq64/jrCqsk9Etm1lcRZdFEWWZVbZ2gapHR1Q1bQ+eSfzRCHPcx1kWZZeCYTogLCC2p6y2F1WVcWYjhpR5rnv+8DFUwBu2/bmFmWxZNerDaPvh+Rc0zS3SWoOi7rouu5w+D60XB49TZN65pFBMhvJnzZ3uNdVk1BAgpQUB2WogfeGX69XYFhYKLYdSkDKoV+KXc//o65rr28nGZ8hiTTFkIZhYFrikXOmyMm1CWiWZZGpkszzLPdkHEcpphKMjpqm9NodOJwIjsS/+BV4lC3crmfQEtz6CBcWBIZzlnqx42ddV/vRkgdfCx3u+75tG4nV+AG29w6GWas+7wAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="Bubble image with labeled regions"
+        title="Bubble image with labeled regions"
+        src="/static/a17115a22d9c1813e02057ee38240970/6f3f2/labelled-bubbles.png"
+        srcset="/static/a17115a22d9c1813e02057ee38240970/4dcb9/labelled-bubbles.png 188w,
+/static/a17115a22d9c1813e02057ee38240970/6f3f2/labelled-bubbles.png 256w"
+        sizes="(max-width: 256px) 100vw, 256px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+      />
+    </span></p>
+<p>We can see the faint change in intensity between the labelled regions and the dark background. Showing the image in this way only works because there's less than 255 bubbles in it. If the image had more, we could rescale the intensities to the range [0.0, 1.0], but there wouldn't be much visual information. The value of the labelled image comes from using it in other processing steps, which we're going to see next.</p>
+<h2 id="counting-holes-using-flood-fill-in-a-pipeline" style="position:relative;"><a href="#counting-holes-using-flood-fill-in-a-pipeline" aria-label="counting holes using flood fill in a pipeline permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Counting holes: using flood fill in a pipeline</h2>
+<p>We're happy with our bubble counter but a new task has been given to us: we need to count the number of holes inside bubbles, since they might represent manufacturing failures. We're allowed to make two assumptions:</p>
+<ul>
+<li>We don't need to count bubbles that touch the border of the image</li>
+<li>Objects with more than one hole might exist</li>
+</ul>
+<p>From the bubble counter we developed, we already know how to count and label the bubbles, but now we need to somehow detect the holes inside them. We know that four invariants are going to happen after the labeling process: </p>
+<ol>
+<li>The background is going to have intensity equal to 0 </li>
+<li>the bubbles are going to have intensities different than 0 </li>
+<li>the holes are also going to have intensities equal to 0</li>
+<li>holes are surrounded by pixels from bubbles, otherwise it would be part of the background</li>
+</ol>
+<p>From the second and fourth points, we can derive an algorithm that finds holes: If we find a pixel with intensity equal to 0, we check the pixel to the left of it and if its intensity is different than 0, it means that we've found a hole. We don't want to do this check for every pixel in the background, so we can paint the background with the maximum value possible, that way only the holes will have intensity 0. We would have to take care of not reading pixels out of bounds, but since we're not required to count bubbles on the border, we can just remove them, that way all pixels of the border are going to become part of the background and painted white.</p>
+<p>Let's see how to implement this in a step by step way.</p>
+<h3 id="removing-pixels-from-the-border" style="position:relative;"><a href="#removing-pixels-from-the-border" aria-label="removing pixels from the border permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Removing pixels from the border</h3>
+<p>Removing bubbles from the border is not too complex: if we find any white pixel on the border, we paint it black using flood fill. This can be implemented as follows:</p>
+<div class="gatsby-highlight" data-language="cpp"><pre class="language-cpp"><code class="language-cpp"><span class="token comment">/* Template alias for readability (std::numeric_limits is kinda of a long name) */</span>
+<span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> T<span class="token operator">></span>
+<span class="token keyword">using</span> limits <span class="token operator">=</span> std<span class="token operator">::</span>numeric_limits<span class="token operator">&lt;</span>T<span class="token operator">></span>
+
+<span class="token keyword">void</span> <span class="token function">remove_bubbles_at_border</span><span class="token punctuation">(</span>cv<span class="token operator">::</span>Mat_<span class="token operator">&lt;</span><span class="token keyword">float</span><span class="token operator">></span> input<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> input<span class="token punctuation">.</span>cols<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// Removes bubbles touching top border</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>std<span class="token operator">::</span><span class="token function">abs</span><span class="token punctuation">(</span>input<span class="token punctuation">.</span>at<span class="token operator">&lt;</span><span class="token keyword">float</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span> <span class="token operator">-</span> limits<span class="token operator">&lt;</span><span class="token keyword">float</span><span class="token operator">></span><span class="token operator">::</span><span class="token function">max</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">0.001</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            cv<span class="token operator">::</span>Point location <span class="token punctuation">{</span> i<span class="token punctuation">,</span> <span class="token number">0</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+            cv<span class="token operator">::</span><span class="token function">floodFill</span><span class="token punctuation">(</span>input<span class="token punctuation">,</span> location<span class="token punctuation">,</span> <span class="token number">0.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment">// Removes bubbles touching the bottom border</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>std<span class="token operator">::</span><span class="token function">abs</span><span class="token punctuation">(</span>input<span class="token punctuation">.</span>at<span class="token operator">&lt;</span><span class="token keyword">float</span><span class="token operator">></span><span class="token punctuation">(</span>input<span class="token punctuation">.</span>rows <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span> <span class="token operator">-</span> limits<span class="token operator">&lt;</span><span class="token keyword">float</span><span class="token operator">></span><span class="token operator">::</span><span class="token function">max</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">0.001</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            cv<span class="token operator">::</span>Point location <span class="token punctuation">{</span> i<span class="token punctuation">,</span> input<span class="token punctuation">.</span>rows <span class="token operator">-</span> <span class="token number">1</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+            cv<span class="token operator">::</span><span class="token function">floodFill</span><span class="token punctuation">(</span>input<span class="token punctuation">,</span> location<span class="token punctuation">,</span> <span class="token number">0.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> input<span class="token punctuation">.</span>rows<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// Removes bubbles touching the left border</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>std<span class="token operator">::</span><span class="token function">abs</span><span class="token punctuation">(</span>input<span class="token punctuation">.</span>at<span class="token operator">&lt;</span><span class="token keyword">float</span><span class="token operator">></span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">-</span> limits<span class="token operator">&lt;</span><span class="token keyword">float</span><span class="token operator">></span><span class="token operator">::</span><span class="token function">max</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">0.001</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            cv<span class="token operator">::</span>Point location <span class="token punctuation">{</span> <span class="token number">0</span><span class="token punctuation">,</span> i <span class="token punctuation">}</span><span class="token punctuation">;</span>
+            cv<span class="token operator">::</span><span class="token function">floodFill</span><span class="token punctuation">(</span>input<span class="token punctuation">,</span> location<span class="token punctuation">,</span> <span class="token number">0.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment">// Removes bubbles touching the right border</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>std<span class="token operator">::</span><span class="token function">abs</span><span class="token punctuation">(</span>input<span class="token punctuation">.</span>at<span class="token operator">&lt;</span><span class="token keyword">float</span><span class="token operator">></span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> input<span class="token punctuation">.</span>cols <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">-</span> limits<span class="token operator">&lt;</span><span class="token keyword">float</span><span class="token operator">></span><span class="token operator">::</span><span class="token function">max</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">0.001</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            cv<span class="token operator">::</span>Point location <span class="token punctuation">{</span> input<span class="token punctuation">.</span>cols<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> i <span class="token punctuation">}</span><span class="token punctuation">;</span>
+            cv<span class="token operator">::</span><span class="token function">floodFill</span><span class="token punctuation">(</span>input<span class="token punctuation">,</span> location<span class="token punctuation">,</span> <span class="token number">0.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span></code></pre></div>
+<br/>
+<p>After applying this function to the image, this is the result we get:</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 256px;"
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 100%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAIAAAAC64paAAAACXBIWXMAAA7EAAAOxAGVKw4bAAACOElEQVQ4y5VUy4vpYRh2JzTIQi6Ncr8UahakLFyiSLmkZKOoWVIKQ4qNlSxspGz8ASxHzdrSxh9gZWOhWbBSFs5z5i1mHM7pvIuf5+t7r8/7fBgMBoPJZLLZbHwZ/zIOhwPP+3cULxQK397eXl5egK1Wa7fbfX5+vtzeGpJptVpkpaNEIhmNRqFQCLjZbJ7PZ5PJRG5ms5kSXQ1+w+EwHo+Tx/crqVRKkTCBQLDf7z8/P5+enq6NOJ3O5XJZLBbJo1Qq+Xy+PxPBMplMMpm8bdvhcCCMKNlsNpPJ5BKsUqnUavWlOFjAXNfKFyYIiEQiHo9nNBq9Xi+O/X5/Op0SI6lUCm27XC5gFovFuPzU6/XX11cARNKxWq0CwDWdTiMv3LAIKnu7odlsttvtbDYbNf9o1cwvuw3GbLlcTqFQEMlKpZKaQjXK5Xa7weUdkaBVWiD5xWKx9Xptt9uBF4uF3+8HyOfzh8NBJpNdaaJM0Wj0dDoZDAbKlUgkarXaYDAAxv51Oh3lRRd3BkaT2WwWoNFogNJAINBqtb4Lk9xAXqfT6fV6t2olztEwyQBsFwoFKkhX8PZ4PGgqGAw+lPp/GCWwWCyUDwY96fV6AI1GUy6Xifz5fD4ej+VyOfF/faL4ttvt4/EIkQNvt9vVagWAyd/f3wHEYjEEixfG5/N/NEzz4CVUKhUulwv1olokEnnUIzaC5/EXFf1eKZZ3FfAXoADI8+PjA039oPryT4SRwuEwBn5EKekc4BfWDY2pu3q1uAAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="image with bubbles at border remove"
+        title="image with bubbles at border remove"
+        src="/static/6f624eea650b0b4c0f519f330280a213/6f3f2/remove-border.png"
+        srcset="/static/6f624eea650b0b4c0f519f330280a213/4dcb9/remove-border.png 188w,
+/static/6f624eea650b0b4c0f519f330280a213/6f3f2/remove-border.png 256w"
+        sizes="(max-width: 256px) 100vw, 256px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+      />
+    </span></p>
+<h3 id="counting-and-labeling-bubbles" style="position:relative;"><a href="#counting-and-labeling-bubbles" aria-label="counting and labeling bubbles permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Counting and labeling bubbles</h3>
+<p>Next we need to count and label bubbles. We have already done this at the first part of this article, so we're just going to move the implementation into a function.</p>
+<div class="gatsby-highlight" data-language="cpp"><pre class="language-cpp"><code class="language-cpp"><span class="token keyword">float</span> <span class="token function">count_and_label_bubbles</span><span class="token punctuation">(</span>cv<span class="token operator">::</span>Mat_<span class="token operator">&lt;</span><span class="token keyword">float</span><span class="token operator">></span> input<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> width <span class="token operator">=</span> input<span class="token punctuation">.</span>cols<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> height <span class="token operator">=</span> input<span class="token punctuation">.</span>rows<span class="token punctuation">;</span>
+
+    cv<span class="token operator">::</span>Point p <span class="token punctuation">{</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword">float</span> object_qnt <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">try</span> <span class="token punctuation">{</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> height<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">float</span><span class="token operator">*</span> row_ptr <span class="token operator">=</span> input<span class="token punctuation">.</span>ptr<span class="token operator">&lt;</span><span class="token keyword">float</span><span class="token operator">></span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> width<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">,</span> row_ptr<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>std<span class="token operator">::</span><span class="token function">abs</span><span class="token punctuation">(</span><span class="token operator">*</span>row_ptr <span class="token operator">-</span> limits<span class="token operator">&lt;</span><span class="token keyword">float</span><span class="token operator">></span><span class="token operator">::</span><span class="token function">max</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">0.001</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    object_qnt<span class="token operator">++</span><span class="token punctuation">;</span>
+                    p<span class="token punctuation">.</span>x <span class="token operator">=</span> j<span class="token punctuation">;</span>
+                    p<span class="token punctuation">.</span>y <span class="token operator">=</span> i<span class="token punctuation">;</span>
+                    cv<span class="token operator">::</span><span class="token function">floodFill</span><span class="token punctuation">(</span>input<span class="token punctuation">,</span> p<span class="token punctuation">,</span> object_qnt<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token keyword">const</span> cv<span class="token operator">::</span>Exception<span class="token operator">&amp;</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Exception occurred: "</span> <span class="token operator">&lt;&lt;</span> e<span class="token punctuation">.</span><span class="token function">what</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> std<span class="token operator">::</span>endl<span class="token punctuation">;</span>
+        <span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">return</span> nobjects<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre></div>
+<br/>
+<p>With the result after this step being similar to what we've got in the first part as well:</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 256px;"
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 100%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAIAAAAC64paAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAA2ElEQVQ4y62SUQ6DMAxDGS0wECDU+x92T7UUddBQpC1foYkdx6Hr/h6vHJa3u6vgksVFhhD6vm8qCjnuwCTetPp7+RpjLOlPytsWqEla4BqGwUSN41jB00FfOV+fxnIXUM7z/MQ21/ObC8Fr+rtrrTyJqSCRf2xBXlmYwrZthqebIdM0qdTYBT7ZAwCYwFdjeX/nqLOYySfzS0XX9x9ClOacHCLR2ohf13VZFrvFFxgbU0rCkBzHoRXAqBukuypjVaOPxL1n1ig5boDHau8u+7677JRBPvlPP/hmBeBvPP8kAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="Labeled image without bubble at the border"
+        title="Labeled image without bubble at the border"
+        src="/static/1ba6c329ded9ed45c0f17f78954594be/6f3f2/labeled-without-border.png"
+        srcset="/static/1ba6c329ded9ed45c0f17f78954594be/4dcb9/labeled-without-border.png 188w,
+/static/1ba6c329ded9ed45c0f17f78954594be/6f3f2/labeled-without-border.png 256w"
+        sizes="(max-width: 256px) 100vw, 256px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+      />
+    </span></p>
+<p>The image seems totally dark, but there are very faint bubbles in it.</p>
+<h3 id="painting-the-background-as-white" style="position:relative;"><a href="#painting-the-background-as-white" aria-label="painting the background as white permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Painting the background as white</h3>
+<p>Since we know that there are no bubbles at the borders, it follows that all pixels at the borders line are part of the background. If we do a flood fill in any of them, the background will turn white. We can choose the top right corner.</p>
+<div class="gatsby-highlight" data-language="cpp"><pre class="language-cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">fill_background</span><span class="token punctuation">(</span>cv<span class="token operator">::</span>Mat_<span class="token operator">&lt;</span><span class="token keyword">float</span><span class="token operator">></span> input<span class="token punctuation">,</span> <span class="token keyword">float</span> value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    cv<span class="token operator">::</span>Point top_right <span class="token punctuation">{</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    cv<span class="token operator">::</span><span class="token function">floodFill</span><span class="token punctuation">(</span>input<span class="token punctuation">,</span> top_right<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre></div>
+<p>After this step, we'll have an image like this:</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 256px;"
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 100%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAIAAAAC64paAAAACXBIWXMAAA7EAAAOxAGVKw4bAAACRklEQVQ4y51US6upYRQ2YGjEwMQvMPADDMwM8APMDAz8AGVgurPJiKJMFAMKkURoh4iSFBm4ZkCRywCx3bbLefZZ+r5v79Sp8w5Wz+ddt2c968V7PB73+/16vcI+/nW+vr7gyXzyuHcU//n5abPZGo0GcLfbtVgs4/GYueWC7+Db7bZarZiU6/XaaDR+fHwAW61WHo83GAyA4dDr9SgRG5zJZPh8fiQSIQ9ueiTq9/uEj8ejUCgUiUTb7ZYcvoNbrRbSu91u8nC5XOVymZuIOeFwOB6P/6gMJzR2Op1oJFKpVK/XE4adz+eLxYK8kbrT6Ww2G7byr0ns9/vz+Yx0lUoFnzqdTiaTkUMsFkPbzWaTJvUcGOzb25vH4wFAJKzdbnc4HADVatXn85EbhKCyP6YNq1QqmcFSwy/P/e9hg+ljNpsFg0Gih/TL5ZLGgWqUq1arYZZUiUKeS4JpkYCXywU2kUiIxWKIBKxQKAqFAoDf74dU2Ag2mPRIp9MCgWA4HFIuaA4KGo0GOJlMjkYj4nI4HLgUeEzPoVAI4P39PRqN1ut1BEOz3W7H5VkqlbRardlsZqdNh8ikUilaA0zb6/VSQVxRcC6XM5lMxOKp83+fZ9t4PcVikX6aTqdEcjKZOJ1O2nCVSmUwGDAtbAHm/wwmGUADJNvtNrBEIpHL5QD5fF6tVgOAORYWL4xWmNWZqKIs3jB0wvaiWjabfbkesFAEWlDJ15wDgQDEY6ZIgAKwP6CApthg3DH/RKCEyiDM7fBXC5T0DxK9FCWceLW4AAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="bubble image with white background"
+        title="bubble image with white background"
+        src="/static/fb15a3929e61ee52311a9667f7f7f8cc/6f3f2/white-background-bubbles.png"
+        srcset="/static/fb15a3929e61ee52311a9667f7f7f8cc/4dcb9/white-background-bubbles.png 188w,
+/static/fb15a3929e61ee52311a9667f7f7f8cc/6f3f2/white-background-bubbles.png 256w"
+        sizes="(max-width: 256px) 100vw, 256px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+      />
+    </span></p>
+<h3 id="counting-holes" style="position:relative;"><a href="#counting-holes" aria-label="counting holes permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Counting holes</h3>
+<p>Now we have everything ready to count the holes. The only pixels that are still equal to 0 are the ones that belong to holes so we can do the same process we used when counting bubbles: if we find a pixel equal to 0, raise the counter and then use flood fill to remove the region. We're also going to remove the bubble as well, so we can see which bubbles were removed.</p>
+<div class="gatsby-highlight" data-language="cpp"><pre class="language-cpp"><code class="language-cpp"><span class="token keyword">float</span> <span class="token function">count_holes</span><span class="token punctuation">(</span>cv<span class="token operator">::</span>Mat_<span class="token operator">&lt;</span><span class="token keyword">float</span><span class="token operator">></span> input<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">float</span> nholes <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> input<span class="token punctuation">.</span>rows<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">float</span><span class="token operator">*</span> row_ptr <span class="token operator">=</span> input<span class="token punctuation">.</span>ptr<span class="token operator">&lt;</span><span class="token keyword">float</span><span class="token operator">></span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> input<span class="token punctuation">.</span>cols<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">,</span> row_ptr<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>std<span class="token operator">::</span><span class="token function">abs</span><span class="token punctuation">(</span><span class="token operator">*</span>row_ptr <span class="token operator">-</span> <span class="token number">0.0</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">0.001</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                cv<span class="token operator">::</span>Point location <span class="token punctuation">{</span> j<span class="token punctuation">,</span> i <span class="token punctuation">}</span><span class="token punctuation">;</span>
+                <span class="token comment">// We don't need to worry about edges</span>
+                <span class="token comment">// since we removed all bubbles there</span>
+                cv<span class="token operator">::</span>Point previous <span class="token punctuation">{</span> j<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> i <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+                cv<span class="token operator">::</span><span class="token function">floodFill</span><span class="token punctuation">(</span>input<span class="token punctuation">,</span> location<span class="token punctuation">,</span> limits<span class="token operator">&lt;</span><span class="token keyword">float</span><span class="token operator">></span><span class="token operator">::</span><span class="token function">max</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                cv<span class="token operator">::</span><span class="token function">floodFill</span><span class="token punctuation">(</span>input<span class="token punctuation">,</span> previous<span class="token punctuation">,</span> limits<span class="token operator">&lt;</span><span class="token keyword">float</span><span class="token operator">></span><span class="token operator">::</span><span class="token function">max</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                nholes<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">return</span> nholes<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre></div>
+<br/>
+<p>After running this step of the pipeline, we can see that the bubbles with holes were removed.</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 256px;"
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 100%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAIAAAAC64paAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABr0lEQVQ4y5VTu4rCQBSdxlIs7AS/wS+wtfEjUvoP6UVkK79AbQQDWoiCEExhYyOki6IoKKiFhQq+H9k961mG2TjC7i2Gk8w999x7TyI+/xO32+1+v8tHod75vo/zcDjkcrl+vw88GAxM05zNZvJWBRryZrPJZDK2bQNns1khxGg0AobmcDhkIQ1ZW4hMxOl0CofD0Wh0t9sxQQSyL5dLoVDodruUClSsVqv1el2jTDJWEo/HDcMgGS9ZgrcQ9zxvu90GlWXGfr+HPrrt9XryJUvUajW07bou8OPxEFo/cH48A+B6vUo+jKDsr7ZxDY5MQlX/GQFviPVWvQaqHI9HnMCYArskJv+HjCHhITtUN4RIJpOO4wCUSqVIJCK39U1marPZDIVC0+mUamq3jUZjMplwnPV6rfYlmLFcLiuVCkA+ny8Wi1qTX0Oo4+FstVrwg48cgftjI7Kpt9v+e2g+ksViweFXqxXWS9vVHOl88PM8n8+xWCyRSAB3Op10Oh3wWa8sf2aotdvtd//ZeDy2LIvt6D+ScrmMzam2STJ8TqVSaEpPhjiU5/P5u4bl2r8Am8ha/17EV08AAAAASUVORK5CYII='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="White background image with holes removed"
+        title="White background image with holes removed"
+        src="/static/ab35c85a2744fa67b2883ec6d0f8da47/6f3f2/removed-holes.png"
+        srcset="/static/ab35c85a2744fa67b2883ec6d0f8da47/4dcb9/removed-holes.png 188w,
+/static/ab35c85a2744fa67b2883ec6d0f8da47/6f3f2/removed-holes.png 256w"
+        sizes="(max-width: 256px) 100vw, 256px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+      />
+    </span></p>
+<h3 id="the-full-pipeline" style="position:relative;"><a href="#the-full-pipeline" aria-label="the full pipeline permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>The full pipeline</h3>
+<p>The final step is just to run the functions in order.</p>
+<div class="gatsby-highlight" data-language="cpp"><pre class="language-cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">char</span><span class="token operator">*</span> argv<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">auto</span> config <span class="token operator">=</span> <span class="token function">parse_cli</span><span class="token punctuation">(</span>argc<span class="token punctuation">,</span> argv<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    cv<span class="token operator">::</span>Mat image <span class="token operator">=</span> cv<span class="token operator">::</span><span class="token function">imread</span><span class="token punctuation">(</span>config<span class="token punctuation">.</span>input_path<span class="token punctuation">,</span> cv<span class="token operator">::</span>IMREAD_GRAYSCALE<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>image<span class="token punctuation">.</span>data<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Couldn't load specified image"</span> <span class="token operator">&lt;&lt;</span> std<span class="token operator">::</span>endl<span class="token punctuation">;</span>
+        <span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    cv<span class="token operator">::</span>Mat cloned_image <span class="token operator">=</span> image<span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+    <span class="token comment">// do the type and intensity conversions</span>
+    cloned_image<span class="token punctuation">.</span><span class="token function">convertTo</span><span class="token punctuation">(</span>cloned_image<span class="token punctuation">,</span> CV_32FC1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    cloned_image <span class="token operator">=</span> <span class="token function">rescale_intensities</span><span class="token punctuation">(</span>cloned_image<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword">float</span><span class="token punctuation">)</span> <span class="token number">0.</span><span class="token punctuation">,</span> limits<span class="token operator">&lt;</span><span class="token keyword">float</span><span class="token operator">></span><span class="token operator">::</span><span class="token function">max</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Start pipeline (all operations assume 32 bit floating point values)</span>
+    <span class="token function">remove_bubbles_at_border</span><span class="token punctuation">(</span>cloned_image<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">float</span> nobjects <span class="token operator">=</span> <span class="token function">count_and_label_bubbles</span><span class="token punctuation">(</span>cloned_image<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+    <span class="token function">fill_background</span><span class="token punctuation">(</span>cloned_image<span class="token punctuation">,</span> limits<span class="token operator">&lt;</span><span class="token keyword">float</span><span class="token operator">></span><span class="token operator">::</span><span class="token function">max</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">float</span> nholes <span class="token operator">=</span> <span class="token function">count_holes</span><span class="token punctuation">(</span>cloned_image<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    cv<span class="token operator">::</span>Mat visible_image <span class="token operator">=</span> <span class="token function">rescale_intensities</span><span class="token punctuation">(</span>cloned_image<span class="token punctuation">,</span> limits<span class="token operator">&lt;</span>uchar<span class="token operator">></span><span class="token operator">::</span><span class="token function">min</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> limits<span class="token operator">&lt;</span>uchar<span class="token operator">></span><span class="token operator">::</span><span class="token function">max</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"The figure has "</span> <span class="token operator">&lt;&lt;</span> nobjects <span class="token operator">&lt;&lt;</span> <span class="token string">" bubbles"</span> <span class="token operator">&lt;&lt;</span> std<span class="token operator">::</span>endl<span class="token punctuation">;</span>
+    std<span class="token operator">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"The figure has "</span> <span class="token operator">&lt;&lt;</span> nholes <span class="token operator">&lt;&lt;</span> <span class="token string">" holes."</span> <span class="token operator">&lt;&lt;</span> std<span class="token operator">::</span>endl<span class="token punctuation">;</span>
+    cv<span class="token operator">::</span><span class="token function">imshow</span><span class="token punctuation">(</span><span class="token string">"initial_image"</span><span class="token punctuation">,</span> image<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    cv<span class="token operator">::</span><span class="token function">imshow</span><span class="token punctuation">(</span><span class="token string">"result"</span><span class="token punctuation">,</span> visible_image<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    cv<span class="token operator">::</span><span class="token function">waitKey</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre></div>
+<br/>
+<p>Which gives us the expected result:</p>
+<div class="gatsby-highlight" data-language="bash"><pre class="language-bash"><code class="language-bash"><span class="command-line-prompt"><span data-user=edujtm data-host=localhost></span><span></span><span></span></span>./build/count_holes <span class="token punctuation">..</span>/bubbles.png
+The figure has <span class="token number">21</span> bubbles.
+The figure has <span class="token number">7</span> holes.</code></pre></div>
+<br/>
+<h2 id="conclusion" style="position:relative;"><a href="#conclusion" aria-label="conclusion permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Conclusion</h2>
+<p>Hopefully this example makes clear that we can use flood fill to tag regions of similar intensity for further processing. We can combine pre-processing steps, such as applying a canny filter, to try to separate regions and then use flood fill to tag it for further processing. One example where this could be useful is making a green screen effect, where we would tag all the green pixels with a constant number and then replace these pixels with a custom background. In summary, the flood fill function can be used for more than just painting sections of an image when used in a processing pipeline.</p></div></div><footer class="Footer-module--footer--3yGWB"><p>Created by <!-- -->Eduardo Macedo<!-- --> with <a href="https://www.gatsbyjs.org/">Gatsby.js</a><span> | </span><a href="https://icons8.com/icons/set/fireplace">Fireplace Icon</a> by <a href="https://icons8.com/">Icons8 </a> </p></footer></div></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/blog/opencv-floodfill";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"app":["/app-d542304e5dd43fcc15d7.js"],"component---src-templates-blog-js":["/component---src-templates-blog-js-d9b1752aa94e680343c3.js"],"component---src-pages-404-js":["/component---src-pages-404-js-3f69c75eb4cb9d9e9f4b.js"],"component---src-pages-about-js":["/component---src-pages-about-js-a07c5010519a9b656571.js"],"component---src-pages-blog-js":["/component---src-pages-blog-js-fd0f2771a53bda197331.js"],"component---src-pages-contact-js":["/component---src-pages-contact-js-9c78996335b2595ce5b3.js"],"component---src-pages-index-js":["/component---src-pages-index-js-2282d6a3ec01f4ebfe39.js"]};/*]]>*/</script><script src="/component---src-templates-blog-js-d9b1752aa94e680343c3.js" async=""></script><script src="/commons-4c1b28b38614419ffced.js" async=""></script><script src="/styles-4f9fb81ff0cc2dbc3273.js" async=""></script><script src="/app-d542304e5dd43fcc15d7.js" async=""></script><script src="/webpack-runtime-81cfcbb7cb54bf69c51b.js" async=""></script></body></html>
