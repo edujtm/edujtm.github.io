@@ -139,6 +139,14 @@ A video stream can be obtained using [cv::VideoCapture](https://docs.opencv.org/
 
 
 ```Cpp
+struct Config {
+    const std::string file_path;
+    const unsigned int screen_width;
+    const unsigned int screen_height;
+}
+
+Config parse_cli(int argc, char* argv[]) {/* parse cli arguments */}
+
 int main(int argc, char* argv[]) {
     auto config = parse_cli(argc, argv);
     cv::VideoCapture cap;

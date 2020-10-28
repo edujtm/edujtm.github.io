@@ -1,7 +1,7 @@
 import React from "react";
 import Img from "gatsby-image";
 
-import layoutStyles from "./RoundImage.module.scss";
+import layoutStyles from "../styles/components/RoundImage.module.scss";
 
 const RoundImage = ({ fixed, alt }) => {
   return (

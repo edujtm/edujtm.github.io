@@ -16,7 +16,7 @@ const LottieFile = ({ className, animationData, autoplay }) => {
         });
 
         return () => { animation.destroy() };
-    }, [animationContainer]);
+    }, [animationContainer, animationData, autoplay]);
 
     return (
         <div className={className} ref={animationContainer}>

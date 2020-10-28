@@ -3,7 +3,7 @@ import { Link, useStaticQuery, graphql } from 'gatsby';
 
 import Layout from '../components/Layout';
 import Head from '../components/Head';
-import blogStyles from './blog.module.scss';
+import blogStyles from '../styles/pages/blog.module.scss';
 
 const BlogList = () => {
 

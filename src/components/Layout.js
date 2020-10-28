@@ -6,7 +6,7 @@ import Footer from './Footer';
 import '../styles/index.scss';
 // Layout for rendering latex math equations
 import 'katex/dist/katex.min.css';
-import layoutStyles from './Layout.module.scss';
+import layoutStyles from '../styles/components/Layout.module.scss';
 
 const Layout = (props) => {
   return (

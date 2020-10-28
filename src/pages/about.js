@@ -5,7 +5,7 @@ import Head from '../components/Head';
 import Layout from '../components/Layout';
 import RoundImage from '../components/RoundImage';
 
-import layoutStyles from './About.module.scss';
+import layoutStyles from '../styles/pages/About.module.scss';
 
 const AboutPage = () => {
   const query = useStaticQuery(graphql`

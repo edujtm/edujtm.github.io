@@ -3,7 +3,7 @@ import { Link, graphql, useStaticQuery } from 'gatsby';
 
 import NavigationBar from './NavigationBar';
 
-import headerStyles from './Header.module.scss';
+import headerStyles from '../styles/components/Header.module.scss';
 
 const items = [
   {

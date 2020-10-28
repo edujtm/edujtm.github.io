@@ -5,7 +5,7 @@ import Layout from "../components/Layout";
 import Head from "../components/Head";
 import LottieFile from "../components/LottieFile";
 
-import indexStyles from './index.module.scss';
+import indexStyles from '../styles/pages/index.module.scss';
 
 // Animations
 import campDude from  "../animations/camp-guy.json";

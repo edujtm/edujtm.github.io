@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'gatsby';
 
-import navigationBarStyles from './NavigationBar.module.scss';
+import navigationBarStyles from '../styles/components/NavigationBar.module.scss';
 
 const NavigationBar = ({ navItems }) => {
   return (
