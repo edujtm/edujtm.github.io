@@ -120,7 +120,11 @@ If the histogram was continuous, the resulting equalization would lead to a perf
 The discrete histogram equalization is defined by the following equation:
 
 $$
-  out_{k} = \frac{L-1}{MN}\sum_{j=0}^{k}hist[j] \quad k = 0, 1, 2, 3, ... L - 1
+  out_{k} = \frac{L-1}{MN}\sum_{j=0}^{k}hist[j] 
+$$
+
+$$
+  k = 0, 1, 2, 3, ... L - 1
 $$
 
 Where a pixel with intensity $k$ in the source image would be mapped to an intensity $out_{k}$, $M$ and $N$ are the image dimensions and $L$ is the maximum intensity value. Since the output might be a fractional value, the intensities are rounded to the nearest integer.
@@ -268,7 +272,7 @@ We have this resulting RGB equalization:
 
 ![The Wacky Wabbit intro with RGB equalization](../images/motion-detector/rgb-wabbit.png)
 
-In this case, the RGB equalization looks good, but its still noticeable that it introduced pink outlines in the mountains.
+In this case, the RGB equalization looks good, but its still noticeable that it introduced pink outlines in the mountains. In some other frames the resulting color change is very noticeable.
 Finally the resulting CIE Lab equalization:
 
 ![The Wacky Wabbit intro with RGB equalization](../images/motion-detector/cielab-wabbit.png)
@@ -327,7 +331,7 @@ class HistogramSimilarity {
 
 We have a single push method that will receive the frames and calculate the scores on demand. There are three possible states for our moving window: 
 
-- the window is empty, meaning that no frames we're consumed yet. We can't calculate the similarity, so we just store the frame and wait for the next one.
+- the window is empty, meaning that no frames were consumed yet. We can't calculate the similarity, so we just store the frame and wait for the next one.
 
 - the window has a single frame. In this case we calculate the similarity and store the frame for the next operations.
 
