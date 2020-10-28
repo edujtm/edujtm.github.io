@@ -111,6 +111,7 @@ g++ `pkg-config --cflags --libs <OpenCV_Home_Dir>/installation/OpenCV-3.4.4/lib/
 # change to 
 g++ my_sample_file.cpp -o my_sample_file `pkg-config --cflags --libs <OpenCV_Home_Dir>/installation/OpenCV-3.4.4/lib/pkgconfig/opencv.pc`
 ```
+<br/>
 
 ### Step 2: Add shared libraries to /etc/ld.so.conf.d/
 

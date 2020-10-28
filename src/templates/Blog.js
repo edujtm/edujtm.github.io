@@ -23,7 +23,9 @@ const Blog = (props) => {
       <Head title={frontmatter.title} />
       <h1>{frontmatter.title}</h1>
       <p>{frontmatter.date}</p>
-      <div dangerouslySetInnerHTML={{ __html: html }}></div>
+      <div 
+        dangerouslySetInnerHTML={{ __html: html }}
+      ></div>
     </Layout>
   );
 };

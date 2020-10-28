@@ -4,6 +4,8 @@ import Header from './Header';
 import Footer from './Footer';
 
 import '../styles/index.scss';
+// Layout for rendering latex math equations
+import 'katex/dist/katex.min.css';
 import layoutStyles from './Layout.module.scss';
 
 const Layout = (props) => {
@@ -11,7 +13,7 @@ const Layout = (props) => {
     <div className={layoutStyles.container}>
       <div className={layoutStyles.content}>
         <Header />
-          {props.children}
+        {props.children}
       </div>
       <Footer />
     </div>

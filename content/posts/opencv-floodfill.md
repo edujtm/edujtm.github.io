@@ -3,7 +3,7 @@ title: "Using OpenCV flood fill as a selection mechanism"
 date: 2020-10-16
 ---
 
-Due to the complexity of regions in an image, its not simple to select complex regions of interest in order to do operations on them. We need to have a way to make this region stand out from the rest of the picture, but we need to deal with noise, complex shapes and other objects that might be in the way of what we're trying to do.
+Due to the varying amount of patterns in an image, its not simple to select complex regions of interest in order to do operations on them. We need to have a way to make this region stand out from the rest of the picture, but we need to deal with noise, complex shapes and other objects that might be in the way of what we're trying to do.
 
 One way to to tackle this problem is to try and generate a binary image that highlights regions of the image that we might be interested in. Since binary images only have two possible values, we can use all the others for tagging regions for post-processing and act accordingly depending on each tag. Assuming that those regions are separated by the background, we can use [cv::floodFill](https://docs.opencv.org/4.4.0/d7/d1b/group__imgproc__misc.html#gaf1f55a048f8a45bc3383586e80b1f0d0) to label the different regions.
 
@@ -118,7 +118,7 @@ int main() {
       float* row_ptr = rescaled_image.ptr<float>(i);  
 
       for (int j = 0; j < image.cols; j++, row_ptr++) {
-        if (std::abs(*row_ptr == std::numeric_limits<float>::max()) < 0.001) {
+        if (std::abs(*row_ptr - std::numeric_limits<float>::max()) < 0.001) {
           cv::Point loc { j, i };
           object_qnt++;
           // We label the region with the quantity of objects

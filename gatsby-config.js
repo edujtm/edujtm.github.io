@@ -43,6 +43,12 @@ module.exports = {
           },
           'gatsby-remark-autolink-headers',
           'gatsby-remark-prismjs',
+          {
+            resolve: 'gatsby-remark-katex',
+            options: {
+              strict: 'ignore'
+            }
+          }
         ]
       },
     },
@@ -50,7 +56,7 @@ module.exports = {
       resolve: 'gatsby-plugin-web-font-loader',
       options: {
         google: {
-          families: ['Zilla Slab', 'Roboto']
+          families: ['Zilla Slab', 'Noticia Text']
         }
       }
     }
