@@ -1,6 +1,9 @@
 ---
 title: "Detecting motion by manipulating image histograms on OpenCV"
 date: 2020-10-24
+tags: 
+  - OpenCV
+  - C++
 ---
 
 Suppose your boss tells you to implement a motion detector for his company, but you've never done this before and he gave you a really short deadline. 

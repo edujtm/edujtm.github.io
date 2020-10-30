@@ -1,6 +1,9 @@
 ---
 title: "Manipulating images using OpenCV region of interest"
 date: 2020-10-04
+tags:
+  - OpenCV
+  - C++
 ---
 
 ## Image manipulation

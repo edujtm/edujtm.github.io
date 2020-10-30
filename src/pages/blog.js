@@ -5,8 +5,14 @@ import Layout from '../components/Layout';
 import Head from '../components/Head';
 import blogStyles from '../styles/pages/blog.module.scss';
 
-const BlogList = () => {
+const getTagsText = (blog) => {
+  if (!blog || !blog.tags) return ""; 
 
+  const tagsText = blog.tags.join(' - ');
+  return tagsText;
+};
+
+const BlogList = () => {
   const data = useStaticQuery(graphql`
     query {
       allMarkdownRemark(
@@ -20,6 +26,7 @@ const BlogList = () => {
             frontmatter {
               title
               date(formatString: "DD/MM/YYYY")
+              tags
             }
             fields {
               slug
@@ -40,7 +47,7 @@ const BlogList = () => {
       <li className={blogStyles.post} key={blog.title}>
         <Link to={`/blog/${blog.slug}`}>
           <h3>{blog.title}</h3>
-          <p>{blog.date}</p>
+          <p>{blog.date} | {getTagsText(blog)}</p>
         </Link>
       </li>
     );

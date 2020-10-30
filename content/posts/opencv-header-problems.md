@@ -1,6 +1,9 @@
 ---
 title: "A fix for g++ not being able to find OpenCV dependencies on Ubuntu 18.04"
 date: 2020-03-14
+tags:
+  - OpenCV
+  - C++
 ---
 
 ## The Issue

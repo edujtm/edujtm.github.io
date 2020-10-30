@@ -1,6 +1,9 @@
 ---
 title: "Using OpenCV flood fill as a selection mechanism"
 date: 2020-10-16
+tags:
+  - OpenCV
+  - C++
 ---
 
 Due to the varying amount of patterns in an image, its not simple to select complex regions of interest in order to do operations on them. We need to have a way to make this region stand out from the rest of the picture, but we need to deal with noise, complex shapes and other objects that might be in the way of what we're trying to do.

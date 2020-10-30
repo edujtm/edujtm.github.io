@@ -12,7 +12,7 @@ import campDude from  "../animations/camp-guy.json";
 import campFire from "../animations/fire-crackling-in-a-campfire.json";
 
 const IndexPage = () => {
-    return (
+  return (
     <Layout>
       <Head title="Home" /> 
       <h1>Hello.</h1>
