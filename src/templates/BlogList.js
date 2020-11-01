@@ -1,9 +1,36 @@
 import React from 'react';
-import { Link, useStaticQuery, graphql } from 'gatsby';
+import { Link, graphql } from 'gatsby';
 
 import Layout from '../components/Layout';
 import Head from '../components/Head';
+import PaginationFooter from '../components/PaginationFooter';
 import blogStyles from '../styles/pages/blog.module.scss';
+
+export const pageQuery = graphql`
+  query BlogListQuery($skip: Int!, $limit: Int!) {
+    allMarkdownRemark(
+      sort: {
+        fields: [frontmatter___date]
+        order: DESC
+      }
+      limit: $limit
+      skip: $skip
+    ) {
+      edges {
+        node {
+          frontmatter {
+            title
+            date(formatString: "DD/MM/YYYY")
+            tags
+          }
+          fields {
+            slug
+          }
+        }
+      }
+    }
+  }
+`
 
 const getTagsText = (blog) => {
   if (!blog || !blog.tags) return ""; 
@@ -12,31 +39,8 @@ const getTagsText = (blog) => {
   return tagsText;
 };
 
-const BlogList = () => {
-  const data = useStaticQuery(graphql`
-    query {
-      allMarkdownRemark(
-        sort: {
-          fields: [frontmatter___date]
-          order: DESC
-        } 
-      ) {
-        edges {
-          node {
-            frontmatter {
-              title
-              date(formatString: "DD/MM/YYYY")
-              tags
-            }
-            fields {
-              slug
-            }
-          }
-        }
-      }
-    }
-  `)
-
+const BlogList = ({ data, pageContext }) => {
+  const { currentPage, numPages } = pageContext;
   const blogs = data.allMarkdownRemark.edges.map(edge => {
     const { frontmatter, fields: { slug } } = edge.node;
     return { ...frontmatter, slug };
@@ -62,6 +66,10 @@ const BlogList = () => {
       <ol className={blogStyles.posts}>
         {blogList}
       </ol>
+      <PaginationFooter 
+        currentPage={currentPage}
+        numPages={numPages}
+      />
     </Layout>
   );
 };

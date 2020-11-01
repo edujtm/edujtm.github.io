@@ -14,9 +14,10 @@ module.exports.onCreateNode = ({ node, actions }) => {
   }
 };
 
-module.exports.createPages = async ({ graphql, actions }) => {
+module.exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions;
   const blogTemplate = path.resolve('./src/templates/Blog.js');
+  const blogListTemplate = path.resolve('./src/templates/BlogList.js');
 
   const res = await graphql(`
     query {
@@ -32,7 +33,30 @@ module.exports.createPages = async ({ graphql, actions }) => {
     }
   `);
 
-  res.data.allMarkdownRemark.edges.forEach((edge) => {
+  if (res.errors) {
+    reporter.panicOnBuild('Error while running GraphQL queries to generate blog pages');
+    return;
+  }
+
+  // Creating pagination pages for blog posts 
+  const posts = res.data.allMarkdownRemark.edges;
+  const POSTS_PER_PAGES = 10;
+  const numPages = Math.ceil(posts.length / POSTS_PER_PAGES);
+  Array.from({ length: numPages }).forEach((_, i) => {
+    createPage({
+      path: i === 0 ? `/blog` : `/blog/${i + 1}`,
+      component: blogListTemplate, 
+      context: {
+        limit: POSTS_PER_PAGES,
+        skip: i * POSTS_PER_PAGES,
+        numPages,
+        currentPage: i + 1,
+      }
+    });
+  });
+
+  // Creating pages for each blog post
+  posts.forEach((edge) => {
     const { slug } = edge.node.fields;
 
     createPage({
