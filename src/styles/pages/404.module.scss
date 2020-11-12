@@ -1,0 +1,21 @@
+
+#container {
+  height: 650px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+#astronaut-container {
+  height: 400px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+#home-button {
+  padding: 10px 8px;
+  border: solid 1px #fb8177;
+  border-radius: 4px;
+}

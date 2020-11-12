@@ -100,7 +100,15 @@ int main() {
 ```
 <br/>
 
-This maps the old intensity range to the whole range of positive values that float can represent. This way we won't have any problems when the counter reaches 255, which is the value used for white in the old range. With this, we reach the final solution to the bubble counting problem:
+This maps the old intensity range to the whole range of positive values that float can represent. The mapping is given by the following function: 
+
+$$
+  f(x, a, b)  = \frac{(b - a) (x - x_{min})}{x_{max} - x_{min}} + a
+$$
+
+Which maps a value $x$ with minimum value $x_{min}$ and maximum value $x_{max}$ into a new range between $a$ and $b$. We can observe that in case $x$ is equal to $x_{min}$, the result will be equal to $a$ and in case $x$ is equal to $x_{max}$, then the result will be equal to the new maximum value $b$. By mapping to a new range, we avoid any problems that would occur when the counter reached 255, which is the value used for white in the old range. 
+
+With this, we reach the final solution to the bubble counting problem:
 
 ```Cpp
 int main() {

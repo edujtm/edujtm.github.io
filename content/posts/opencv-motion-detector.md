@@ -271,7 +271,7 @@ The [CIE Lab color space](https://en.wikipedia.org/wiki/CIELAB_color_space) has 
 With this, we can run our resulting binary and see the results:
 
 ```bash{promptUser: edujtm}{outputLines: 2}
-./build/equal_hist ~/Videos/the-wacky-wabbit.mp4
+./build/equal_hist -i ~/Videos/the-wacky-wabbit.mp4
 ```
 <br/>
 

@@ -8,8 +8,8 @@ const NavigationBar = ({ navItems }) => {
     <nav>
       <ul className={navigationBarStyles.navList}>
         {navItems.map((item) => (
-		  <li>		
-		  	{createNavItem(item)}	
+          <li>
+            {createNavItem(item)}	
           </li>
         ))} 
       </ul>
