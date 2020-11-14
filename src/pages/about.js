@@ -22,7 +22,7 @@ const AboutPage = () => {
 
   return (
       <Layout>
-        <Head title="blog" />
+        <Head title="About" />
         <div className={layoutStyles.profileContainer} >
           <div className={layoutStyles.profilePicture}>
             <RoundImage 

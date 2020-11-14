@@ -8,6 +8,7 @@ module.exports = {
   siteMetadata: {
     title: "Edu's coding fireplace",
     author: 'Eduardo Macedo',
+    url: "https://www.edujtm.me",
   },
   plugins: [
     'gatsby-plugin-react-helmet',

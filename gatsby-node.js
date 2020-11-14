@@ -5,11 +5,22 @@ module.exports.onCreateNode = ({ node, actions }) => {
 
   if (node.internal.type === 'MarkdownRemark') {
     const slug = path.basename(node.fileAbsolutePath, '.md');
+    const parentFolder = path.dirname(node.fileAbsolutePath).split(path.sep).pop();
+
+    console.log(`Slug: ${slug}`);
+    console.log(`Parent folder: ${parentFolder}`)
 
     createNodeField({
       node,
       name: 'slug',
       value: slug,
+    });
+
+    // I'm using the parent folder as the language code
+    createNodeField({
+      node,
+      name: 'lang',
+      value: parentFolder,
     });
   }
 };

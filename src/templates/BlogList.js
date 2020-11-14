@@ -59,7 +59,7 @@ const BlogList = ({ data, pageContext }) => {
 
   return (
     <Layout>
-      <Head title="blog" />
+      <Head title="Blog" />
       <h1>Blog</h1>
       <p>Small posts about computer science stuff that I found useful.</p>
       <h2>Recent Posts</h2>
