@@ -7,9 +7,6 @@ module.exports.onCreateNode = ({ node, actions }) => {
     const slug = path.basename(node.fileAbsolutePath, '.md');
     const parentFolder = path.dirname(node.fileAbsolutePath).split(path.sep).pop();
 
-    console.log(`Slug: ${slug}`);
-    console.log(`Parent folder: ${parentFolder}`)
-
     createNodeField({
       node,
       name: 'slug',
@@ -17,11 +14,13 @@ module.exports.onCreateNode = ({ node, actions }) => {
     });
 
     // I'm using the parent folder as the language code
+    /*
     createNodeField({
       node,
       name: 'lang',
       value: parentFolder,
     });
+    */
   }
 };
 
