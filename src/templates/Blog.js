@@ -5,8 +5,11 @@ import Layout from '../components/Layout';
 import Head from '../components/Head';
 
 export const query = graphql`
-  query($slug: String!) {
-    markdownRemark(fields: { slug: { eq: $slug } }) {
+  query($slug: String!, $lang: String!) {
+    markdownRemark(fields: { 
+        slug: { eq: $slug } 
+        lang: { eq: $lang }
+    }) {
       frontmatter {
         title
         date(formatString: "DD/MM/YYYY")

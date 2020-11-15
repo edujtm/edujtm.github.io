@@ -1,13 +1,16 @@
 import React from 'react';
+import { useTranslation } from 'gatsby-plugin-react-i18next';
 
 import Layout from '../components/Layout';
 import Head from '../components/Head';
 
 const ContactMe = () => {
+  const { t } = useTranslation('contact');
+
   return (
       <Layout>
         <Head title="Contact Me"/>
-        <h2>Contact information</h2>
+        <h2>{t('contact-info')}</h2>
         <ul>
           <li>Email: eduzemacedo@gmail.com</li>
           <li>StackOverflow: <a href="https://stackoverflow.com/users/8310836/eduardo-macedo">Eduardo Macedo</a></li>

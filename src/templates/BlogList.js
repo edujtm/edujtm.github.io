@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link, graphql } from 'gatsby';
+import { graphql } from 'gatsby';
+import { Link, useTranslation } from "gatsby-plugin-react-i18next";
 
 import Layout from '../components/Layout';
 import Head from '../components/Head';
@@ -7,8 +8,9 @@ import PaginationFooter from '../components/PaginationFooter';
 import blogStyles from '../styles/pages/blog.module.scss';
 
 export const pageQuery = graphql`
-  query BlogListQuery($skip: Int!, $limit: Int!) {
+  query BlogListQuery($skip: Int!, $limit: Int!, $lang: String!) {
     allMarkdownRemark(
+      filter: { fields: { lang: { eq: $lang } } }
       sort: {
         fields: [frontmatter___date]
         order: DESC
@@ -40,6 +42,8 @@ const getTagsText = (blog) => {
 };
 
 const BlogList = ({ data, pageContext }) => {
+  const { t } = useTranslation('bloglist');
+
   const { currentPage, numPages } = pageContext;
   const blogs = data.allMarkdownRemark.edges.map(edge => {
     const { frontmatter, fields: { slug } } = edge.node;
@@ -60,8 +64,8 @@ const BlogList = ({ data, pageContext }) => {
   return (
     <Layout>
       <Head title="Blog" />
-      <h1>Blog</h1>
-      <p>Small posts about computer science stuff that I found useful.</p>
+      <h1>{t('Blog')}</h1>
+      <p>{t('blog-description')}</p>
       <h2>Recent Posts</h2>
       <ol className={blogStyles.posts}>
         {blogList}

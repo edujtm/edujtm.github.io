@@ -1,3 +1,4 @@
+const fs = require('fs');
 const path = require('path');
 
 module.exports.onCreateNode = ({ node, actions }) => {
@@ -14,13 +15,13 @@ module.exports.onCreateNode = ({ node, actions }) => {
     });
 
     // I'm using the parent folder as the language code
-    /*
+    // This is a hack, but i'll leave it at that until 
+    // I know any better
     createNodeField({
       node,
       name: 'lang',
       value: parentFolder,
     });
-    */
   }
 };
 
@@ -36,6 +37,7 @@ module.exports.createPages = async ({ graphql, actions, reporter }) => {
           node {
             fields {
               slug
+              lang
             }
           }
         }
@@ -48,32 +50,47 @@ module.exports.createPages = async ({ graphql, actions, reporter }) => {
     return;
   }
 
+  // The available languages are being defined by the locales
+  // subfolders, which is kind of a hack
+  const localesPath = path.join(__dirname, '/locales');
+  const langs = fs.readdirSync(localesPath);
+
   // Creating pagination pages for blog posts 
   const posts = res.data.allMarkdownRemark.edges;
-  const POSTS_PER_PAGES = 10;
-  const numPages = Math.ceil(posts.length / POSTS_PER_PAGES);
-  Array.from({ length: numPages }).forEach((_, i) => {
-    createPage({
-      path: i === 0 ? `/blog` : `/blog/${i + 1}`,
-      component: blogListTemplate, 
-      context: {
-        limit: POSTS_PER_PAGES,
-        skip: i * POSTS_PER_PAGES,
-        numPages,
-        currentPage: i + 1,
-      }
+  const POSTS_PER_PAGES = 3;
+
+  // Create all paths for different locales and pagination
+  for (const lang of langs) {
+    const localePosts = posts.filter((edge) => edge.node.fields.lang == lang);
+    const numPages = Math.ceil(localePosts.length / POSTS_PER_PAGES);
+
+    Array.from({ length: numPages }).forEach((_, i) => {
+      const prefix = lang === 'en' ? '' : lang;
+      createPage({
+        path: i === 0 ? `${prefix}/blog` : `${prefix}/blog/${i + 1}`,
+        component: blogListTemplate, 
+        context: {
+          limit: POSTS_PER_PAGES,
+          skip: i * POSTS_PER_PAGES,
+          numPages,
+          currentPage: i + 1,
+          lang,
+        }
+      });
     });
-  });
+  }
 
   // Creating pages for each blog post
   posts.forEach((edge) => {
-    const { slug } = edge.node.fields;
+    const { slug, lang } = edge.node.fields;
+    const prefix = lang === 'en' ? '' : lang;
 
     createPage({
       component: blogTemplate,
-      path: `/blog/${slug}`,
+      path: `${prefix}/blog/${slug}`,
       context: {
-        slug
+        slug,
+        lang
       }
     })
   });

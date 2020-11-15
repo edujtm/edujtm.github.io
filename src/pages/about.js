@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useStaticQuery, graphql } from 'gatsby';
+import { useTranslation } from 'gatsby-plugin-react-i18next';
 
 import Head from '../components/Head';
 import Layout from '../components/Layout';
@@ -20,6 +21,8 @@ const AboutPage = () => {
     }
   `);
 
+  const { t } = useTranslation("about");
+
   return (
       <Layout>
         <Head title="About" />
@@ -31,12 +34,13 @@ const AboutPage = () => {
             />
           </div>
           <div className={layoutStyles.profileDescription}>
-            <h1>About me!</h1>
+            <h1>
+              {t("About me")}
+            </h1>
             <p>
-              I'm a student of computer engineering at Universidade Federal do Rio Grande do Norte. I'm interested primarily in topics about Android Development,
-              but I also have a hobbyist interest in Machine Learning and Operating Systems.
+              {t('my-description')}
             </p>
-            <p>Need a developer? <Link to="/contact">Contact me.</Link></p>
+            <p>{t('need-developer')} <Link to="/contact">{t('contact-me')}</Link></p>
           </div>
         </div>
       </Layout>

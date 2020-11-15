@@ -15,7 +15,7 @@ Even though machine learning managed to apply spatial filtering techniques to a 
 
 The spatial filtering operation is done by applying a mask into an image to obtain a new processed image. This mask is applied on a pixel by pixel basis in a process called [convolution](https://en.wikipedia.org/wiki/Convolution). This term derives from a mathematical concept of the same name which defines an operation where two functions are slid one over another, integrating the overlapping parts at every point of the sliding process to generate a new point in the resulting function. In the case of image processing, the convolution is given by sliding the mask over the image and, for every sliding position, multiplying the mask and image in a elementwise manner to generate a new pixel in the resulting image.
 
-![Convolution operation](../images/spatial-filters/convolution.png)
+![Convolution operation](../../images/spatial-filters/convolution.png)
 
 This can be also be interpreted as an expansion of an element-wise operation on the image: If you applied an operation on every pixel of the image (e.g. multiplicating by a scalar), the only information you would have is the pixel intensity. If we want to know if that pixel is part of an edge or if it's affected by noise, this is not enough. That's where the mask comes in, which allows the operation to have information about the neighbourhood of the pixel, allowing the operation to have spatial information about the pixel.
 
@@ -27,7 +27,7 @@ $$
 
 Where $w$ defines the mask, $f$ is the input image and $h(x,y)$ is the resulting image pixel. The graphical interpretation of this operation can be seen in the following image.
 
-![Elementwise multiplication between image and mask](../images/spatial-filters/conv-elementwise-mult.png)
+![Elementwise multiplication between image and mask](../../images/spatial-filters/conv-elementwise-mult.png)
 
 *Notice that the operation above resulted into a higher value than the maximum available to an 8 bit range normally used for representing images, because of this, the operation is often done in higher precision data types and the result is rescaled back to the 8 bit range [0, 255].*
 
@@ -487,31 +487,31 @@ Finally, these are the results obtained after running this program on this [vide
 
 **Original**
 
-![Original video frame. No filter applied](../images/spatial-filters/original.png)
+![Original video frame. No filter applied](../../images/spatial-filters/original.png)
 
 **Mean filter**
 
-![Video frame with mean filter applied](../images/spatial-filters/mean.png)
+![Video frame with mean filter applied](../../images/spatial-filters/mean.png)
 
 **Gaussian filter**
 
-![Video frame with gaussian filter applied](../images/spatial-filters/gauss.png)
+![Video frame with gaussian filter applied](../../images/spatial-filters/gauss.png)
 
 **Sobel Horizontal**
 
-![Video frame with horizontal sobel filter applied](../images/spatial-filters/sobel-horiz.png)
+![Video frame with horizontal sobel filter applied](../../images/spatial-filters/sobel-horiz.png)
 
 **Sobel Vertical**
 
-![Video frame with vertical sobel filter applied](../images/spatial-filters/sobel-vert.png)
+![Video frame with vertical sobel filter applied](../../images/spatial-filters/sobel-vert.png)
 
 **Laplacian filter**
 
-![Video frame with laplacian filter applied](../images/spatial-filters/laplacian.png)
+![Video frame with laplacian filter applied](../../images/spatial-filters/laplacian.png)
 
 **Laplacian of Gaussian**
 
-![Video frame with laplacian of gaussian applied](../images/spatial-filters/laplgauss.png)
+![Video frame with laplacian of gaussian applied](../../images/spatial-filters/laplgauss.png)
 
 *Credits: Pictures taken from this [video](https://www.pexels.com/video/electric-train-for-transportation-in-switzerland-countryside-4789847/) by [SwissHumanity](https://www.pexels.com/@swisshumanity-1686058) on [Pexels](https://www.pexels.com/)*
 

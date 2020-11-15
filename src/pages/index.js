@@ -1,5 +1,5 @@
 import React from "react"
-import { Link } from 'gatsby';
+import { Link, useTranslation } from 'gatsby-plugin-react-i18next';
 
 import Layout from "../components/Layout";
 import Head from "../components/Head";
@@ -12,12 +12,14 @@ import campDude from  "../animations/camp-guy.json";
 import campFire from "../animations/fire-crackling-in-a-campfire.json";
 
 const IndexPage = () => {
+  const { t } = useTranslation('home');
+
   return (
     <Layout>
       <Head title="Home" /> 
-      <h1>Hello.</h1>
-      <h2>I'm <Link to="/about">Eduardo Macedo</Link>, this is where I sit down and share my thoughts about Coding topics. </h2>
-      <h2>Hopefully I'll be able to share useful information to the world, the same way it did for me. </h2>
+      <h1>{t("hello")}</h1>
+      <h2>{t('i-am')} <Link to="/about">Eduardo Macedo</Link>, {t('my-place')} </h2>
+      <h2>{t('my-goal')}</h2>
       <div className={indexStyles.animationContainer}>
         <LottieFile 
           className={indexStyles.dudeAnimation}

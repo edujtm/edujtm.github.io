@@ -1,0 +1,65 @@
+$animate: all 0.2s ease-in-out;
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    top:45px;
+    right:0px;
+    width: 100px;
+    background-color: white;
+    font-weight:bold;
+    position: absolute;
+
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+
+  li {
+    padding: 8px 16px;
+    //border-bottom: 1px solid #e5e5e5;
+  }
+}
+
+.button {
+  color: #999999;
+  font-size: .9rem;
+  margin-right: 1.3rem;
+  padding: 0 2px;
+  text-decoration: none;
+  transition: $animate;
+  position: relative;
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: -7px;
+    width: 0px;
+    height: 2px;
+    margin: 2px 0 0;
+    transition: $animate;
+    transition-duration: 0.25s;
+    opacity: 0;
+    background-color: #fb8177;
+  }
+  &:before {
+    left: 50%;
+  }
+  &:after {
+    right: 50%;
+  }
+  &:hover {
+    cursor: pointer;
+    color: #666666;
+    &:before,
+    &:after {
+      opacity: 1;
+      width: 50%;
+    }
+  }
+}
+

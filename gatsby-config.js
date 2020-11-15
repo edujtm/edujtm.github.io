@@ -54,6 +54,24 @@ module.exports = {
       },
     },
     {
+      resolve: 'gatsby-plugin-react-i18next',
+      options: {
+        path: `${__dirname}/locales`,
+        languages: [`en`, `pt`],
+        defaultLanguage: `en`,
+        i18nextOptions: {
+          keySeparator: false,
+          nsSeparator: false
+        },
+        pages: [
+          {
+            matchPath: '/:lang?/blog/:pageId?',
+            getLanguageFromPath: true
+          }
+        ]
+      }
+    },
+    {
       resolve: 'gatsby-plugin-web-font-loader',
       options: {
         google: {

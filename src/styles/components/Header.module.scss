@@ -7,3 +7,9 @@
   font-size: 3rem;
   text-decoration: none;
 }
+
+.navbar-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

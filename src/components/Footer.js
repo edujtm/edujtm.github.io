@@ -1,5 +1,6 @@
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
+import { useI18next, useTranslation } from 'gatsby-plugin-react-i18next';
 
 import footerStyles from '../styles/components/Footer.module.scss';
 
@@ -14,13 +15,15 @@ const Footer = () => {
     }
   `);
 
+  const { t } = useTranslation('footer');
+
   const { author } = data.site.siteMetadata;
 
   return (
       <footer className={footerStyles.footer}>
-        <p>Created by {author} with <a href="https://www.gatsbyjs.org/">Gatsby.js</a> 
+        <p>{t('gatsby-credit', { creator: 'Eduardo Macedo'})} <a href="https://www.gatsbyjs.org/">Gatsby.js</a> 
         <span> | </span> 
-        <a href="https://icons8.com/icons/set/fireplace">Fireplace Icon</a> by <a href="https://icons8.com/">Icons8 </a> </p>
+        <a href="https://icons8.com/icons/set/fireplace">{t('fireplace-icon')}</a> {t('by')} <a href="https://icons8.com/">Icons8 </a> </p>
       </footer>
   );
 };

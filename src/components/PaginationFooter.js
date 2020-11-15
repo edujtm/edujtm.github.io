@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "gatsby";
+import { Link } from "gatsby-plugin-react-i18next";
 
 import paginationStyles from "../styles/components/PaginationFooter.module.scss";
 
@@ -38,7 +38,7 @@ const getNextLink = (isLast, nextPage) => {
 const PaginationFooter = ({ currentPage, numPages }) => {
   const isFirst = currentPage === 1;
   const isLast = currentPage === numPages;
-  const prevPage = currentPage - 1 === 1 ? "/" : (currentPage - 1).toString();
+  const prevPage = currentPage - 1 === 1 ? "" : (currentPage - 1).toString();
   const nextPage = (currentPage + 1).toString();
 
   return (
