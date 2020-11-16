@@ -20,7 +20,7 @@ Luckily there's a simpler form of doing it, that requires thinking about propert
 
 Before we implement our motion detector, we first need to understand what is a histogram and how to work with them in OpenCV. When it comes to images, the histogram is a representation of the frequencies of intensities from all the pixels. This is done by separating the full value range of intensities into partitions and counting every pixel whose intensity falls within each partition. In the simplest case where the number of partitions (bins) is the same as the quantity of values in the range, we get an image histogram like this:
 
-![Histogram of a 5 by 5 image](../images/motion-detector/image-histogram.png)
+![Histogram of a 5 by 5 image](../../images/motion-detector/image-histogram.png)
 
 But the number of bins doesn't need to be the same as the size of the intensity range and the size of each partition might not be uniform. In the previous image we could group the values in 5 bins instead of 10, which would give the ranges: \[0, 2\), \[2, 4\), \[4, 6\),  \[6, 8\), \[8, 10\).
 
@@ -116,7 +116,7 @@ It's important to understand that the **images** array is not meant to generate 
 
 Now that we've got an understanding of creating histograms in OpenCV, let's see how to use them in practice. One of the most simple effect we can achieve using histogram is improving image contrast with histogram equalization. This technique aims to remap pixel intensities in an image in such a way that the resulting histogram has a uniform distribution across the whole intensity range. This process is illustrated below:
 
-![An histogram being equalized](../images/motion-detector/histogram-equalization.png)
+![An histogram being equalized](../../images/motion-detector/histogram-equalization.png)
 
 If the histogram was continuous, the resulting equalization would lead to a perfectly uniform distribution, but since the histograms obtained from images are discrete, the equalization results in an approximation of the uniform distribution.
 
@@ -277,16 +277,16 @@ With this, we can run our resulting binary and see the results:
 
 With the no equalization video frame being:
 
-![The Wacky Wabbit intro with no equalization](../images/motion-detector/normal-wabbit.png)
+![The Wacky Wabbit intro with no equalization](../../images/motion-detector/normal-wabbit.png)
 
 We have this resulting RGB equalization:
 
-![The Wacky Wabbit intro with RGB equalization](../images/motion-detector/rgb-wabbit.png)
+![The Wacky Wabbit intro with RGB equalization](../../images/motion-detector/rgb-wabbit.png)
 
 In this case, the RGB equalization looks good, but its still noticeable that it introduced pink outlines in the mountains. In some other frames the resulting color change is very noticeable.
 Finally the resulting CIE Lab equalization:
 
-![The Wacky Wabbit intro with RGB equalization](../images/motion-detector/cielab-wabbit.png)
+![The Wacky Wabbit intro with RGB equalization](../../images/motion-detector/cielab-wabbit.png)
 
 We notice that the equalization made the original image darker and that we can see the constrast in the cactuses and clouds much better.
 
@@ -503,11 +503,11 @@ I've tested this implementation in this [video from pexels](https://www.pexels.c
 
 Some examples of the motion detector can be seen in the following images:
 
-![Image of a bridge with a railroad underneath](../images/motion-detector/no-detection.png)
+![Image of a bridge with a railroad underneath](../../images/motion-detector/no-detection.png)
 
 The detector is able to see the train arriving:
 
-![Image of the bridge with the train arriving at the railroad](../images/motion-detector/train-arriving.png)
+![Image of the bridge with the train arriving at the railroad](../../images/motion-detector/train-arriving.png)
 
 *Disclaimer: Images taken from [this video](https://www.pexels.com/video/a-railway-under-a-flyover-3250590/) by [Alexander Bobrov](https://www.pexels.com/@alexander-bobrov-390088?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels) on [Pexels](https://www.pexels.com/)*
 

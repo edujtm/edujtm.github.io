@@ -41,7 +41,7 @@ const Header = () => {
     },
   ];
 
-  const dropItems = languages.map((lang) => {
+  const dropdownItems = languages.map((lang) => {
     return { 'id': lang, 'name': lang };
   });
 
@@ -58,7 +58,7 @@ const Header = () => {
           <NavigationBar navItems={items} />
           <Dropdown 
             title={context.language}
-            items={dropItems}
+            items={dropdownItems}
             action={changeLanguage}
           />
         </div>

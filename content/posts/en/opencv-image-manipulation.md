@@ -82,7 +82,7 @@ With this implementation we can run our binary in the command line:
 And we obtain the desired result:
 </p>
 
-![Negative image with for loops](../images/negative-for-loop.png)
+![Negative image with for loops](../../images/negative-for-loop.png)
 
 The interesting part of the code snippet above is the two for loops:
 
@@ -148,7 +148,7 @@ If we run our binary with this implementation:
 
 We get the desired results again:
 
-![negative image with region of interest](../images/roi-negative-image.png)
+![negative image with region of interest](../../images/roi-negative-image.png)
 
 ### Using bitwise operators
 
@@ -242,7 +242,7 @@ I've ran the scripts multiple times and the execution time fluctuate around thes
 
 Another example where region of interest operators might be useful is when creating a quadrant shift of an image where you shift the top left quadrant with the lower right and the top right with the lower left. An example is as follows:
 
-![Chip image with quadrants shifted](../images/shift-chip.png)
+![Chip image with quadrants shifted](../../images/shift-chip.png)
 
 At first sight, it might seem like we need to iterate through the half the image, calculate the new position for the pixel and then change places between them, but this can be achieved in a simpler way using one region of interest for each quadrant of the image and the copying the values between them. The implementation is given below:
 

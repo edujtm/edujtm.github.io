@@ -27,8 +27,15 @@ const Dropdown = ({ title, items, action }) => {
   return (
     <div className={dropdownStyles.dropdown}>
       <div 
+        role="button"
+        tabindex="0"
         className={dropdownStyles.button} 
         onClick={showDropdownMenu}
+        onKeyDown={(ev) => {
+          if (ev.keyCode === 40) {
+            showDropdownMenu(ev);
+          }
+        }}
       >
         {title}
       </div>
@@ -37,8 +44,22 @@ const Dropdown = ({ title, items, action }) => {
           {items.map((item) => {
             return ( 
               <li key={item.id}>
-                <div onClick={() => action(item.id)}> 
-                  {item.name} 
+                <div 
+                  role="button" 
+                  tabindex="0"
+                  onKeyDown={(ev) => {
+                    if (ev.keyCode === 13) {
+                      action(item.id);
+                    }
+                  }}
+                  onClick={() => action(item.id)}
+                >
+                  <button 
+                    href="#" 
+                    onClick={(e) => e.preventDefault()}
+                  >
+                      {item.name}
+                  </button>
                 </div>
               </li> 
             );

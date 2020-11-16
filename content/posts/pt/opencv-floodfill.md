@@ -31,7 +31,7 @@ Let's see an example about how we might use it for selecting regions.
 
 Let's say that after processing an image, we got the following binary image with white bubbles inside.
 
-![Binary image with white bubbles](../images/bolhas.png)
+![Binary image with white bubbles](../../images/bolhas.png)
 
 Suppose we're tasked with counting the number of bubbles inside the image, using some algorithm of our choice. How can we go about solving this task? It's easy to count the bubbles by eye, but it's not simple to give the same information to the computer. If we try counting white pixels, we need to make sure that we don't count the same region more than once. In order to avoid this, we need to remove all other pixels that belong to a region when we find the first pixel of that region, that's where flood fill comes in.
 
@@ -59,7 +59,7 @@ for (int i = 0; i < image.rows; i++) {
 
 One thing that is important to note is the change in axis between the image (i, j) coordinates and the `cv::Point { j, i }` instantiation. The matrix notation has (row, column) indexing while the point have an x for horizontal and y for vertical representation. This change is illustrated below:
 
-![Change in axis between matrix and point](../images/opencv-axis.png)
+![Change in axis between matrix and point](../../images/opencv-axis.png)
 
 The implementation above would count all the bubbles in the picture and leave them marked for post-processing. The problem here is that we can't count more than the maximum limit given by the **unsigned char** type. As soon as we get to 255 objects, the region would be repainted in white and counted multiple times.
 
@@ -153,7 +153,7 @@ The figure has 32 bubbles.
 
 If we convert the image to **unsigned char** and show it with `cv::imshow()`, we get the following result:
 
-![Bubble image with labeled regions](../images/labelled-bubbles.png)
+![Bubble image with labeled regions](../../images/labelled-bubbles.png)
 
 We can see the faint change in intensity between the labelled regions and the dark background. Showing the image in this way only works because there's less than 255 bubbles in it. If the image had more, we could rescale the intensities to the range [0.0, 1.0], but there wouldn't be much visual information. The value of the labelled image comes from using it in other processing steps, which we're going to see next.
 
@@ -219,7 +219,7 @@ void remove_bubbles_at_border(cv::Mat_<float> input) {
 
 After applying this function to the image, this is the result we get:
 
-![image with bubbles at border remove](../images/remove-border.png)
+![image with bubbles at border remove](../../images/remove-border.png)
 
 ### Counting and labeling bubbles
 
@@ -256,7 +256,7 @@ float count_and_label_bubbles(cv::Mat_<float> input) {
 
 With the result after this step being similar to what we've got in the first part as well:
 
-![Labeled image without bubble at the border](../images/labeled-without-border.png)
+![Labeled image without bubble at the border](../../images/labeled-without-border.png)
 
 The image seems totally dark, but there are very faint bubbles in it.
 
@@ -270,10 +270,11 @@ void fill_background(cv::Mat_<float> input, float value) {
     cv::floodFill(input, top_right, value);
 }
 ```
+<br/>
 
 After this step, we'll have an image like this:
 
-![bubble image with white background](../images/white-background-bubbles.png)
+![bubble image with white background](../../images/white-background-bubbles.png)
 
 ### Counting holes
 
@@ -305,7 +306,7 @@ float count_holes(cv::Mat_<float> input) {
 
 After running this step of the pipeline, we can see that the bubbles with holes were removed.
 
-![White background image with holes removed](../images/removed-holes.png)
+![White background image with holes removed](../../images/removed-holes.png)
 
 ### The full pipeline
 

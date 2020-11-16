@@ -112,7 +112,7 @@ The filters which accentuate the intensity changes between neighbouring pixels a
 
 The laplacian filter is an approximation of the second-order derivate in both dimensions of the image. Since second order derivatives have the property that it's value is non-zero only when the first-derivative is changing, meaning that areas with constant intensities and areas where the change in intensity is constant (i.e. intensity ramps), will all be zero in the resulting image. 
 
-Also, since the second derivative is positive or negative depending on the change of intensity variation, if if there's a quick upwards/downwards change in intensity directly followed by a constant intensity section, as it happens in object edges, there will be a *zero-crossing* (i.e. sign change) in the laplacian operation, which can be used to detect those edges.
+Also, since the second derivative is positive or negative depending on the change of intensity variation, if there's a quick upwards/downwards change in intensity directly followed by a constant intensity section, as it happens in object edges, there will be a *zero-crossing* (i.e. sign change) in the laplacian operation, which can be used to detect those edges.
 
 $$
 	laplacian: \nabla^{2} f = \frac{\partial^{2}{f}}{\partial{x^{2}}} + \frac{\partial^{2}{f}}{\partial{y^{2}}}
@@ -513,7 +513,7 @@ Finally, these are the results obtained after running this program on this [vide
 
 ![Video frame with laplacian of gaussian applied](../../images/spatial-filters/laplgauss.png)
 
-*Credits: Pictures taken from this [video](https://www.pexels.com/video/electric-train-for-transportation-in-switzerland-countryside-4789847/) by [SwissHumanity](https://www.pexels.com/@swisshumanity-1686058) on [Pexels](https://www.pexels.com/)*
+*Credits: Pictures taken from this [video](https://www.pexels.com/video/a-railway-under-a-flyover-3250590/) by [SwissHumanity](https://www.pexels.com/@swisshumanity-1686058) on [Pexels](https://www.pexels.com/)*
 
 ## Conclusion
 

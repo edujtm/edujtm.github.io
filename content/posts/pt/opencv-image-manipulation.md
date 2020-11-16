@@ -82,7 +82,7 @@ With this implementation we can run our binary in the command line:
 And we obtain the desired result:
 </p>
 
-![Negative image with for loops](../images/negative-for-loop.png)
+![Negative image with for loops](../../images/negative-for-loop.png)
 
 The interesting part of the code snippet above is the two for loops:
 
@@ -148,7 +148,7 @@ If we run our binary with this implementation:
 
 We get the desired results again:
 
-![negative image with region of interest](../images/roi-negative-image.png)
+![negative image with region of interest](../../images/roi-negative-image.png)
 
 ### Using bitwise operators
 

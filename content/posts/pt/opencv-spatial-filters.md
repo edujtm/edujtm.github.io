@@ -6,56 +6,56 @@ tags:
   - C++
 ---
 
-The spatial filter technique is one of the basic tools in image processing, with a simple concept but very powerful applications. The basic concept behind it is that we can gather more information about a pixel by looking at his neighbours and, based on this information, apply an operation on it that will highlight a desired property. This idea, coupled with statistical analysis techniques, is the basis for modern convolutional architecture neural networks, where the filter adapts itself to the data used to train the machine learning model. 
+A técnica de filtragem espacial é uma das ferramentas básicas de processamento de imagens, possuindo um conceito simples porém com uma variada gama de aplicações. Este conceito se baseia na ideia de que nós podemos obter mais informações sobre um pixel ao olhar para os seus vizinhos e, baseado nessa informação, aplicar uma operação que irá destacar uma propriedade desejada. Esta ideia, ao ser unida com técnicas de análise estatística, é a base para redes neurais com arquitetura convolucional, onde o filtro adapta-se aos dados utilizados para treinar o modelo de aprendizagem de máquina.
 
-Even though machine learning managed to apply spatial filtering techniques to a wide new range of problem domains, the technique was useful even before neural networks became widespread. This article intends to cover the basics behind these old techniques and how they are applied to image processing problems.
+Mesmo que os estudos em aprendizagem de máquina tenham conseguido aplicar as técnicas de filtragem espacial em um largo domínio de problemas, a técnica já era util ainda antes das redes neurais serem popularizadas. Este artigo pretende abordar os conceitos básicos por trás dessa técnica antiga e como ela é aplicada em problemas de processamento de imagem.
 
 
-## The spatial filtering process
+## O processo de filtragem espacial 
 
-The spatial filtering operation is done by applying a mask into an image to obtain a new processed image. This mask is applied on a pixel by pixel basis in a process called [convolution](https://en.wikipedia.org/wiki/Convolution). This term derives from a mathematical concept of the same name which defines an operation where two functions are slid one over another, integrating the overlapping parts at every point of the sliding process to generate a new point in the resulting function. In the case of image processing, the convolution is given by sliding the mask over the image and, for every sliding position, multiplying the mask and image in a elementwise manner to generate a new pixel in the resulting image.
+A operação de filtragem espacial é feita por meio da aplicação de uma máscara em uma imagem para obter uma nova imagem processada. Esta máscara é aplicada em cada pixel da imagem em um processo chamado de [convolução](https://pt.wikipedia.org/wiki/Convolu%C3%A7%C3%A3o). Esse termo deriva do conceito matemático de mesmo nome, que define uma operação onde duas funções deslizam uma sobre a outra e as partes que se sobrepõem são integradas para gerar um novo ponto da função resultante. No caso de processamento de imagens, a convolução se dá por meio do deslizamento da máscara sobre a imagem e, para cada posição do deslizamento, fazendo uma multiplicação elemento a elemento entre máscara e a imagem para gerar um novo pixel da imagem resultante.
 
 ![Convolution operation](../../images/spatial-filters/convolution.png)
 
-This can be also be interpreted as an expansion of an element-wise operation on the image: If you applied an operation on every pixel of the image (e.g. multiplicating by a scalar), the only information you would have is the pixel intensity. If we want to know if that pixel is part of an edge or if it's affected by noise, this is not enough. That's where the mask comes in, which allows the operation to have information about the neighbourhood of the pixel, allowing the operation to have spatial information about the pixel.
+Isto pode ser interpretado também como uma expansão de uma operação elemento a elemento na image: Se você aplicar uma operação em todos os pixels da imagem individualmente (e.g. multiplicar por um escalar), a única informação que você teria é a intensidade do pixel naquele local. Se nós queremos saber se aquele pixel faz parte de uma borda or se é afetado por ruído, isso não é o bastante. É ai que entra máscara, permitindo que a operação tenha informações sobre a vizinhança do pixel.
 
-In image processing, this operation is mathematically defined by the following equation:
+Em processamento de imagens, esta operação é definida matematicamente pela seguinte equação:
 
 $$
   h(x, y)= \sum_{s=-a}^{a}\sum_{t=-b}^{b} w(s, t) \cdot f(x + s, y+t)
 $$
 
-Where $w$ defines the mask, $f$ is the input image and $h(x,y)$ is the resulting image pixel. The graphical interpretation of this operation can be seen in the following image.
+Onde $w$ define a máscara, $f$ é a imagem de entrada e $h(x,y)$ é o pixel resultante. A interpretação gráfica dessa operação pode ser vista na imagem abaixo:
 
 ![Elementwise multiplication between image and mask](../../images/spatial-filters/conv-elementwise-mult.png)
 
-*Notice that the operation above resulted into a higher value than the maximum available to an 8 bit range normally used for representing images, because of this, the operation is often done in higher precision data types and the result is rescaled back to the 8 bit range [0, 255].*
+*Perceba que a operação acima resultou em um valor acima do máximo disponível em dados de 8 bits normalmente utilizado para representar imagens, por causa disso, a operação de filtragem é geralmente feita com tipos de dados de precisão mais alta e o resultado é normalizado de volta para a faixa de valores de 8 bits [0, 255]*
 
-The operation in the image above needs to be repeated in every pixel of the image (i.e. the sliding part of the operation). Since it's hard to convey this idea using only images, I'll defer to this [interactive visualization](https://setosa.io/ev/image-kernels/)\* which shows the effect of various masks into an image and allows you to try out different masks values.
+A operação na imagem acima precisa ser repetida em todos os pixels da imagem (i.e. a parte de deslizamento da operação). Já que é dificíl transmitir essa ideia utilizando apenas imagens, eu vou delegar a explicação para esta [visualização interativa](https://setosa.io/ev/image-kernels/)\* que mostra o efeito de várias máscaras em uma imagem e permite que você altere seus valores.
 
-Finally it's important to notice that, even though most masks shown here have 3x3 dimensions, this is not a necessity: the masks can have whatever dimensions are deemed necessary, but bigger dimensions incurs into more computational workload.
+Por fim, é importante notar que, embora a maioria das máscaras mostradas aqui possui dimensões 3x3, isto não é uma necessidade: As máscaras podem possuir quaisquer dimensões sejam necessárias, porém maiores dimensões acarretam em maior custo computacional.
 
-\* *This visualization/article is very short and I highly recommend reading it for a better understading of the next section*
+\* *Esta visualização/artigo é bem curta e eu realmente recomendo dar uma lida para um melhor entedimento da próxima seção*
 
-## Deriving the basic spatial filters
+## Deduzindo os filtros espaciais básicos
 
-Now we understand how the filtering operation is done in the image, but there's is still one missing piece of the puzzle: How do we define which values will constitute the mask? 
+Agora nós temos uma ideia de como a operação de filtragam é feita em uma imagem, porém ainda está faltando uma peça do quebra-cabeça: Como nos definimos quais valores serão utilizados para preencher a máscara?
 
-The values used for the most common masks are not defined randomly, they are actually derived from mathematical properties that, when viewed from an image processing perspective, will have the desired effect on the image.
+Os valores utilizados nas máscaras mais comuns não são definidos aleatoriamente, eles são na verdade deduzidos a partir de propriedades matemáticas que, quandos vistas de uma perspectiva de processamento de imagens, terão o efeito desejado na imagem.
 
-### Smoothing filters
+### Filtros suavizantes
 
-Smoothing filters reduce the amount of drastic intensity variations inside the image, meaning that sharp edges from objects will have smoother transitions between neighbouring intensities. They are mainly used for blurring images and reducing noise.
+Filtros suavizantes reduzem a quantidade de variações rápidas de intensidade dentro da imagem, o que faz com que bordas from objetos tenham transições mais suaves entre as intensidades da vizinhança. Eles são utilizados principalmente para esborrar imagens e reduzir ruído.
 
-#### Mean filter
+#### Filtro da média 
 
-This is one of the most basic filters which simply takes the mean of the neighbourhood values of a pixel, as the name indicates. By averaging the intensity values in image sections, this filter allows for noise to be mitigated, based on the assumption that the neighbouring pixels will have similar intensities, allowing the noise to be cancelled out.
+Este é um dos filtros mais básicos que simplesmente calcula a média entre as intensidades dos pixels vizinhos, como o nome indica. Ao calcular a média das intensidades em seções da imagem, este filtro permite que o ruído seja atenuado, baseado na assunção de que os pixels vizinhos terão intensidades similares, causando o cancelamento do ruido.
 
 $$
 	Mask(x,y) = \frac{1}{M \cdot N}
 $$
 
-Applying this mask to the definition of the spatial filtering operation, we obtain:
+Aplicando a máscara na definição da operação de filtragem espacial, nós obtemos:
 
 $$
   h(x, y)= \sum_{s=-a}^{a}\sum_{t=-b}^{b} Mask(s, t) \cdot f(x + s, y+t)
@@ -65,10 +65,10 @@ $$
   h(x, y) = \frac{1}{M \cdot N} \sum_{s=-a}^{a}\sum_{t=-b}^{b} f(x + s, y+t)
 $$
 
-Which is a simple two-dimensional average operation over the pixels currently under the mask. This mask can be implemented by repeating the constant part over the mask elements:
+Isto é apenas uma operação de média bidimensional sobre os pixels que estão abaixo da máscara.  Essa máscara pode ser implementada ao repetir a parte constante sobre seus elementos:
 
 ```Cpp
-float mean_mask[] = {
+float mascara_media[] = {
 	1./9, 1./9, 1./9,
 	1./9, 1./9, 1./9,
 	1./9, 1./9, 1./9
@@ -77,26 +77,26 @@ float mean_mask[] = {
 <br/>
 
 
-#### Median filter
+#### Filtro da Mediana 
 
-Another mask available is the median filter, which takes the median intensity value between the pixels in the neighbourhood, this allows for pictures which have sharp noise peaks to be improved in such a way that this kind of noise is almost completely removed. 
+Outra máscara disponível é o filtro da mediana, que encontra a mediana entre os valores de intensidade dos pixels na vizinhança. Isto permite que figuras que possuem ruído com picos de intensidade sejam melhoradas de forma que esse tipo de ruído é removido quase por completo.
 
-Even though the convolution process is similar to the other masks (i.e. the mask slides over the whole image), this median operation cannot be implemented by means of an elementwise multiplication between the mask and the image, instead we need to gather the neighbouring pixels, sort them and then take the median intensity.
+Embora o processo de convolução seja similar com o das outras máscaras (i.e. a máscara desliza sobre a imagem inteira), a operação de mediana não pode ser implementada por meio de uma multiplação elemento a elemento entre a máscara e a imagem, ao invés disso é preciso agrupar os pixels da vizinhança, ordená-los e então obter a mediana da intensidade.
 
-#### Gaussian filter
+#### Filtro Gaussiano 
 
-Finally, another smoothing filter is the Gaussian Blur filter, which as the names suggests applies an gaussian over the image. This gives more weight to the pixel in the middle of the mask, but still allows neighbouring pixels to have an effect on the result. This kind of blurring might keep edge information better than a simple mean filter, since edge pixels will have a stronger weight than the neighbouring pixels, but will still blur the image as the end result.
+Por fim, outro filtro suavizante é o filtro de borramento gaussian que, como o nome indica, aplica uma função gaussiana sobre a imagem. Isso dá mais peso para o pixel no centro da máscara, mas ainda permite que o pixels vizinhos tenham efeito no resultado. Esse tipo de filtro pode manter informações de bordas melhor do que um filtro de média simples, já que pixels da borda terão um peso maior que seus vizinhos, mas ainda causará o borramento da imagem como resultado final.
 
-The mathematical definition of a bidimensional gaussian function is given by:
+A definição matemática de uma função gaussiana bidimensional é dada por:
 
 $$
 	G(x, y) = \frac{1}{2\pi \sigma^{2}} e^{-\frac{x^{2} + y^{2}}{2\sigma^{2}} }
 $$
 
-We can approximate the gaussian mask using the following values:
+Nós podemos aproximar a máscara gaussiana utilizando os seguintes valores:
 
 ```Cpp
-float gauss_mask[] = {
+float mascara_gaussiana[] = {
 	0.0625, 0.125, 0.0625,
 	0.125 , 0.25 , 0.125 ,
 	0.0625, 0.125, 0.0625
@@ -104,21 +104,23 @@ float gauss_mask[] = {
 ```
 <br/>
 
-### Sharpening filters
+### Filtros de aguçamento 
 
-The filters which accentuate the intensity changes between neighbouring pixels are classified as sharpening filters. They act by approximating function derivatives so that the intensity variation can be estimated, in this way sections of the image where the intensity changes rapidly, such as edges of objects, will be highlighted. The downside of sharpening is that any noise might be accentuated as well.
+Os filtros que acentuam as variações de intensidade entre pixels vizinhos são classificados como filtros de aguçamento. Eles atuam através da aproximação de derivadas de funções de forma que a variação de intensidade seja estimada. Dessa forma, seções da imagem onde a variação de intensidade ocorre de forma rápida, como em bordas de objetos, serão destacadas. A desvantagem do aguçamento se dá pela amplificação do ruído presente na imagem.
 
-#### Laplacian filter
+#### Filtro laplaciano
 
-The laplacian filter is an approximation of the second-order derivate in both dimensions of the image. Since second order derivatives have the property that it's value is non-zero only when the first-derivative is changing, meaning that areas with constant intensities and areas where the change in intensity is constant (i.e. intensity ramps), will all be zero in the resulting image. 
+O filtro laplaciano é uma aproximação da derivada de segunda ordem em ambas as dimensões da imagem. As derivadas de segunda ordem possuem a propriedade de que seu valor é não nulo apenas quando a primeira derivada está variando, isto faz com que as áreas com intensidade constante e áreas onde a variação de intensidade é nula (i.e. rampas de intensidade), sejam nulas na imagem resultante.
 
-Also, since the second derivative is positive or negative depending on the change of intensity variation, if if there's a quick upwards/downwards change in intensity directly followed by a constant intensity section, as it happens in object edges, there will be a *zero-crossing* (i.e. sign change) in the laplacian operation, which can be used to detect those edges.
+Além disso, já que a derivada de segunda ordem é positiva ou negativa dependendo da alteração na variação de intensidade, se houver uma variação rápida de intensidade para cima ou para baixo, seguida de uma seção com intensidade constante, como acontece em bordas de objetos, haverá na imagem resultante uma inversão de sinal, que pode ser utilizada para detectar estas mudanças.
+
+O laplaciano é definido como:
 
 $$
-	laplacian: \nabla^{2} f = \frac{\partial^{2}{f}}{\partial{x^{2}}} + \frac{\partial^{2}{f}}{\partial{y^{2}}}
+	laplaciano: \nabla^{2} f = \frac{\partial^{2}{f}}{\partial{x^{2}}} + \frac{\partial^{2}{f}}{\partial{y^{2}}}
 $$
 
-The partial derivatives can be approximated, using [finite difference approximation](https://en.wikipedia.org/wiki/Finite_difference), by:
+As derivadas parciais podem ser aproximadas, usando o [método das diferenças finitas](https://pt.wikipedia.org/wiki/M%C3%A9todo_das_diferen%C3%A7as_finitas), por:
 
 $$
 	\frac{\partial^{2}{f}}{\partial{x^{2}}} = f(x+1, y) + f(x-1, y) - 2f(x, y)
@@ -128,39 +130,39 @@ $$
 	\frac{\partial^{2}{f}}{\partial{y^{2}}} = f(x, y+1) + f(x, y-1) - 2f(x, y)
 $$
 
-Finally, after substituting those two equations into the laplacian, we obtain:
+Por fim, ao substituir estas equações no laplaciano, nós obtemos a aproximação:
 
 $$
 	\nabla^{2} f = f(x+1, y)  + f(x-1, y) + f (x, y+1) + f (x, y-1) - 4f(x, y) 
 $$
 
-Which gives us the values that are commonly used to implement the laplacian mask:
+Que nos dá os valores comumente utilizados para implementar a máscara laplaciana:
 
 ```Cpp
-float laplacian_mask[] = {
+float mascara_laplaciana[] = {
 	0,  1, 0,
 	1, -4, 1,
 	0,  1, 0
 };
 
-// If the diagonal derivatives are also taken into consideration
-float other_laplacian_mask[] = {
+// Se as derivadas diagonais também forem levadas em consideração
+float outra_mascara_laplaciana[] = {
 	1,  1, 1,
 	1, -8, 1,
 	1,  1, 1
 };
 
-// The negatives of the masks above are also used in practice
+// Os negativos das máscaras acima também são utilizados em prática
 ```
 <br/>
 
-#### Sobel filters
+#### Filtro de Sobel
 
-Another derivative based filter are the Sobel masks, which approximate the first-order derivative instead. These masks are well suited to find edges that are in a particular direction. Given that the mask represents a first-order derivative, it'll react to whatever change in intensity happens in the image, while constant sections will be equal to zero.
+Outro filtro baseado em derivada são as máscaras de Sobel que, por sua vez, aproxima a derivada de primeira ordem. Estas máscaras são apropiadas para encontrar bordas que estão em uma direção específica. Dado que a máscara representa uma derivada de primeira ordem, ela irá reagir a qualquer variação de intensidade que aconteça na imagem, enquanto seções constante serão nulas.
 
-There are two sobel masks, one the detects edges in the horizontal direction, while the other detects vertical edges.
+Existem duas máscaras de Sobel, uma detecta bordas na direção horizontal, enquanto outra detecta bordas verticais.
 
-The derivatives approximations are given below:
+As aproximações das derivadas são dadas abaixo:
 
 **Horizontal**
 $$
@@ -195,16 +197,14 @@ float sobel_horizontal[] = {
 	-2,  0, 2,
 	-1,  0, 1
 };
-
-// The negatives of the masks above are also used in practice
 ```
 <br/>
 
-#### Laplacian of gaussian filter
+#### Filtro do laplaciano de gaussiana
 
-The previous filters are good at detecting edges, but since they are based on approximation of derivatives, the noise will be amplified by when the mask is applied on the image. To counter this effect, we could apply a smoothing operation to remove noise before doing the sharpening. This is the idea behind the laplacian of a gaussian mask: the gaussian smooths the image, which then allows the laplacian to have a better effect at sharpening edges.
+Os filtros anteriors são bons ao detectar bordas, mas já que eles são baseados em aproximações de derivadas, o ruído será amplificado quando a máscara for aplicada na imagem. Para combater este efeito, nós poderiamos aplicar uma operação suavizante antes de fazer o aguçamento. Esta é a ideia por trás do filtro do laplaciano de gaussiana: a gaussiana suaviza a imagem, o que permite então que o laplaciano tenha um melhor efeito ao aguçar bordas.
 
-This is how this mask is derived:
+Esta máscara é deduzida da seguinte forma:
 
 $$
 	G(x,y) = e^{- \frac{ x^{2} + y^{2} }{ 2 \sigma^{2}} }
@@ -214,13 +214,14 @@ $$
 	\nabla^{2} G(x,y) = \frac{\partial^{2}}{\partial x^{2}} G(x,y) + \frac{\partial^{2}}{\partial y^{2}} G(x,y)
 $$
 
-Using the chain rule for derivatives:
+Utilizando a regra da cadeia para derivadas:
 
 $$
   \frac{\partial}{\partial x} G(x,y) = - \frac{2x}{2 \sigma^{2}} e^{- \frac{ x^{2} + y^{2} }{ 2 \sigma^{2}} } = - \frac{1}{\sigma^{2}} \cdot x e^{- \frac{ x^{2} + y^{2} }{ 2 \sigma^{2}}}
 $$
 
-Now we use the product rule to obtain the second derivative:
+Agora nós utilizamos a regra do produto de funções para obter a segunda derivada:
+
 $$
   \frac{\partial^2}{\partial x^2} G(x,y) = - \frac{1}{\sigma^{2}} (e^{- \frac{ x^{2} + y^{2} }{ 2 \sigma^{2}}} - x \cdot ( \frac{1}{\sigma^{2}} x e^{- \frac{ x^{2} + y^{2} }{ 2 \sigma^{2}}} ))
 $$
@@ -233,13 +234,13 @@ $$
   \frac{\partial^2}{\partial x^2} G(x,y) = \frac{(x^{2} - \sigma^{2})}{ \sigma^4 } e^{ -\frac{ x^{2} + y^{2} }{ 2 \sigma^{2} } }
 $$
 
-If we do the same procedure for the $y$ derivative, we get:
+Se fizermos o mesmo para a derivada na dimensão $y$, nós obtemos:
 
 $$
   \frac{\partial^2}{\partial y^2} G(x,y) = \frac{(y^{2} - \sigma^{2})}{ \sigma^4 } e^{ -\frac{ x^{2} + y^{2} }{ 2 \sigma^{2} } }
 $$
 
-Which we can substitute in the laplacian equation, to obtain the mask definition:
+Que nós podemos substituir na equação do laplaciano, para obter a definição da máscara:
 
 $$
 	\nabla^{2} G(x,y) = \frac{(x^{2} - \sigma^{2})}{ \sigma^4 } e^{ -\frac{ x^{2} + y^{2} }{ 2 \sigma^{2} } } + \frac{(y^{2} - \sigma^{2})}{ \sigma^4 } e^{ -\frac{ x^{2} + y^{2} }{ 2 \sigma^{2} } }
@@ -249,7 +250,7 @@ $$
 	\nabla^{2} G(x,y) = \frac{(x^{2} + y^{2} - 2\sigma^{2})}{ \sigma^4 } e^{ -\frac{ x^{2} + y^{2} }{ 2 \sigma^{2} } }
 $$
 
-We can either pre-compute the values for the mask or create a function that will generate them for us. This is how I did it using OpenCV:
+A partir deste ponto, nós podemos pré-computar os valores da máscaras ou criar uma função geradora. Esse é o modo que eu fiz utilizando OpenCV:
 
 ```Cpp
 template<int rows, int cols>
@@ -271,19 +272,19 @@ cv::Matx<float, rows, cols> laplgauss(int sigma) {
 ```
 <br/>
 
-Now that we've seen a fair amount of spatial filtering masks, let's see them in practice by applying it to a video stream.
+Agora que nós vimos uma quantidade razoável de máscaras de filtragem espacial, vamos vê-las em práticas ao aplicá-las em um vídeo.
 
-## Spatial filtering in action: applying filters to a video stream
+## Aplicação da filtragem espacial: aplicando filtros em videos.
 
-An interesting way of putting spatial filtering into practice is to apply the masks to a video stream, which allows us to see the effects in real time. To do this, I'm going to use the OpenCV library:
+Uma forma interessante de colocar a filtragem espacial em prática é aplicar as máscaras em um vídeo, o que permite que vejamos os efeitos em tempo real. Para fazer isso, irei utilizar a biblioteca de visão computacional OpenCV:
 
-### Laying out the masks
+### Definindo as máscaras
 
-First thing we need to do is defining the masks that we've discussed in the previous section:
+A primeira coisa que precisamos fazer é definir as máscaras que nós discutimos nas seções anteriores:
 
 ```Cpp
 namespace masks {
-    const cv::Matx33f MEAN = {
+    const cv::Matx33f MEDIA = {
         0.1111, 0.1111, 0.1111,
         0.1111, 0.1111, 0.1111,
         0.1111, 0.1111, 0.1111
@@ -307,7 +308,7 @@ namespace masks {
          1,  2,  1
     };
 
-    const cv::Matx33f LAPLACIAN = {
+    const cv::Matx33f LAPLACIANO = {
          0, -1,  0, 
         -1,  4, -1, 
          0, -1,  0
@@ -333,13 +334,13 @@ void printmask(cv::Mat &m) {
 ```
 <br/>
 
-These masks are defined with the `cv::Matx` class which is meant to hold small amounts of data which will be stored on the stack rather than the heap. In addition to that, an `printmask(cv::Mat &)` function was defined, so that we can see which mask is currently selected.
+Estas máscaras são definidas utilizando a classe `cv::Matx` que é utilizada quando se deseja armazenar pequenas quantidades de dados na stack, ao invés da heap. Além disso, uma função `printmask(cv::Mat &)` foi definida para que possamos observar qual a máscara selecionada em cada momento.
 
-### Opening the video stream
+### Abrindo a stream de video
 
-We're going to ask the user for a file path from a video that is stored in the filesystem. This parameter is expected to be given through the command line. If this parameter is not specified, we fall back to the default camera.
+Nós iremos pedir ao usuário que especifique o caminho no sistema de arquivos em que o video está armazenado. Este parâmetro deverá ser especificado por meio da linha de comando. Se ele não for dado, nós iremos utilizar a câmera padrão como segunda opção.
 
-I'm using [lyra](https://github.com/bfgroup/Lyra) for an easy to setup command line parsing library.
+Estou utilizando [lyra](https://github.com/bfgroup/Lyra) para uma configuração simples de parsing dos argumentos da linha de comando.
 
 ```Cpp
 struct Config {
@@ -390,43 +391,43 @@ int main(int argc, char* argv[]) {
     double height = cap.get(cv::CAP_PROP_FRAME_HEIGHT);
 
     /*
-     * Read video frames and apply masks
+     * Ler os frames do vídeo e aplicar as máscaras
      */
 }
 ```
 <br/>
 
-We also set the frame dimensions to 640x480. This operation sometimes does not work due to the dimensions requested not being available, another option is to use [cv::resize()](https://docs.opencv.org/4.4.0/da/d54/group__imgproc__transform.html#ga47a974309e9102f5f08231edc7e7529d) to the desired dimensions after reading the frame.
+Nós determinamos as dimensões dos quadros como 640x480. Essa operação ás vezes não funciona devido as dimensões requiridas não estarem disponíveis, outra opção é utilizar [cv::resize()](https://docs.opencv.org/4.4.0/da/d54/group__imgproc__transform.html#ga47a974309e9102f5f08231edc7e7529d) para redimensionar os quadros para as dimensões desejadas após serem lidas.
 
-### Reading frames and applying the masks
+### Lendo quadros e aplicando as máscaras
 
-The last step is to read the video frames and apply the desired mask according to user input. We're going to create two windows: one for the original unprocessed video and the other for the resulting frame after applying the filter. In this way, we are able to compare the effect of the mask on the unfiltered frames.
+O último passo é ler os quadros do vídeo e aplicar a máscara desejada de acordo com inputs do usuário. Nós iremos criar duas janelas: uma para o video original sem processamento e outra para os quadros resultantes após aplicadas as máscaras. Dessa forma, será possível comparar o efeito da máscara com os quadros sem filtragem.
 
-After this, it's only a matter of reading the frames on a loop and applying the selected mask over it using the `cv::filter2D()` function from OpenCV.
+Após isso, é apenas necessário ler os frame em um loop infinito e aplicar a máscara selecionada utilizando a função `cv::filter2D()` do OpenCV.
 
 ```Cpp
 int main(int argc, char* argv[]) {
     /*
-     * Read parameters and open video file
+     * Ler parâmetros e abrir arquivo de video
      */
 
-    cv::namedWindow("spatial filter", cv::WINDOW_NORMAL);
+    cv::namedWindow("filtro espacial", cv::WINDOW_NORMAL);
     cv::namedWindow("original", cv::WINDOW_NORMAL);
 
-    cv::Mat mask (masks::MEAN);
+    cv::Mat mask(masks::MEDIA);
 
-    int absolut = 1;  // calcs abs of the image
+    int absolut = 1;  // Calcula o absoluto da imagem
 
     cv::Mat frame, framegray, frame32f, frameFiltered;
     for (;;) {
-        cap >> frame;  // get a new frame from camera
+        cap >> frame;  // Obtem um novo frame da camera 
 
         cv::cvtColor(frame, framegray, cv::COLOR_BGR2GRAY);
         cv::flip(framegray, framegray, 1);
 
         cv::imshow("original", framegray);
 
-        // The filtering is done using 32 bits floating point types
+        // A filtragem é feita utilizando dados em ponto flutuante de 32 bits
         framegray.convertTo(frame32f, CV_32F);
         cv::filter2D(frame32f, frameFiltered, frame32f.depth(), mask,
                 cv::Point(1, 1), 0);
@@ -437,17 +438,17 @@ int main(int argc, char* argv[]) {
 
         frameFiltered.convertTo(result, CV_8U);
 
-        cv::imshow("spatial filter", result);
+        cv::imshow("filtro espacial", result);
 
-        // Apply the mask according to the user keyboard input
+        // Aplica a máscara de acordo com a entrada do teclado
         char key = (char) cv::waitKey(10);
-        if (key == 27) break;  // esc pressed!
+        if (key == 27) break;  // esc pressionado!
         switch (key) {
             case 'a':
                 absolut = !absolut;
                 break;
             case 'm':
-                mask = cv::Mat(masks::MEAN);
+                mask = cv::Mat(masks::MEDIA);
                 printmask(mask);
                 break;
             case 'g':
@@ -463,7 +464,7 @@ int main(int argc, char* argv[]) {
                 printmask(mask);
                 break;
             case 'l':
-                mask = cv::Mat(masks::LAPLACIAN);
+                mask = cv::Mat(masks::LAPLACIANO);
                 printmask(mask);
                 break;
             case 'b':
@@ -483,38 +484,39 @@ int main(int argc, char* argv[]) {
 ```
 <br/>
 
-Finally, these are the results obtained after running this program on this [video](https://www.pexels.com/video/electric-train-for-transportation-in-switzerland-countryside-4789847/).
+Por fim, estes são os resultados obtidos após executar este programa nesse [vídeo](https://www.pexels.com/video/electric-train-for-transportation-in-switzerland-countryside-4789847/).
 
 **Original**
 
 ![Original video frame. No filter applied](../../images/spatial-filters/original.png)
 
-**Mean filter**
+**Filtro da média**
 
 ![Video frame with mean filter applied](../../images/spatial-filters/mean.png)
 
-**Gaussian filter**
+**Filtro Gaussiano**
 
-![Video frame with gaussian filter applied](../../images/spatial-filters/gauss.png)
+![Frame de video com o filtro da gaussiana aplicado](../../images/spatial-filters/gauss.png)
 
 **Sobel Horizontal**
 
-![Video frame with horizontal sobel filter applied](../../images/spatial-filters/sobel-horiz.png)
+![Frame de video com o filtro de sobel horizontal aplicado](../../images/spatial-filters/sobel-horiz.png)
 
 **Sobel Vertical**
 
-![Video frame with vertical sobel filter applied](../../images/spatial-filters/sobel-vert.png)
+![Frame de video com o filtro de sobel vertical aplicado](../../images/spatial-filters/sobel-vert.png)
 
-**Laplacian filter**
+**Filtro Laplaciano**
 
-![Video frame with laplacian filter applied](../../images/spatial-filters/laplacian.png)
+![Frame de video com o filtro laplaciano aplicado](../../images/spatial-filters/laplacian.png)
 
-**Laplacian of Gaussian**
+**Filtro do Laplaciano da Gaussiana**
 
-![Video frame with laplacian of gaussian applied](../../images/spatial-filters/laplgauss.png)
+![Frame de video com o laplaciano da gaussiana aplicado](../../images/spatial-filters/laplgauss.png)
 
-*Credits: Pictures taken from this [video](https://www.pexels.com/video/electric-train-for-transportation-in-switzerland-countryside-4789847/) by [SwissHumanity](https://www.pexels.com/@swisshumanity-1686058) on [Pexels](https://www.pexels.com/)*
+*Créditos: Figuras obtidas desse [video](https://www.pexels.com/video/a-railway-under-a-flyover-3250590/) por [SwissHumanity](https://www.pexels.com/@swisshumanity-1686058) em [Pexels](https://www.pexels.com/)*
 
-## Conclusion
+## Conclusão
 
-Hopefully this article gave you a good overview of some basic spatial filter, the mathematical intuition behind them and how they can be used to find features inside the image. Grasping the convolution of a filter on an image is useful not only in image processing pipelines but also to understand modern neural networks such as [convolutional neural networks](https://en.wikipedia.org/wiki/Convolutional_neural_network) and some [generative adversarial networks](https://en.wikipedia.org/wiki/Generative_adversarial_network) (e.g. DCGAN) which are the state of the art for object detection in computer vision.
+Espero que este artigo tenha permitido que você tenha uma visão superficial sobre alguns filtros espaciais básicos, a intuição matemática por trás deles e como eles podem ser utilizados para encontrar características dentro de uma imagem. Entender a convolução de um filtro em uma imagem é útil não apenas em pipelines de processamento de imagens, como também para entender arquiteturas modernas de redes neurais, como por exemplos as [redes neurais convolucionais](https://pt.wikipedia.org/wiki/Rede_neural_convolucional) e algumas [redes adversárias generativas](https://www.pexels.com/video/a-railway-under-a-flyover-3250590/) (e.g. DCGAN) que são o estado da arte na detecção de objetos em visão computacional.
+

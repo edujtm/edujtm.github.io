@@ -13,7 +13,7 @@ const getPreviousLink = (isFirst, prevPage) => {
   } else {
     return (
       <span className={paginationStyles.disabled}>
-        <a>Previous Page</a>
+        <button>Previous Page</button>
       </span>
     )
   }
@@ -29,7 +29,7 @@ const getNextLink = (isLast, nextPage) => {
   } else {
     return (
       <span className={paginationStyles.disabled}>
-        <a>Next Page</a>
+        <button>Next Page</button>
       </span>
     );
   }

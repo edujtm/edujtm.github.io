@@ -18,7 +18,7 @@ const IndexPage = () => {
     <Layout>
       <Head title="Home" /> 
       <h1>{t("hello")}</h1>
-      <h2>{t('i-am')} <Link to="/about">Eduardo Macedo</Link>, {t('my-place')} </h2>
+      <h2>{t('i-am')} <Link to="/about">Eduardo Macedo</Link> e {t('my-place')} </h2>
       <h2>{t('my-goal')}</h2>
       <div className={indexStyles.animationContainer}>
         <LottieFile 
