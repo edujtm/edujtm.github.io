@@ -7,8 +7,16 @@ import Dropdown from './Dropdown';
 
 import headerStyles from '../styles/components/Header.module.scss';
 
+type UrlProps = {
+  site: {
+    siteMetadata: {
+      title: string,
+    }
+  }
+}
+
 const Header = () => {
-  const data = useStaticQuery(graphql`
+  const data = useStaticQuery<UrlProps>(graphql`
     query {
       site {
         siteMetadata {

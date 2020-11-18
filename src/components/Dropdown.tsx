@@ -2,7 +2,18 @@ import React, { useState, useEffect } from 'react';
 
 import dropdownStyles from "../styles/components/Dropdown.module.scss";
 
-const Dropdown = ({ title, items, action }) => {
+type DropdownItem = {
+  id: string,
+  name: string,
+}
+
+type DropdownProps = {
+  title: string,
+  items: Array<DropdownItem>,
+  action?: (string) => void,
+}
+
+const Dropdown = ({ title, items, action } : DropdownProps) => {
   const [menuDisplayed, setDisplay] = useState(false);
 
   const hideDropdownMenu = () => {
@@ -54,10 +65,7 @@ const Dropdown = ({ title, items, action }) => {
                   }}
                   onClick={() => action(item.id)}
                 >
-                  <button 
-                    href="#" 
-                    onClick={(e) => e.preventDefault()}
-                  >
+                  <button onClick={(e) => e.preventDefault()}>
                       {item.name}
                   </button>
                 </div>
