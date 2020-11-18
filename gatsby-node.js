@@ -57,7 +57,7 @@ module.exports.createPages = async ({ graphql, actions, reporter }) => {
 
   // Creating pagination pages for blog posts 
   const posts = res.data.allMarkdownRemark.edges;
-  const POSTS_PER_PAGES = 3;
+  const POSTS_PER_PAGES = 10;
 
   // Create all paths for different locales and pagination
   for (const lang of langs) {
