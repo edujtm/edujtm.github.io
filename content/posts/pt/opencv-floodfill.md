@@ -1,55 +1,56 @@
 ---
-title: "Using OpenCV flood fill as a selection mechanism"
+title: "Utilizando OpenCV flood fill como uma ferramenta de seleção"
 date: 2020-10-16
 tags:
   - OpenCV
   - C++
 ---
 
-Due to the varying amount of patterns in an image, its not simple to select complex regions of interest in order to do operations on them. We need to have a way to make this region stand out from the rest of the picture, but we need to deal with noise, complex shapes and other objects that might be in the way of what we're trying to do.
+Devido a quantidade variada de padrões em uma imagem, não é simples selecionar regiões de interesse complexas na imagem de modo a fazer operações nelas. Nós precisamos de algum modo de fazer esta região se testacar do resto da figura, mas ainda precisamos lidar com ruídos, formas complexas na imagem e outros objetos que podem estar no meio do nosso objetivo.
 
-One way to to tackle this problem is to try and generate a binary image that highlights regions of the image that we might be interested in. Since binary images only have two possible values, we can use all the others for tagging regions for post-processing and act accordingly depending on each tag. Assuming that those regions are separated by the background, we can use [cv::floodFill](https://docs.opencv.org/4.4.0/d7/d1b/group__imgproc__misc.html#gaf1f55a048f8a45bc3383586e80b1f0d0) to label the different regions.
+Uma forma de abordar esse problema é tentando gerar uma imagem binária que destaca as regiões da imagem que nós podemos estar interessados. Já que imagem binárias só possuem dois valores possíveis, nós podemos então utilizar todos os outros valores representáveis para marcar regiões para pós-processamento e agir de acordo com cada marcação. Assumindo que essas regiões sejam separadas pelo fundo da imagem, nós podemos usar [cv::floodFill()](https://docs.opencv.org/4.4.0/d7/d1b/group__imgproc__misc.html#gaf1f55a048f8a45bc3383586e80b1f0d0) para marcar as diferentes regiões que estamos interessados.
 
-The `cv::floodFill()` function works in the same way as the bucket functionality that's present in a lot of image manipulation programs available. It fills every neighbouring pixel with similar intensities to the starting point with a given new intensity. This is the API available in OpenCV for the flood fill algorithm:
+A função `cv::floodFill()` funciona da mesma forma que a funcionalidade de "balde" que está presente emdiversos programas de manipulação de imagens disponíveis. Ela preenche todos os pixels vizinhos com intensidades similares ao do ponto inicial com uma nova intensidade especificada pelo usuário. A API disponível no OpenCV para o algoritmo flood fill é mostrada abaixo:
 
 ```Cpp
 int cv::floodFill(
-	cv::InputOutputArray image,       // The image for which a region will be filled with newVal
-	cv::Point seedPoint,              // The place point we want to start filling
-	cv::Scalar newVal,                // The new intensity/color
-	cv::Rect *rect = 0,               // An output rectangle that bounds the painted region
-	cv::Scalar lowDiff = Scalar()     // The lower bound is given by neighbour intensity minus lowDiff
-	cv::Scalar highDiff = Scalar()    // The upper bound is given by neighbour intensity plus highDiff 
-	int flags                         // A set of flags that change the algorithm (e.g. type of connectivity)
+	cv::InputOutputArray image,       // A imagem em qual uma região será preenchida com newVal
+	cv::Point seedPoint,              // O ponto na imagem onde começar o preenchimento 
+	cv::Scalar newVal,                // A nova intensidade/cor 
+	cv::Rect *rect = 0,               // Um cv::Rect que define os limites da area preenchida
+	cv::Scalar lowDiff = Scalar()     // O limite de intensidade mínimo para um pixel ser preenchido 
+	cv::Scalar highDiff = Scalar()    // O limite de intensidade máximo para um pixel ser preenchido 
+	int flags                         // Um número de flags que alteram o funcionamento do algoritmo (e.g. o tipo de conectividade)
 )
 ```
-<i>There's another definition that accepts a mask to select the regions which can be filled, but works in the same way. The mask also will have the painted image regions as non-zero values after the operation.</i>
+<i>Existe uma outra definição dessa função que aceita uma máscara para selecionar quais pixels são preenchidos, mas que funciona da mesma forma. A máscara também tera as regiões pintadas na imagem como valores não-nulo após a execução do algoritmo.</i>
 
-Let's see an example about how we might use it for selecting regions.
+Vamos ver um exemplo de como nós podemos utilizá-la para selecionar regiões.
 
-## A labeling problem
+## Resolvendo um problema de marcação
 
-Let's say that after processing an image, we got the following binary image with white bubbles inside.
+Digamos que, após processar uma imagem, nós obtemos a seguinte imagem binária com bolhas brancas dentro.
 
-![Binary image with white bubbles](../../images/bolhas.png)
+![Imagem binária com regiões brancas](../../images/bolhas.png)
 
-Suppose we're tasked with counting the number of bubbles inside the image, using some algorithm of our choice. How can we go about solving this task? It's easy to count the bubbles by eye, but it's not simple to give the same information to the computer. If we try counting white pixels, we need to make sure that we don't count the same region more than once. In order to avoid this, we need to remove all other pixels that belong to a region when we find the first pixel of that region, that's where flood fill comes in.
+Suponha que nós temos a tarefa de contar o número de bolhas da imagem, utilizando algum algoritmo de nossa escolha. Comos nós podemos resolver essa tarefa? é fácil contar as bolhas visualmente, mas não é simples dar essa mesma informação para o computador. Se nós tentarmos contar pixels brancos, nós precisamos ter certeza que não iremos contar a mesma região mais de uma vez. Para evitar isso, nós precisamos remover todos os outros pixels que pertence a uma região quando nós encontramos o primeiro pixel dela, para isso que é utilizado o flood fill.
 
-This idea might be implemented like this:
+Essa ideia pode ser implementada da seguinte forma:
 
 ```Cpp
 int objects_qnt = 0;
-cv::Mat image = /* binary image */
+cv::Mat image = /* imagem binária */
 
 for (int i = 0; i < image.rows; i++) {
-	// Optimization that avoids recalculating row offset on every pixel
+	// Otimização que evita recalcular o deslocamento da linha em
+	// todos os pixels
 	uchar* row_ptr = image.ptr<int>(i);  
 
 	for (int j = 0; j < image.cols; j++, row_ptr++) {
 		if (*row_ptr == 255) {
 			cv::Point loc { j, i };
 			objects_qnt++;
-			// We label the region with 
+			// Nos marcamos a região com objects_qnt
 			cv::floodFill(image, loc, objects_qnt);
 		}
 	}
@@ -57,17 +58,17 @@ for (int i = 0; i < image.rows; i++) {
 ```
 <br/>
 
-One thing that is important to note is the change in axis between the image (i, j) coordinates and the `cv::Point { j, i }` instantiation. The matrix notation has (row, column) indexing while the point have an x for horizontal and y for vertical representation. This change is illustrated below:
+É importante notar que há uma troca de eixos entre as coordenadas da imagem (i, j) e a instanciação da classe `cv::Point { j, i }`. A notação de matriz possui indexação (linha, coluna) enquanto o ponto possui uma representação com x para horizontal e y para vertical. Essa mudança é ilustrada abaixo:
 
-![Change in axis between matrix and point](../../images/opencv-axis.png)
+![Mudança de eixos entre matriz e ponto](../../images/opencv-axis.png)
 
-The implementation above would count all the bubbles in the picture and leave them marked for post-processing. The problem here is that we can't count more than the maximum limit given by the **unsigned char** type. As soon as we get to 255 objects, the region would be repainted in white and counted multiple times.
+A implementação acima irá contar todas as bolhas dentro da figura e deixará elas marcadas para pós processamento. O problema aqui é que não podemos contar mais que o limite máximo representavel por um tipo **unsigned char**. Assim que chegarmos a 255 objetos, a região será repintada em branco e contada multiplas vezes.
 
-We need to convert the image to another type, but `cv::floodFill()` only works with **8-bit integer** and **floating point** images. Given these options, we can choose the **float** type which will give us a big counting limit. OpenCV gives us [Mat::convertTo()](https://docs.opencv.org/4.4.0/d3/d63/classcv_1_1Mat.html#adf88c60c5b4980e05bb556080916978b) that changes the underlying type, but does not rescale intensities to the new range. With these constraints, we arrive at this solution:
+Para evitar isso, precisamos convert a imagem para outro tipo, mas `cv::floodFill()` funciona apenas com imagens do tipo **inteiro 8 bits** e **ponto flutuante**. Dadas essas opções, nós podemos escolher o tipo **float** que nós dará um limite grande para contagem. o OpenCV nos dá a função [Mat::convertTo()](https://docs.opencv.org/4.4.0/d3/d63/classcv_1_1Mat.html#adf88c60c5b4980e05bb556080916978b) que modifica o tipo usado para representar dados na imagem, mas não redimensiona os valores para a nova faixa. Com essas restrições, nos chegamos a seguinte solução:
 
 ```Cpp
 /*
- * The template here is used so that we can do the rescaling for multiple data types.
+ * O template é utilizado aqui para que possamos redimensionar vários tipos de dado.
  */
 template<typename DataType>
 cv::Mat rescale_intensities(cv::Mat input, DataType new_min, DataType new_max) {
@@ -82,57 +83,50 @@ cv::Mat rescale_intensities(cv::Mat input, DataType new_min, DataType new_max) {
 }
 
 int main() {
-    /* image pre-processing code */
+    /* código para processamento da imagem */
 
-    // The way we count the objects is dependent on the
-    // data representation type.
-    // The maximum number of objects we can count is defined
-    // by the maximum amount the type can hold.
-    cv::Mat float_image = /* some binary image */;
+    // O modo que nós contamos o objeto é dependente do
+    // tipo de dado utilizado para representar a imagem.
+    // A quantidade máxima de objetos que nós podemos contar
+    // é definida pela valor máximo representável pelo tipo.
+    cv::Mat float_image = /* alguma imagem binária */;
     image.convertTo(float_image, CV_32FC1);
 
-    // convertTo only changes the type, we still need to change the 
-    // image intensities
+    // convertTo apenas modifica o tipo, nós ainda precisamos
+    // redimensionar as intensidades da imagem.
     cv::Mat rescaled_image = rescale_intensities(int_image, (float) 0., std::numeric_limits<float>::max());
 
-    /* image post-processing code */
+    /* código para pós processamento da imagem */
 }
 ```
 <br/>
 
-This maps the old intensity range to the whole range of positive values that float can represent. The mapping is given by the following function: 
+Isso mapeia a intensidade antiga para a faixa de valores inteira que o tipo float consegue representar.
+ O mapeamento é feito pela seguinte função:
 
 $$
   f(x, a, b)  = \frac{(b - a) (x - x_{min})}{x_{max} - x_{min}} + a
 $$
 
-Which maps a value $x$ with minimum value $x_{min}$ and maximum value $x_{max}$ into a new range between $a$ and $b$. We can observe that in case $x$ is equal to $x_{min}$, the result will be equal to $a$ and in case $x$ is equal to $x_{max}$, then the result will be equal to the new maximum value $b$. By mapping to a new range, we avoid any problems that would occur when the counter reached 255, which is the value used for white in the old range. 
+Que mapeia um valor $x$ com valor mínimo $x_{min}$ e valor maximo $x_{max}$ para um nova faixa de valores entre $a$ e $b$. Nós podemos observar que caso $x$ seja igual a $x_{min}$, o resultado será igual a $a$ e caso $x$ seja igual a $x_{max}$, então o resultado será igual ao novo valor máximo $b$. Ao mapear para uma nova faixa de valores, nos evitamos qualquer problema que ocorreria quando o contador chegasse em 255, que é o valor utilizado na faixa antiga.
 
-With this, we reach the final solution to the bubble counting problem:
+Com isso, nós chegamos a solução final para o problema de contagem de bolhas:
 
 ```Cpp
 int main() {
-    // The way we count the objects is dependent on the
-    // data representation type.
-    // The maximum number of objects we can count is defined
-    // by the maximum amount the type can hold.
-    cv::Mat float_image = /* some binary image */;
+    cv::Mat float_image = /* imagem binária */;
     image.convertTo(float_image, CV_32FC1);
 
-    // convertTo only changes the type, we still need to change the 
-    // image intensities
     cv::Mat rescaled_image = rescale_intensities(int_image, (float) 0., std::numeric_limits<float>::max());
 
     float object_qnt = 0.0;
     for (int i = 0; i < image.rows; i++) {
-      // Optimization that avoids recalculating row offset on every pixel
       float* row_ptr = rescaled_image.ptr<float>(i);  
 
       for (int j = 0; j < image.cols; j++, row_ptr++) {
         if (std::abs(*row_ptr - std::numeric_limits<float>::max()) < 0.001) {
           cv::Point loc { j, i };
           object_qnt++;
-          // We label the region with the quantity of objects
           cv::floodFill(image, loc, objects_qnt);
         }
       }
@@ -143,7 +137,7 @@ int main() {
 ```
   <br/>
 
-Notice that we're now using an approximation equality comparison due to floating point rouding errors. Running the binary gives us the answer.
+Note que nós estamos agora utilizado uma igualdade por aproximação devido à erros de arrendondamento em tipos ponto flutuante. Executar o binário nos dá o resultado:
 
 ```bash{promptUser: edujtm}{outputLines: 2}
 ./build/labeling ../bubbles.png
@@ -151,48 +145,48 @@ The figure has 32 bubbles.
 ```
 <br/>
 
-If we convert the image to **unsigned char** and show it with `cv::imshow()`, we get the following result:
+Se nos convertemos a imagem para **unsigned char** e mostrarmos com `cv::imshow()`, nós obtemos a seguinte imagem:
 
-![Bubble image with labeled regions](../../images/labelled-bubbles.png)
+![Imagem com regiões marcadas](../../images/labelled-bubbles.png)
 
-We can see the faint change in intensity between the labelled regions and the dark background. Showing the image in this way only works because there's less than 255 bubbles in it. If the image had more, we could rescale the intensities to the range [0.0, 1.0], but there wouldn't be much visual information. The value of the labelled image comes from using it in other processing steps, which we're going to see next.
+Nos podemos ver uma variação bem leve de intensidade entre as regiões marcadas e o fundo da imagem. Mostrar a imagem dessa forma só funciona pois existem menos de 255 bolhas nela. Se a imagem tivesse mais que isso, nós teriamos que redimensionar as intensidades para a faixa [0.0, 1.0], mas não haveria muita informação visual. O valor da marcação na imagem se dá pelo seu uso em outros passos de processamento posteriores, que nós iremos ver na próxima seção.
 
-## Counting holes: using flood fill in a pipeline
+## Contando buracos: utilizando flood fill em uma pipeline
 
-We're happy with our bubble counter but a new task has been given to us: we need to count the number of holes inside bubbles, since they might represent manufacturing failures. We're allowed to make two assumptions:
+Nós estamos felizes com nosso contador de bolhas, mas uma nova tarefas nos foi dada: nós precisamos contar o número de buracos dentro das bolhsa, já que eles representam falhas de manufatura. Nós podemos assumir que: 
 
-- We don't need to count bubbles that touch the border of the image
-- Objects with more than one hole might exist
+- Nós não precisamos cnotar bolhas que tocam a borda da imagem
+- Objetos com mais de um buraco podem existir
 
-From the bubble counter we developed, we already know how to count and label the bubbles, but now we need to somehow detect the holes inside them. We know that four invariants are going to happen after the labeling process: 
+Do contador de bolhas que nós desenvolvemos, nós já sabemos como contar e marcar as bolhas, mas agora nós precisamos de alguma forma detectar os buracos dentro delas. Nós sabemos que quatros invariantes existem após o processo de marcação:
 
-1. The background is going to have intensity equal to 0 
-2. the bubbles are going to have intensities different than 0 
-3. the holes are also going to have intensities equal to 0
-4. holes are surrounded by pixels from bubbles, otherwise it would be part of the background
+1. O fundo da imagem terá intensidade igual a 0
+2. As bolhas terão intensidade diferente de 0
+3. Os buracos também terão intensidade igual a 0
+4. Buracos são rodeados por pixels de bolhas, senão eles seriam parte do fundo da imagem
 
-From the second and fourth points, we can derive an algorithm that finds holes: If we find a pixel with intensity equal to 0, we check the pixel to the left of it and if its intensity is different than 0, it means that we've found a hole. We don't want to do this check for every pixel in the background, so we can paint the background with the maximum value possible, that way only the holes will have intensity 0. We would have to take care of not reading pixels out of bounds, but since we're not required to count bubbles on the border, we can just remove them, that way all pixels of the border are going to become part of the background and painted white.
+Do segundo e quarto pontos, nós podemos deduzir um algoritmo que encontra buracos: Se nós acharmos um pixel com intensidade igual a 0, nós checamos se o pixel a esquerda possui intensidade diferente de 0. Se isso for verdadeiro, então nós encontramos um buraco. Nós não queremos repetir essa checagem em todos os pixels do background, então nós podemos pintar o background com o maior valor possível, desse modo apenas os buracos terão intensidade igual a 0. É preciso também ter cuidado para nao ler pixels fora da borda, mas já que não é necessário contar bolhas na borda, nós podemos retirá-las de modo que todos os pixels da borda farão parte do fundo e logo serão pintados de branco.
 
-Let's see how to implement this in a step by step way.
+Vamos ver como podemos implementar isso passo a passo.
 
-### Removing pixels from the border
+### Removendo pixels da borda
 
-Removing bubbles from the border is not too complex: if we find any white pixel on the border, we paint it black using flood fill. This can be implemented as follows:
+Remover bolhas da borda não é muito complexo: se nós acharmos qualquer pixel branco na borda da imagem, nó pintamos de preto utilizando flood fill. Um modo de implementar isso é mostrado abaixo:
 
 ```Cpp
-/* Template alias for readability (std::numeric_limits is kinda of a long name) */
+/* template para legibilidade (std::numeric_limits é um nome um pouco longo) */
 template<typename T>
 using limits = std::numeric_limits<T>
 
 void remove_bubbles_at_border(cv::Mat_<float> input) {
     for (int i = 0; i < input.cols; i++) {
-        // Removes bubbles touching top border
+        // Remove bolhas que tocam a borda de cima
         if (std::abs(input.at<float>(0, i) - limits<float>::max()) < 0.001) {
             cv::Point location { i, 0 };
             cv::floodFill(input, location, 0.0);
         }
 
-        // Removes bubbles touching the bottom border
+        // Remove bolhas que tocam a borda de baixo
         if (std::abs(input.at<float>(input.rows - 1, i) - limits<float>::max()) < 0.001) {
             cv::Point location { i, input.rows - 1 };
             cv::floodFill(input, location, 0.0);
@@ -200,13 +194,13 @@ void remove_bubbles_at_border(cv::Mat_<float> input) {
     }
 
     for (int i = 0; i < input.rows; i++) {
-        // Removes bubbles touching the left border
+        // Remove bolhas que tocam a borda esquerda
         if (std::abs(input.at<float>(i, 0) - limits<float>::max()) < 0.001) {
             cv::Point location { 0, i };
             cv::floodFill(input, location, 0.0);
         }
 
-        // Removes bubbles touching the right border
+        // Remove bolhas que tocam a borda direita
         if (std::abs(input.at<float>(i, input.cols - 1) - limits<float>::max()) < 0.001) {
             cv::Point location { input.cols-1, i };
             cv::floodFill(input, location, 0.0);
@@ -217,13 +211,13 @@ void remove_bubbles_at_border(cv::Mat_<float> input) {
 ```
 <br/>
 
-After applying this function to the image, this is the result we get:
+Após aplicar essa função na imagem, esse é o resultado obtido:
 
-![image with bubbles at border remove](../../images/remove-border.png)
+![imagem com bolhas na borda removidas](../../images/remove-border.png)
 
-### Counting and labeling bubbles
+### Contando e marcando bolhas
 
-Next we need to count and label bubbles. We have already done this at the first part of this article, so we're just going to move the implementation into a function.
+Agora nós precisamos contar e marcar as bolhas. Nós já fizemos isso na primeira parte deste artigo, então nós vamos apenas mover a implementação para uma função.
 
 ```Cpp
 float count_and_label_bubbles(cv::Mat_<float> input) {
@@ -254,15 +248,15 @@ float count_and_label_bubbles(cv::Mat_<float> input) {
 ```
 <br/>
 
-With the result after this step being similar to what we've got in the first part as well:
+Com o resultado após esse passo sendo similar ao que obtemos na primeira parte:
 
-![Labeled image without bubble at the border](../../images/labeled-without-border.png)
+![Imagem marcada sem bolhas na borda](../../images/labeled-without-border.png)
 
-The image seems totally dark, but there are very faint bubbles in it.
+A imagem parece ser totalmente escura, mas existem bolhas marcadas dentro dela.
 
-### Painting the background as white
+### Pintando o fundo de branco
 
-Since we know that there are no bubbles at the borders, it follows that all pixels at the borders line are part of the background. If we do a flood fill in any of them, the background will turn white. We can choose the top right corner.
+Já que nós sabemos que não existem bolhas na borda, nós podemos assumir que todos os pixels da borda fazem parte do fundo da imagem. Se nós fizermos um flood fill em qualquer um deles, o fundo da image se tornará da cor escolhida. Escolheremos o canto superior esquerdo.
 
 ```Cpp
 void fill_background(cv::Mat_<float> input, float value) {
@@ -272,13 +266,13 @@ void fill_background(cv::Mat_<float> input, float value) {
 ```
 <br/>
 
-After this step, we'll have an image like this:
+Após esse passo, nós temos uma imagem como essa:
 
-![bubble image with white background](../../images/white-background-bubbles.png)
+![Imagem das bolhas com fundo branco](../../images/white-background-bubbles.png)
 
-### Counting holes
+### Contando buracos
 
-Now we have everything ready to count the holes. The only pixels that are still equal to 0 are the ones that belong to holes so we can do the same process we used when counting bubbles: if we find a pixel equal to 0, raise the counter and then use flood fill to remove the region. We're also going to remove the bubble as well, so we can see which bubbles were removed.
+Agora nós temos tudo necessário para contar os buracos. Os únicos pixels que ainda são iguais a 0 são aqueles que pertence aos buracos então nós podemos repetir o mesmo processo que usamos ao contar bolhas: se nós acharmos um pixel igual a 0, aumentamos o contador e utilizamos o flood fill para remover a região. Nós também iremos remover a bolha, para que possamos ver quais bolhas foram removidas.
 
 ```Cpp
 float count_holes(cv::Mat_<float> input) {
@@ -288,8 +282,8 @@ float count_holes(cv::Mat_<float> input) {
         for (int j = 0; j < input.cols; j++, row_ptr++) {
             if (std::abs(*row_ptr - 0.0) < 0.001) {
                 cv::Point location { j, i };
-                // We don't need to worry about edges
-                // since we removed all bubbles there
+                // Nós não precisamos lidar com bordas
+                // já que removemos as bolhas de lá
                 cv::Point previous { j-1, i };
 
                 cv::floodFill(input, location, limits<float>::max());
@@ -304,13 +298,13 @@ float count_holes(cv::Mat_<float> input) {
 ```
 <br/>
 
-After running this step of the pipeline, we can see that the bubbles with holes were removed.
+Após executar esse passo da pipeline, nós podemos ver que as bolhas com buracos foram removidas.
 
-![White background image with holes removed](../../images/removed-holes.png)
+![Imagem com fundo branco e buracos removidos](../../images/removed-holes.png)
 
-### The full pipeline
+### A pipeline completa
 
-The final step is just to run the functions in order.
+O último passo é apenas executar as funções em ordem.
 
 ```Cpp
 int main(int argc, char* argv[]) {
@@ -324,11 +318,11 @@ int main(int argc, char* argv[]) {
 
     cv::Mat cloned_image = image.clone();
     
-    // do the type and intensity conversions
+    // faz a conversão de tipo e intensidade
     cloned_image.convertTo(cloned_image, CV_32FC1);
     cloned_image = rescale_intensities(cloned_image, (float) 0., limits<float>::max());
 
-    // Start pipeline (all operations assume 32 bit floating point values)
+    // Inicia a pipeline (todas as operações assumem tipo ponto flutuante 32 bits)
     remove_bubbles_at_border(cloned_image);
     float nobjects = count_and_label_bubbles(cloned_image); 
     fill_background(cloned_image, limits<float>::max());
@@ -346,7 +340,7 @@ int main(int argc, char* argv[]) {
 ```
 <br/>
 
-Which gives us the expected result:
+O que nos dá o resultado esperado:
 
 ```bash{promptUser: edujtm}{outputLines: 2-3}
 ./build/count_holes ../bubbles.png
@@ -355,6 +349,6 @@ The figure has 7 holes.
 ```
 <br/>
 
-## Conclusion 
+## Conclusão
 
-Hopefully this example makes clear that we can use flood fill to tag regions of similar intensity for further processing. We can combine pre-processing steps, such as applying a canny filter, to try to separate regions and then use flood fill to tag it for further processing. One example where this could be useful is making a green screen effect, where we would tag all the green pixels with a constant number and then replace these pixels with a custom background. In summary, the flood fill function can be used for more than just painting sections of an image when used in a processing pipeline.
+Espero que esse exemplo ajude a esclarecer como podemos utilizar flood fill para marcar regiões de intensidade similar para pós processamento. Nós podemos combinar passos de pré-processamento como, por exemplo, aplicar um filtro canny para tentar separar regiões e então usar flood fill para marcá-las para processamento posterior. Um exemplo disso onde isto poderia ser útil seria na simulação de um efeito tela verde, onde nós marcariamos todos os pixels verdes com um valor constante e então trocariamos eles por um fundo de imagem alternativo. Em suma, o algoritmo flood fill pode ser utilizado para mais que simplesmente pintar seções da imagem quando utilizado em uma pipeline de processamento.

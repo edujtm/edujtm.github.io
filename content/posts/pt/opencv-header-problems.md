@@ -1,56 +1,54 @@
 ---
-title: "A fix for g++ not being able to find OpenCV dependencies on Ubuntu 18.04"
+title: "Consertando erros de linkagem das dependências do OpenCV no Ubuntu 18.04"
 date: 2020-03-14
 tags:
   - OpenCV
   - C++
 ---
 
-## The Issue
+## O problema
 
-Adding third-party code to a C++ application is well-known for being a headache, requiring the user to know about the steps of the
-compilation process, the OS environment and the difference between the types of library (static vs dynamically linked). The issue is
-annoying enough that some reasonably big C++ libraries like [Catch2](https://github.com/catchorg/Catch2) and [Boost](https://www.boost.org/) 
-offer header-only solutions to simplify getting the build process to work correctly.
+Adicionar códigos de terceiros em uma aplicação C++ é bem conhecido por não ser uma experiência agradavel, requerindo do usuário o conhecimento de passos do processo de compilação, do ambiente do sistema operacional e a diferença entre os tipos de bibliotecas (linkagem estática ou dinâmica). O problema é tão incômodo que algumas bibliotecas do C++ razoavelmente grandes como [Catch2](https://github.com/catchorg/Catch2) e [Boost](https://www.boost.org/) oferecem soluções apenas com headers para simplificar a integração da biblioteca no processo de compilação.
 
-OpenCV is a big library with many dependencies, and as such, is not exempt from this complex configuration process. Luckily some experienced
- users have made detailed tutorials of the installation process to help us, layman users, benefit from the library, such as [this one](https://www.learnopencv.com/install-opencv-3-4-4-on-ubuntu-18-04/) which I used to install it on my computer.
+OpenCV é uma biblioteca com várias dependencias e desse modo não está livre desse processo de configuração complexo. Por sorte, alguns usuários experientes da biblioteca fizeram tutoriais detalhados para ajudar iniciantes a se beneficiar da biblioteca, como [esse aqui](https://www.learnopencv.com/install-opencv-3-4-4-on-ubuntu-18-04/) que utilizei para instalar a biblioteca no meu computador.
 
- I thought that after finishing the tutorial I would be able to run `g++` and be done with it, but that turned out not to be true, which lead me into
- multiple hours of troubleshooting in order to find out if I had done anything wrong.
+Eu pensei que após terminar o tutorial, seria possível executar `g++` e seguir com a minha vida, mas isso acabou não sendo verdade, o que me levou em uma jornada de multiplas horas tentando entender se eu havia feito algo de errado. Então decidi escrever este artigo para documentar quais o passos que estavam faltando, caso alguem possua os mesmos problemas que eu.
 
- *If you do not wish to read the explanation of the problems and just fix them quickly, I've made a [TLDR](#tldr)*
+*Se você não quiser ler a explicação dos problemas e quer apenas consertá-las rapidamente, eu fiz um [TLDR](#tldr)*
 
- ## The missing steps
+## Os passos que faltam para compilar corretamente
 
-At the end of the tutorial, we are instructed to run the following command in order to compile our code with opencv:
+No final do tutorial, nós somos instruídos a executar o seguinte comando para compilar o código dependente do OpenCV:
 
 ```bash{promptUser: edujtm}
 g++ `pkg-config --cflags --libs <OpenCV_Home_Dir>/installation/OpenCV-3.4.4/lib/pkgconfig/opencv.pc` my_sample_file.cpp -o my_sample_file
 ```
-\
-With `<OpenCV_Home_Dir>/installation` being the directory where we are supposed to install the OpenCV library. I modified the directory in order to suit my
-folder organization, so in my case the library was installed at the following location: 
+<br/>
+
+Com `<OpenCV_Home_Dir>/installation` sendo o diretório onde devemos instalar a biblioteca OpenCV. Eu modifiquei este diretório para que ele ficasse de acordo com a minha organização de pastas, então no meu caso a biblioteca foi instalado no seguinte local:
 
 ```
 $HOME/Code/local/OpenCV-3.4.4/
 ```
-\
-Unfortunately, after running this command I was getting a bunch of undefined references to OpenCV functions.
+<br/>
+
+Infelizmente, após executar este comando eu estava obtendo várias referência indefinidas para funções do OpenCV.
 
 ```
 hello_world.cpp:(.text+0x5f): undefined reference to "cv::imread(cv::String const&, int)"
 hello_world.cpp:(.text+0xb3): undefined reference to "cv::imshow(cv::String const&, cv::_InputArray const&)"
 hello_world.cpp:(.text+0xdb): undefined reference to "cv::waitKey(int)"
 ```
-\
-To understand why this message is happening, let's first look at the pkg-config output.
+<br/>
+
+Para entender porque este erro está acontencendo, vamos primeiramente olhar para a saída do comando pkg-config.
 
 ```bash{promptUser: edujtm}
 pkg-config --cflags --libs $HOME/Code/local/OpenCV-3.4.4/lib/pkgconfig/opencv.pc
 ```
-\
-Which outputs:
+<br/>
+
+Executando o comando acima, obtem-se:
 
 ```
 -I/home/edujtm/Code/local/OpenCV-3.4.4/include/opencv -I/home/edujtm/Code/local/OpenCV-3.4.4/include -L/home/edujtm/Code/local/OpenCV-3.4.4/lib 
@@ -61,64 +59,70 @@ Which outputs:
 -lopencv_xfeatures2d -lopencv_shape -lopencv_video -lopencv_ml -lopencv_ximgproc -lopencv_xobjdetect -lopencv_objdetect -lopencv_calib3d -lopencv_imgcodecs 
 -lopencv_features2d -lopencv_flann -lopencv_xphoto -lopencv_photo -lopencv_imgproc -lopencv_core
 ```
-\
-This is the huge list of OpenCV modules that you need to specify so that the linker is able to find the pre-compiled binaries from OpenCV. You don't actually need to specify all of them, only the ones you're using, but pkg-config will add everything so that you won't have problems when using different modules.
+<br/>
 
-So essentially the error message is happening because the linker is not being able to find the binaries with the implementation of OpenCV functions, even though they are being specified in the command line.
+Isto é a lista gigante de modulos do OpenCV que você precisa especificar para que o linker seja capaz de encontrar os binários pre-compilados do OpenCV. Você não precisa especificar todos eles, apenas aqueles que você pretende utilizar, mas o pkg-config adicionar todos para que você não tenha problemas ao utilizar diferentes modulos.
 
-What surprised me was that the order in which you declared the libraries to be linked is important to the linking process. As explained briefly by [this comment by Ivan Aksamentov](https://stackoverflow.com/questions/31634757/how-to-correct-undefined-reference-error-in-compiling-opencv/31635489#31635489):
+Então essencialmente a mensagem de erro está acontecendo porque o linker não está conseguindo encontrar os binários com a definição da funções do OpenCV, mesmo que elas estejam sendo especificadas na linha de comando.
 
-> In short, the rule "libraries come after objects that use them" is enforced by many GCC distributions to link shared libs only as they are needed. In your case object file facerec_eigenfaces.o, being produced from source file facerec_eigenfaces.cpp, depends on OpenCV libs (exact list is given by a pkg-config command), and thus libs should go after that file. You could also notice very same pattern in pkg-config output: for example, X11, pthreads and other Linux system dependencies go after dependent OpenCV libs.
+O que me surpreendeu foi que a ordem em que você declara as bibliotecas na linha de comando é importante para o processo de linkagem. Isto é explicado brevemente [nesse comentário de Ivan Aksamentov](https://stackoverflow.com/questions/31634757/how-to-correct-undefined-reference-error-in-compiling-opencv/31635489#31635489).
 
-To put it briefly: if you source code depends on an linked file, it should come before the specified linked file. Following this, the correct way to call the command is by placing the pkg-config after the files, like so:
+> Em suma, a regra "bibliotecas vêm antes dos objetos que as usam" é imposta por várias distribuições do GCC para linkar bibliotecas apenas quando elas são necessárias. No seu caso, o arquivo de objeto facerec\_eigenfaces.o, que é produzido pelo código fonte facerec\_eigenfaces.cpp, depende das bibliotecas OpenCV (a lista exata é dada pelo comando pkg-config), e assim as bibliotecas devem vir após aquele arquivo. Você pode também notar esse padrão na saída do comando pkg-config: por exemplo, X11, pthreads e outras dependências do sistema linux aparecem depois das dependências em bibliotecas OpenCV.
+
+
+De forma breve: se o seu código fonte depende de um arquivo linkado, ele deve aparecer antes do arquivo linkado na linha de comando. Seguindo isso, a forma correta de fazer a chamada do comando é colocando o pkg-config depois dos arquivos, desse modo:
 
 ```bash{promptUser: edujtm}
 g++ my_sample_file.cpp -o my_sample_file `pkg-config --cflags --libs <OpenCV_Home_Dir>/installation/OpenCV-3.4.4/lib/pkgconfig/opencv.pc`
 ```
-\
-After this was fixed, the files were compiling just fine. But now, the following error was happening at runtime:
+<br/>
+
+Após consertar isto, os arquivos passaram a compilar corretamente. Mas agora o seguinte estava ocorrendo no runtime:
 
 ```
 ./hello_world: error while loading shared libraries: libopencv_highgui.so.3.4: cannot open shared object file: No such file or directory
 ```
-\
-Well, that's progress, but we are not there yet. We moved from a linker issue to a shared library issue. The name shared comes from the fact that a single binary of this program can be used by multiple other programs during runtime, as long as they can locate it. 
+<br/>
 
-What's happening now is that, when we run our file, the operating system is unable to find some shared libraries from OpenCV. We need to find a way to tell it where our shared libraries are.
+Bom, progredimos um pouco, mas ainda não estamos lá. Nós movemos de um problema de linkagem para um problema de biblioteca compartilhada. A biblioteca é chamada de compartilhada devido ao fato de apenas um único binário poder ser utilizado por vários programas no runtime, contando que eles possam encontrá-lo.
 
-The primary way of doing this is linux is by adding a *.conf* file to `/etc/ld.so.conf.d/`. I've created an opencv.conf file with the following content:
+O que está acontecendo agora é que, quando executamos o arquivo, o sistema operacional é incapaz de encontrar algumas bibliotecas compartilhadas do OpenCV. Nós precisamos passar a informação sobre onde as bibliotecas estão localizadas pro SO de alguma forma.
+
+A forma recomendada de fazer isso no linux é adicionando um arquivo *.conf* em `/etc/ld.so.conf.d`. Eu criei um arquivo *opencv.conf* com o seguinte conteúdo:
 
 ```bash{promptUser: edujtm}
 echo "/home/edujtm/Code/local/OpenCV-3.4.4/lib" > opencv.conf
 ```
-\
-If you followed [the tutorial](https://www.learnopencv.com/install-opencv-3-4-4-on-ubuntu-18-04/) then your *lib* folder will probably be located at `<OpenCV_Home_Dir>/installation/OpenCV-3.4.4/lib`. 
+<br/>
 
-Finally, move the new *.conf* file to `/etc/ld.so.conf.d/` and run ldconfig, which adds the new shared libraries to its cache.
+Se você seguiu [o tutorial](https://www.learnopencv.com/install-opencv-3-4-4-on-ubuntu-18-04/) seu diretório *lib* deve estar localizado em `<OpenCV_Home_Dir>/installation/OpenCV-3.4.4/lib` .
+
+Por fim, movemos o arquivo *.conf* para `/etc/ld.so.conf.d/` e rodamos ldconfig, que irá adicionar as novas bibliotecas compartilhadas em sua cache.
 
 ```bash{promptUser: edujtm}
 sudo mv opencv.conf /etc/ld.so.conf.d/
 sudo ldconfig
 ```
-\
-Because this was an OS level issue, your compiled binaries should work just fine, even without recompiling them.
+<br/>
+
+Já que isso era um problema a nível de sistema operacional, seus binários compilados devem funcionar corretamente, mesmo sem precisar refazer a compilação.
 
 ## TL;DR
 
-### Step 1: Change the G++ command order
+### Passo 1: Mude a ordem do comando g++ 
 
-Change the specified command from the tutorial, placing the dependency libraries at the end:
+Mude o comando descrito no tutorial, colocando as bibliotecas dependentes no final:
 
 ```bash
 g++ `pkg-config --cflags --libs <OpenCV_Home_Dir>/installation/OpenCV-3.4.4/lib/pkgconfig/opencv.pc` my_sample_file.cpp -o my_sample_file
-# change to 
+# Mude para 
 g++ my_sample_file.cpp -o my_sample_file `pkg-config --cflags --libs <OpenCV_Home_Dir>/installation/OpenCV-3.4.4/lib/pkgconfig/opencv.pc`
 ```
 <br/>
 
-### Step 2: Add shared libraries to /etc/ld.so.conf.d/
+### Passo 2: Adicione bibliotecas compartilhadas em /etc/ld.so.conf.d/ 
 
-Create a *.conf* file pointing to the OpenCV shared libraries folder, place it at `/etc/ld.so.conf.d/` and run ldconfig.
+Crie um arquivo *.conf* apontando para o diretório de bibliotecas compartilhadas do OpenCV. Coloque-o em `/etc/ld.so.conf.d/` e execute ldconfig.
 
 ```bash
 echo "<OpenCV_Home_Dir>/installation/OpenCV-3.4.4/lib" > opencv.conf

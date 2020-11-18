@@ -262,7 +262,7 @@ The image seems totally dark, but there are very faint bubbles in it.
 
 ### Painting the background as white
 
-Since we know that there are no bubbles at the borders, it follows that all pixels at the borders line are part of the background. If we do a flood fill in any of them, the background will turn white. We can choose the top right corner.
+Since we know that there are no bubbles at the borders, it follows that all pixels at the borders line are part of the background. If we do a flood fill in any of them, the background will turn white. We can choose the top left corner.
 
 ```Cpp
 void fill_background(cv::Mat_<float> input, float value) {

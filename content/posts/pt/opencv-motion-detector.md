@@ -1,72 +1,69 @@
 ---
-title: "Detecting motion by manipulating image histograms on OpenCV"
+title: "Detectando movimentos através da manipulação de histogramas com OpenCV"
 date: 2020-10-24
 tags: 
   - OpenCV
   - C++
 ---
 
-Suppose your boss tells you to implement a motion detector for his company, but you've never done this before and he gave you a really short deadline. 
-At first sight it seems that detecting motion in a picture might be a challenging task: how do we define what is a movement from a group of pixels 
-if there's no defined relationship between them? If we go with the route of processing individual pixels to check if they've changed their position, that for sure will lead to some headaches.
+Suponha que seu chefe peça para que você implemente um detector de movimentos para sua empresa, mas você nunca fez isso anteriormente e ele te deu uma prazo para conclusão bem curto. A primeira vista, parece que detectar movimentos em uma imagem pode ser uma tarefa difícil: Como nós podemos definir o que é um movimento em um grupo de pixels se não temos nenhuma informação do relacionamento entre eles? Se nós tentarmos processar pixels individualmente para checar se eles mudaram suas posições, isto com certeza irá gerar umas dores de cabeça.
 
-You then go check the internet for solutions and you find that current image procesing techniques allows for various methods of detecting motion in a video stream using segmentation techniques to
-separate foreground objects from the background. These techniques often employ complex mathematical tricks that might go over the 
-head of the uninitiated, so we would like to find a simpler implementation that's not as robust but still does the job.
+Você então busca na internet por outras soluções e encontra que as técnicas de processamento de imagem atuais permitem o uso de vários métodos de detecção de movimentos em um video utilizando técnicas de segmentação para separar objetos em primeiro plano do fundo da imagem. Essas técnicas muitas vezes utilizam truques matemáticos complexos que podem ser difíceis de entender para um iniciante, então nós devemos buscar por uma implementação mais simples que, embora não seja tão robusta, ainda dá conta do trabalho.
 
-Luckily there's a simpler form of doing it, that requires thinking about properties of the image in its entirety rather than its components. If we assume that any moving object will introduce new pixels into the image, either from the background behind the object or from the object itself, we can use the change in the quantity of pixel intensities over the whole image to determine if there's movement. A representation of the frequency of data in a sample is given by an histogram. Since working with histogram is very useful in computer vision, OpenCV offers a set of tools for creating and manipulating this kind of data representation.
+Felizmente há uma forma mais simples de fazer isso se pensarmos sobre as propriedades da imagem por completo ao invés de seus componentes. Se nós assumirmos que um objeto em movimento irá introduzir novos pixels na imagem, ou do fundo atrás do objeto, ou do própio objeto ao entrar no quadro, nós podemos usar a alteração nas quantidades de cada intensidade dos pixels por toda a imagem para determinar se há movimento. A representação da frequência de dados em uma amostra é dada pelo histograma. Já que trabalhar com histogramas é bem útil em visão computacional, OpenCV oferece um conjunto de ferramentos para criar e manipular esse tipo de representação de dados.
 
-## Understanding histograms in OpenCV
+## Entendendo histogramas no OpenCV
 
-Before we implement our motion detector, we first need to understand what is a histogram and how to work with them in OpenCV. When it comes to images, the histogram is a representation of the frequencies of intensities from all the pixels. This is done by separating the full value range of intensities into partitions and counting every pixel whose intensity falls within each partition. In the simplest case where the number of partitions (bins) is the same as the quantity of values in the range, we get an image histogram like this:
+Antes de implementarmos nosso detector de moviments, nós precisamos entender o que é um histograma e como trabalhar com eles no OpenCV. Quando se trata de imagens, o histograma é uma representação das frequências de todas as intensidades de seus pixels. Isto é feito ao separar a faixa de valores das intensidades em partições e contando todos os pixels cuja intensidade esteja dentro dos limites da partição. No caso mais simples, onde o número de partições é o mesmo que a quantidade de valores na faixa de intensidades, nós obtemos um histograma como esse:
 
-![Histogram of a 5 by 5 image](../../images/motion-detector/image-histogram.png)
+![Histograma de uma imagem 5 por 5](../../images/motion-detector/image-histogram.png)
 
-But the number of bins doesn't need to be the same as the size of the intensity range and the size of each partition might not be uniform. In the previous image we could group the values in 5 bins instead of 10, which would give the ranges: \[0, 2\), \[2, 4\), \[4, 6\),  \[6, 8\), \[8, 10\).
+Mas o número de partições não precisa ser idêntico à quantidade de valores na faixa de intensidades e o tamanho de cada partição não é necessariamente uniforme. No imagem anterior, nós poderiamos agrupar os valores em 5 partições ao invés de 10, o que nós iria dar as faixas: \[0, 2\), \[2, 4\), \[4, 6\),  \[6, 8\), \[8, 10\).
 
-The function OpenCV gives to get the histogram from an image is [cv::calcHist()](https://docs.opencv.org/4.4.0/d6/dc7/group__imgproc__hist.html#ga4b2b5fd75503ff9e6844cc4dcdaed35d) and it has a fairly complicated API due to it being a generic function that tries to adapt itself to one or multiple images of varying channels with uniform or non-uniform intensity bins. We will only use it for a single image, so we need to adapt this image to what is expected by the API (i.e. a vector of images).
+A função que o OpenCV nos dá para obter um histograma de uma imagem é [cv::calcHist()](https://docs.opencv.org/4.4.0/d6/dc7/group__imgproc__hist.html#ga4b2b5fd75503ff9e6844cc4dcdaed35d) e ela possua uma API razoavelmente complicada devido à tentativa de fornecer uma função genérica que se adapta a uma ou várias imagens com quantidades diferentes de canais e partições de intensidades não-uniformes ou uniformes. Nós iremos utilizá-la para uma única imagem de cada vez, então nós precisamos adaptar esta imagem para o que é esperado pela API (i.e. um vetor de imagens).
 
 ```Cpp
 cv::calcHist(
-	const cv::Mat* images,      // C-Style array of images
-	int nimages,                // Number of images in images array
-	const int* nchannels,       // The number of channels in each image
-	InputArray mask,            // Which pixels are taken into consideration
-	OutputArray hist,           // The output histogram for all images
-	int dims,                   // Then number of dimensions of the histogram
-	const int* histSize,        // The quantity of bins for each histogram
-	const float** ranges,       // Defines the size of each bin
-	bool uniform = true,        // Are the bins uniform? (same size)
-	bool accumulate = false     // if true, the histogram will not be cleared when allocated
+	const cv::Mat* images,      // Array de imagens estilo C  
+	int nimages,                // Números de imagens no array images 
+	const int* nchannels,       // Número de canais em cada imagem 
+	InputArray mask,            // Quais pixels serão levados em consideração 
+	OutputArray hist,           // O histograma resultante da imagem 
+	int dims,                   // O número de dimensões do histograma
+	const int* histSize,        // A quantidade de partições para cada dimensão
+	const float** ranges,       // O tamanho de cada partição 
+	bool uniform = true,        // As partições são uniformes? (mesmo tamanho)
+	bool accumulate = false     // Se for true, o histograma não será limpo antes da operação
 )
 ```
 <br/>
 
-Theres a lot to digest here, so let's go through the parameters one by one:
+Tem bastante conteúdo para absorver nessa API, então vamos discutir os parâmetros um por um:
 
-- **image** - The array with the images whose histogram is going to be calculated. The images must be 8-bit integer or 32-bit floating point. All images must have the same dimensions, but varying the number of channels is allowed.
+- **image** - O array com as imagens cujo histograma será calculado. As imagens devem ser do tipo inteiro 8 bits ou ponto flutuante de 32 bits. Todas as imagens devem ter as mesmas dimensões mas a variação no número de canais é permitida
 
-- **nimages** - Number of images in the **image** array. Since C-style arrays don't carry information about its size, it's necessary to pass it through the API.
+- **nimages** - Número de imagens no array **image**. Já que os arrays estilo C não possuem informação sobre seu tamanho, é necessário informá-lo por meio da API.
 
-- **nchannels** - The channels of interest in each image. The channels are numbered as if they were flattened into a single array of all image's channels, therefore if we're interested in the 1st and 2nd channel of the first image and the 2nd channel of the second image, we would need an vector **nchannels** = { 0, 1, 4 }. A nullptr can be passed if a single image with a single channel is going to be processed.
+- **nchannels** - Os canais de interesse na imagem. Os canais são enumerados como se eles estivessem planificados (flattened) em um únicod array com todos os canais da image, logo se nós estamos interessados no primeiro e segunda canal da primeira imagem e no segundo canal da segunda imagem, nós necessitariamos de um vetor **nchannels** = { 0, 1, 4 }. Um ponteiro nulo *nullptr* pode ser passado caso uma unica imagem com um único canal será processada.
 
-- **mask** - A 8-bit mask that selects which pixels are going to be taken in consideration. Only pixels from the image whose corresponding pixel in the mask is non-zero will be counted. If we wish to count all pixels in the image, `cv::noArray()` can be passed.
+- **mask** - Uma máscara com elementos de 8 bits que seleciona quais pixels serão levados em consideração. Apenas pixels da imagem cujo pixel correspondente na máscara é não-nulo serão contados. Se nós desejamos contar todos os pixels da imagem, `cv::noArray()` pode ser utilizado.
 
-- **hist** - The output histograms for all images.
+- **hist** - O histograma resultante para todas as imagens.
 
-- **dims** - The number of dimensions of the histogram. The function is able to deal with high-dimensional data in case we want to group it in high dimensional bins. For example, we might have an RGB image for which we want to see the frequency of values with a certain red and blue color, this would give us a 2 dimensional histogram where `hist.at<float>(i,j)` would give us the frequency of pixels with **red intensity = i** and **blue intensity = j**.
+- **dims** - O número de dimensões do histograma. A função consegue lidar com dados com alta dimensionalidade caso queiramos agrupá-los em partições de várias dimensões. Por exemplo, se nós tivessemos uma imagem RGB em que queremos ver a frequência dos valores com uma determinada cor azul e vermelha, nós precisariamos de um histograma de 2 dimensões onde `hist.at<float>(i,j)` nos daria a frequência dos pixels com **intensidade vermelha = i** e **intensidade azul = j**.
 
-- **histSize** - Defines the quantity of bins used in each dimension of the histogram.
+- **histSize** - Define a quantidade de partições utilizada em cada dimensão do histograma.
 
-- **ranges** - The range of values of the histogram. This parameter is used to determine the range of data values that will fall within each bin. The interpretation of this value depends on the value of the **uniform** parameter: If the histogram is uniform, it's only necessary to define the minimum and maximum value of the range, which will be divided uniformly by the quantity of bins. If the histogram is not uniform, then it's necessary to define the ranges for all bins explicitly (i.e. it's necessary to specify an array with histSize[i] + 1 elements).
+- **ranges** - A faixa de valores do histograma. Esse parâmetro é utilizado para determinar a faixa de valores que serão alocadas em cada partição. A interpretação desse valor depende do valor do parâmetros **uniform**: Se o histograma é uniforme (**uniform = true**), é necessário apenas definir o valor máximo e mínimo da faixa, que será dividido uniformemente pela quantidade de partições. Se o histograma não for uniforme (**uniforma = false**), é preciso então definir as faixas de todas as partições explicitamente, ou seja, é necessário declarar um array com **histSize[i] + 1** elementos.
 
-- **uniform** - If the histogram is uniform, then all bins are of the same size.
+- **uniform** - Se o histograma for uniforme todas as partições terão o mesmo tamanho.
 
-- **accumulate** - If the values already in **hist** are replaced or not during the operation. Setting accumulate to true allows to gather a histogram across different calls to `cv::calcHist()` given that the same variable is used for **hist**.
+- **accumulate** - Se os valores que já estão em **hist** serão substituídos ou não durante a operação.
+ Definir **accumulate** como true permite ao usuário obter um histograma acumulado entre diversas chamadas de `cv::calcHist()` dado que a mesma variável seja fornecida para o parâmetro **hist**.
 
-Since the **ranges** parameter is fairly complex, it deserves a little bit more of an explanation. Let's see how we might specify ranges for the histogram example shown in a previous image which has a intensity range between [0,10).
+Já que o parâmetro **ranges** é razoavelmente complicado, ele merece um pouco mais de explicação. Vamos ver alguns exemplos de como nós podemos especificar faixas para o exemplo de histograma mostrado na imagem anterior que possui uma faixa de intensidades entre [0, 10).
 
-If we want our range to be uniform but with bin sizes of 2 elements, we can specify it as follows:
+Se nós queremos que nossas partições sejam uniformes com 2 elementos cada, nós podemos definir a configuraçãos como:
 
 ```Cpp
 int *histSize = { 5 };
@@ -78,9 +75,9 @@ bool uniform = true;
 ```
 <br/>
 
-This would take the range from [0,10) and divide it uniformly into 5 bins.
+Isso irá dividir a faixa de valores [0, 10) e dividi-la igualemente em 5 partições.
 
-Let's say we want to separate the range into 4 non-uniform bins of ranges [0, 2), [2,5), [5, 8) and [8, 10). The parameters would have to be specified in this way instead:
+Se nós quisermos separar as intensidades em 4 partições não uniformes com faixas [0, 2), [2,5), [5, 8) and [8, 10), devemos especificar os parâmetros dessa forma:
 
 ```Cpp
 int *histSize = { 4 };
@@ -92,35 +89,35 @@ bool uniform = false;
 ```
 <br/>
 
-Where we notice that the range for bin *i* is given by the values of *ranges[i]* and *ranges[i+1]* and we need to specify histSize[i] + 1 elements to define the range.
+Onde é possível notar que a faixa de valores para a partição *i* é dado pelos valores de *ranges[i]* e *ranges[i+1]*. Além disso precisamos especificar histSize[i] + 1 elementos para definir o histograma.
 
-If we have an image encoded in HSV color space where each channel has a different range. We would need to specify a separate array for each channel:
+Se nós tivermos uma imagem no espaço de cor HSV onde cada canal possui uma faixa de valores diferente, nós precisaremos definir um array diferente para cada canal.
 
 ```Cpp
 int *histSize = { 60, 20, 20 };
 float *ranges[] = {
-	{ 0, 360 },   // range of data for hue channel
-	{ 0, 100 },   // range of data for saturation channel
-	{ 0, 100 },   // range of data for value channel
+	{ 0, 360 },   // Faixa de valores para o canal de matiz (hue)
+	{ 0, 100 },   // Faixa de valores para o canal de saturação  (saturation)
+	{ 0, 100 },   // Faixa de valores para o canal de valor (value) 
 };
 int dims = 3;
 bool uniform = true;
 ```
 <br/>
 
-These parameters would result in a 3 dimensional histogram with the hue channel divided into 60 bins and the saturation and value are divided into 20 bins.
+Estes parâmetros iriam resultar em um histograma tridimensional com o canal de matiz dividido em 60 partições e os canais de saturação e valor teriam ambos 20 partições.
 
-It's important to understand that the **images** array is not meant to generate histogram for multiple images at once, it's only a channel selection mechanism: we can pass two single-channel grayscale images and select both of the channels using **nchannels**, but this won't generate two separate histograms, instead it'll generate a single 2-dimensional histogram where each bin is an element of the cartesian product of the first and second image bins.
+É importante notar que o array **images** não é utilizado para gerar histogramas para várias imagens de uma única vez, é apenas um mecanismo de seleção de canais: nós podemos passar duas imagens com um único canal em tons de cinza e selecionar ambos os canais com **nchannels**, mas isso não irá gerar dois histogramas separados, ao invés disso a função irá gerar um histograma único com duas dimensões onde cada partição é um membro do produto cartesiano entre as partições da primeira e segunda imagem, ou seja, haverá uma partição para cada conjunto (i, j), onde i é um valor de intensidade pertencente a primeira imagem, e j é um valor de intensidade pertencente a segunda.
 
-## Using histograms in image processing: histogram equalization  
+## Utilizando histogramas em processamento de imagens: equalização de histogramas
 
-Now that we've got an understanding of creating histograms in OpenCV, let's see how to use them in practice. One of the most simple effect we can achieve using histogram is improving image contrast with histogram equalization. This technique aims to remap pixel intensities in an image in such a way that the resulting histogram has a uniform distribution across the whole intensity range. This process is illustrated below:
+Agora que nós temos uma ideia básica de como criar histogramas no OpenCV, vamos ver como nós podemos utilizá-los em prática. Um dos efeitos mais simples que nós podemos obter utilizando a manipulação de histogramas é melhorar o constraste da imagem atráves de equalização de histograma. Essa técnica busca mapear as intensidades dos pixels de uma imagem de forma que o histograma resultante possua uma distribuição uniforme sobre toda a faixa de valores de intensidade. Esse processo é ilustrado abaixo:
 
 ![An histogram being equalized](../../images/motion-detector/histogram-equalization.png)
 
-If the histogram was continuous, the resulting equalization would lead to a perfectly uniform distribution, but since the histograms obtained from images are discrete, the equalization results in an approximation of the uniform distribution.
+Se o histograma fosse contínuo, a equalização levaria à uma distribuição resultante perfeitamente uniforme, mas como os histogramas obtidos de imagens são discretos, a equalização resulta em uma aproximação da distribuição uniforme.
 
-The discrete histogram equalization is defined by the following equation:
+A equalização discreta do histograma é definida pela seguinte equação:
 
 $$
   out_{k} = \frac{L-1}{MN}\sum_{j=0}^{k}hist[j] 
@@ -130,16 +127,15 @@ $$
   k = 0, 1, 2, 3, ... L - 1
 $$
 
-Where a pixel with intensity $k$ in the source image would be mapped to an intensity $out_{k}$, $M$ and $N$ are the image dimensions and $L$ is the maximum intensity value. Since the output might be a fractional value, the intensities are rounded to the nearest integer.
+Onde um pixel de intensidade $k$ na imagem de origem seria mapeado para uma intensidade $out_{k}$, $M$ e $N$ são as dimensões da imagem e $L$ é o valor máximo da faixa de intensidades. Já que o resultado pode ser um valor fracionário, as intensidades são arredondadas para o inteiro mais próximo.
 
-By spreading pixel intensities across the whole intensity range, pixels are mapped in a way that the contrast between features in an image is enhanced. This could be used to recover details in a washed out image, for example.
+Ao espalhar as intensidades dos pixels sobre toda a faixa de intensidades, os pixels são mapeados de forma que o contraste entre padrões da imagem é melhorado. Isto pode ser utilizado para recuperar detalhes em uma imagem desbotada, por exemplo
 
-This operation is implemented by the [cv::equalizeHist()](https://docs.opencv.org/4.4.0/d6/dc7/group__imgproc__hist.html#ga7e54091f0c937d49bf84152a16f76d6e) function in OpenCV. Let's see how we can use it to process a video stream.
+Esta operação é implementada por meio da função [cv::equalizeHist()](https://docs.opencv.org/4.4.0/d6/dc7/group__imgproc__hist.html#ga7e54091f0c937d49bf84152a16f76d6e) do OpenCV. Vamos ver como podemos usá-la para processar um stream de vídeo.
 
-### Obtaining the video stream
+### Obtendo o stream de video
 
-A video stream can be obtained using [cv::VideoCapture](https://docs.opencv.org/4.4.0/d8/dfe/classcv_1_1VideoCapture.html) class, it works for both recorded videos by specifying the path on the filesystem where it's stored and live camera feed by specifying the camera ID.
-
+O stream de video pode ser obtido utilizando a classe [cv::VideoCapture](https://docs.opencv.org/4.4.0/d8/dfe/classcv_1_1VideoCapture.html). Ela funciona tanto para videos gravados ao especificar o caminho no sistema de arquivo onde eles estão armazenados, como para o feed de uma câmera em tempo real ao especificar seu ID.
 
 ```Cpp
 struct Config {
@@ -148,7 +144,9 @@ struct Config {
     const unsigned int screen_height;
 }
 
-Config parse_cli(int argc, char* argv[]) {/* parse cli arguments */}
+Config parse_cli(int argc, char* argv[]) {
+   /* processar paramertos da linha de comando */
+}
 
 int main(int argc, char* argv[]) {
     auto config = parse_cli(argc, argv);
@@ -160,40 +158,40 @@ int main(int argc, char* argv[]) {
     }
 
     if (!cap.isOpened()) {
-        std::cout << "Couldn't open camera" << std::endl;
+        std::cout << "Não foi possivel abrir a câmera/video." << std::endl;
         return -1;
     }
 
-    // Defines the size of the frame to be captured
+    // Define o tamanho do quadro a ser capturado
     cap.set(cv::CAP_PROP_FRAME_WIDTH, config.screen_width);
     cap.set(cv::CAP_PROP_FRAME_HEIGHT, config.screen_height);
 
-    // The requested width x height might not be available
+    // Os valores de altura e largura podem não estar disponíveis
     int width = cap.get(cv::CAP_PROP_FRAME_WIDTH);
     int height = cap.get(cv::CAP_PROP_FRAME_HEIGHT);
 }
 ```
 <br/>
 
-We need to specify the width and height of the video stream, but not all sizes are supported, so we also need to query the property to see the actual selected values.
+Nós precisamos especificar a altura e a largura dos quadros do video, mas nem todos os tamanhos são suportados, então nós precisamos checar também qual o valor que foi realmente selecionado.
 
-### Reading frames
+### Lendo quadros
 
-Now we need to read the frames from the video stream and apply the histogram equalization on each one.
+Agora nós precisamos ler os quadros do video e aplicar a equalização de histograma em cada um.
 
 ```Cpp
 int main() {
-    /* obtain the video stream */
+    /* Obtendo o stream de video */
 
     cv::Mat image;
     while (1) {
         cap >> image;
         if (image.empty()) {
-            std::cerr << "Could not read frame from video, possibly due to wrong screen dimensions." << std::endl;
+            std::cerr << "Nao foi possivel ler quadros do video." << std::endl;
             exit(1);
         }
 
-        // --- histogram equalization ---
+        // --- equalização do histograma ---
         auto equalizedImage = equalize_rgb(image); 
         auto equalizedLabImage = equalize_cie_lab(image);
 
@@ -208,19 +206,19 @@ int main() {
 ```
 <br/>
 
-Two different equalizations are being applied here, one directly in the RGB channels of the image and another that first changes the image from RGB to CIE Lab color space and then apply the equalization on the luminosity channel only.
+Duas equalizações diferentes estão sendo aplicadas aqui, uma diretamente nos canais RGB da imagem e outra que primeiramente modifica a imagem do espaço RGB para o espaço CIE Lab e só então aplica a equalização.
 
-It's only necessary to do one equalization, we're doing two different equalizations here so that we can compare the effect of each one on the original image.
+É necessário apenas fazer uma única equalização, nós fizemos duas equalizações diferentes aqui para que possamos comparar o efeito de cada uma na imagem original.
 
-### Defining the equalization
+### Definindo a equalização
 
-Equalizing the histogram of an RGB channel is done by equalizing each channel individually, this can generate unwanted visual artifacts in the image: Since the color information in the RGB image is only complete when the channels are combined, equalizing the channels separately might introduce new colors in the image due to the different remapping that happens on each channel. A correct equalization would have to remap the three channels identically.
+A equalização do histograma de uma imagem RGB é feita por meio da equalização de cada canal individualmente, isso pode gerar artefatos visuais indesejados na imagem: já que a informação de cor em uma imagem RGB é completa apenas quando os três canais são combinados, equalizar os canais individualmente pode introduzir novas cores na imagem devido aos mapeamentos diferentes que ocorrem em cada canal. Uma equalização correta teria que mapear os três canais de forma idêntica.
 
-Since what we want is to raise the constrast of the image intensity rather than messing with its colors, we can change the representation to one where the intensity is expressed separately.
+Já que o que nós queremos é aumentar o constrate de intensidade da imagem ao invés de manipular suas cores, nós podemos modificar a representação para um espaço de cor onde a intensidade é expressada separadamente.
 
 ```Cpp
 /*
- * Equalization done on individual RGB channels
+ * Equalização feita em canais individuais RGB
  */
 cv::Mat equalize_rgb(cv::Mat image) {
     std::vector<cv::Mat> planes;
@@ -260,71 +258,73 @@ cv::Mat equalize_cie_lab(cv::Mat image) {
 }
 
 int main(int argc, char* argv[]) {
-    /* Obtain video stream*/
-    /* read video frames */
+    /* Obter o stream de video */
+    /* Ler os quadros */
 }
 ```
 <br/>
 
-The [CIE Lab color space](https://en.wikipedia.org/wiki/CIELAB_color_space) has a separate channel that represents light intensity of the pixel, we can then apply the equalization on this single channel and then convert the image back to RGB.
+O [espaço de cor CIE Lab](https://en.wikipedia.org/wiki/CIELAB_color_space) possui um canal separado que representa a intensidade da luz, nós podemos então aplicar a equalização nesse único canal e então converter a imagem de volta para RGB.
 
-With this, we can run our resulting binary and see the results:
+Com isso, nós podemos executar o binário e observar os resultados:
 
 ```bash{promptUser: edujtm}{outputLines: 2}
 ./build/equal_hist -i ~/Videos/the-wacky-wabbit.mp4
 ```
 <br/>
 
-With the no equalization video frame being:
+Com o frame não equalizado sendo:
 
 ![The Wacky Wabbit intro with no equalization](../../images/motion-detector/normal-wabbit.png)
 
-We have this resulting RGB equalization:
+Nós temos a seguinte equalização RGB resultante:
 
 ![The Wacky Wabbit intro with RGB equalization](../../images/motion-detector/rgb-wabbit.png)
 
-In this case, the RGB equalization looks good, but its still noticeable that it introduced pink outlines in the mountains. In some other frames the resulting color change is very noticeable.
-Finally the resulting CIE Lab equalization:
+Nesse caso, a equalização RGB está aceitável, mas ainda é possível notar que ela introduziu bordas rosas nas montanhas. Em outros frames a variação de cor resultante é bastante perceptível.
+
+Por fim, a equalização CIE Lab resultante:
 
 ![The Wacky Wabbit intro with RGB equalization](../../images/motion-detector/cielab-wabbit.png)
 
-We notice that the equalization made the original image darker and that we can see the constrast in the cactuses and clouds much better.
+Nós podemos notar que a equalização fez com que a imagem original se tornasse mais escura e o constraste entre os cactus e nuvens são mais aparentes.
 
-## Implementing the motion detector
+## Implementando o detector de movimentos
 
-Well, after talking about histograms for long while, we can finally start implementing our motion detector. The idea behind implementing a moviment detector using histograms involves comparing the histogram between subsequent frames and checking if the object motion introduced changes in the frequency of pixel intensities.
+Depois de falar sobre histogramas por um bom tempo, nós podemos finalmente iniciar o desenvolvimento donosso detector de movimentos. A ideia por trás da implementação de um detector de movimentos utilizando histogramas envolve a comparação dos histrogramas de frames subsequentes, checando se o movimento do objeto introduziu mudanças na frequência das intensidades.
 
-Our movement detector will show an text alarm on screen in case it detects any moving object so we can see if it's working correctly.
+Nosso detector de movimentos irá mostrar um texto de alarme na tela caso ele detecte qualquer objeto em movimento para que possamos checar se está funcionando corretamente.
 
-To implement the histogram comparison, we need to store both the current and the previous frame so that we're able to compare them. I decided to use an std::deque for it because I thought the problem mapped well to a moving window, but there might be a simpler implementation that only stores the previous frame.
+Para implementar a comparação de histogramas, nós precisamos armazenar tanto o frame atual quanto o anterior para que possamos compará-los. Eu decidi utilizar um std::deque para isso pois eu acredito que o problema se encaixa bem na ideia de janelas móveis, mas deve haver uma implementação mais simples que apenas armazena o frame anterior.
 
-Based on this, we arrive on the following implementation:
+Baseado nisso, nós chegamos na seguinte implementação:
 
 ```Cpp
 /**
- * Calculates a similarity score between two subsequent histograms.
+ * Calcula um escore de similaridade entre dois histogramas subsequentes
  */
 class HistogramSimilarity {
     std::deque<cv::Mat> window {};
-    float _score = 1.0;             // 1.0 is a perfect histogram match
+    float _score = 1.0;             // 1.0 é o escore para histogramas idênticos 
 
     public:
         void push(cv::Mat current_histogram) {
-            // If there's a single frame, we store the current one
-            // and calculate the similarity score.
+            // Se há apenas um unico frame, nós armazenamos o atual
+            // e calculamos o escore de similaridade
             if (window.size() == 1) {
                 auto previous = window.back();
                 this->_score = this->calc_score(previous, current_histogram);
 
-            // If there's already 2 frames we discard the 
-            // oldest histogram to make room for the new one
+            // Se houverem dois frames, nós descartamos o
+            // mais antigo para dar espaço para o atual
             } else if (window.size() > 1) {
                 window.pop_back();
                 auto previous = window.back();
                 this->_score = this->calc_score(previous, current_histogram);
             }
 
-            // If there's no frame stored, we can't calculate the score yet
+            // Se não houver nenhum frame armazenado, nós não podemos
+            // calcular o escore ainda
             window.push_front(current_histogram);
         }
 
@@ -340,22 +340,22 @@ class HistogramSimilarity {
 ```
 <br/>
 
-We have a single push method that will receive the frames and calculate the scores on demand. There are three possible states for our moving window: 
+Nós temos um único método push que receberá os frames e calculará os escores por demanda. Existem três estados possíveis para a nossa janela móvel:
 
-- the window is empty, meaning that no frames were consumed yet. We can't calculate the similarity, so we just store the frame and wait for the next one.
+- A janela está vazia, o que significa que nenhum frame foi consumido ainda. Nós não podemos calcular a similaridade, então nós apenas armazenamos o frame atual e esperamos pelo próximo.
 
-- the window has a single frame. In this case we calculate the similarity and store the frame for the next operations.
+- A janela possui um frame. Nesse caso nós calculamos a similaridade e armazenamos o frame atual para a próxima operação.
 
-- the window has two frames. In this case, we discard the oldest frame, calculate the new score and store the current frame.
+- A janela possui dois frames. Nesse caso, nós descartamos o frame mais antigo, calculamos o escore e armazenamos o frame atual.
 
-The score is implemented by means of [cv::compareHist()](https://docs.opencv.org/4.4.0/d6/dc7/group__imgproc__hist.html#gaf4190090efa5c47cb367cf97a9a519bd) using the `cv::HISTCOMP_CORREL` comparison method, which just calculates the [statistical correlation](https://en.wikipedia.org/wiki/Correlation_and_dependence) between the histograms. Using this comparison method, the absence of movement would be represented by a score equal to 1.0, while a movement would tend to push the score towards -1.0 depending on how big of a change happened in the image.
+O escore é implementado por meio da função [cv::compareHist()](https://docs.opencv.org/4.4.0/d6/dc7/group__imgproc__hist.html#gaf4190090efa5c47cb367cf97a9a519bd) utilizando o metodo de comparação `cv::HISTCOMP_CORREL` que calcula a [correlação estatística](https://en.wikipedia.org/wiki/Correlation_and_dependence) entre os histogramas. Utilizando este método de comparação, a ausência de movimento seria representada por um escore igual a 1.0, enquanto um movimento iria levar o escore em direção a -1.0 dependendo do quão grande foi a variação introduzida na imagem.
 
-With this we have a score that allows us to implement the motion detector by checking if the score is greather than a threshold:
+Com isso, nós temos um escore que nos permite implementar o detector de movimento ao checar se ele é maior que um limiar:
 
 ```Cpp
 /**
- * Detects motion based on the similarity between
- * subsequent histograms of an image stream (camera feed/video).
+ * Detecta movimentos baseado na similaridade entre
+ * histogramas subsequente em um stream de imagens (camera ou video)
  */
 class MotionDetector {
     HistogramSimilarity similarity;
@@ -401,9 +401,9 @@ class MotionDetector {
 ```
 <br/>
 
-The motion detector delegates the frames to the `HistogramSimilarity` class and checks if the resulting score is greather than the threshold. If we try to show the alarm on screen, it'll get erased as soon as we draw the next frame, which happens so quickly that we might not even see it happening. So we set a frame counter that will define for how many frames the alarm text will be shown.
+O detector de movimentos delega os frames para a classe `HistogramSimilarity` e checa se o escore resultante é maior que o limiar. Se nós tentarmos mostrar o alarme na tela, ele será apagado assim que o próximo frame for desenhado. Isto acontece tão rápido que talvez nem seja possível observar o alerta na tela, então nós criamos um contador de frames que irá definir por quantos frames o texto de alarme será mostrado.
 
-Finally, we can put this into practice by opening a video and reading its contents. We can obtain the video stream in the same way we did for the [equalization example](#obtaining-the-video-stream).
+Por fim, nós colocamos isso em prática ao abrir um arquivo de video e lendo seu conteúdo. Nós podemos obter o stream de video da mesma forma que fizemos para o [exemplo de equalização](#obtendo-o-stream-de-video).
 
 ```Cpp
 struct Config {
@@ -418,23 +418,23 @@ Config parse_cli(int argc, char* argv[]) {/* parse cli arguments */}
 
 int main(int argc, char* argv[]) {
     auto config = parse_cli(argc, argv);
-    /* obtain video stream */
+    /* Obter o stream de video */
 
-    // ----- Configuring the histogram -----
+    // ----- Configurando o stream de video -----
 
-    // Histogram for each of the image channels
+    // Histograma para um dos canais da imagem
     cv::Mat histR;
-    // Quantity of bins where pixel intensities will be grouped
+    // Quantidade de partições on as intensidades dos pixels serão alocadas
     int nbins = 64;
-    // The maximum range of pixels of the histogram
+    // Os limites da faixa de valores do histograma
     float range[] = { 0, 256 };
     const float *histrange = { range };
-    // Are histogram bins uniform?
+    // As partições do histograma são uniformes
     bool uniform = true;
-    // Replace histograms when counting new images?
+    // Acumular o resultado com os valores atuais do histograma
     bool accumulate = false;
 
-    // Holds the separate BGR channels (i.e. planes[0] is red channel)
+    // Armazena os canais BGR separados (i.e. planes[] é o canal vermelho)
     std::vector<cv::Mat> planes;
 
     cv::Mat resized_image;
@@ -449,11 +449,11 @@ int main(int argc, char* argv[]) {
         }
 
         cv::resize(image, resized_image, screen_size);
-        // Splits the individual channels of an image
+        //  Divide os canais individuais da imagem
         cv::split(resized_image, planes);
         auto blue_channel = planes[0];
 
-        // Gets the histogram for the blue channel
+        // Obtem o histograma do canal azul
         cv::calcHist(
             &blue_channel,
             1,
@@ -467,10 +467,10 @@ int main(int argc, char* argv[]) {
             accumulate
         );
 
-        // We give the histogram to the detector
+        // Nós passamos o histograma para o detector
         detector.push(histB.clone());
 
-        // If the alarm is active, writes a message on screen
+        // Se o alarme está ativo, escrevemos uma mensagem na tela
         if (detector.alarm_active()) {
             cv::Point2i top_left { resized_image.rows / 20 , resized_image.cols / 20 };
             cv::putText(
@@ -494,25 +494,25 @@ int main(int argc, char* argv[]) {
 ```
 <br/>
 
-I've tested this implementation in this [video from pexels](https://www.pexels.com/video/a-railway-under-a-flyover-3250590/) which shows a train moving under a bridge. When choosing a good threshold value, it managed to detect the train moving fairly well.
+Eu testei esta implementação nesse [video do pexels](https://www.pexels.com/video/a-railway-under-a-flyover-3250590/) que mostra um trem se movendo embaixo de uma ponte. Com a escolha apropiada do limiar de detecção, o detector conseguiu detectar o trem se movendo razoavelmente bem.
 
 ```bash{promptUser: edujtm}{outputLines: 2}
 ./build/apps/motion_detector -i ~/Videos/train-bridge.mp4  --width 480 --height 320 -t 0.9972
 ```
 <br/>
 
-Some examples of the motion detector can be seen in the following images:
+Alguns exemplos do detector de movimentos podem ser vistos abaixo:
 
-![Image of a bridge with a railroad underneath](../../images/motion-detector/no-detection.png)
+![Imagem de uma ponte com trilhos de trêm embaixo](../../images/motion-detector/no-detection.png)
 
-The detector is able to see the train arriving:
+O detector é capaz de ver o trem atravessando os trilhos:
 
 ![Image of the bridge with the train arriving at the railroad](../../images/motion-detector/train-arriving.png)
 
-*Disclaimer: Images taken from [this video](https://www.pexels.com/video/a-railway-under-a-flyover-3250590/) by [Alexander Bobrov](https://www.pexels.com/@alexander-bobrov-390088?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels) on [Pexels](https://www.pexels.com/)*
+*Creditos: imagens obtidas desse [video](https://www.pexels.com/video/a-railway-under-a-flyover-3250590/) filmado por [Alexander Bobrov](https://www.pexels.com/@alexander-bobrov-390088?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels), disponível no [Pexels](https://www.pexels.com/)*
 
-Since this detector is not robust, it might have spurious detections that are probably not acceptable when we're designing an alarm. On top of that, the detector is very sensible to the threshold specified, if we give a value that's too low, we might not catch any slow movement and small objects might not  trigger the alarm because they don't change the histogram too much. So this is far from a good motion detector, but it's a good example of thinking of images in terms of its histograms.
+Já que esse detector não é robusto, ele pode gerar detecções espúrias que provavelmente não são aceitáveis quando estamos desenvolvendo um alarme. Além disso, o sensor é bem sensível ao limiar de intensidade especificado: se dermos um valor muito baixo, é possível que o sensor não detecte nenhum movimento e, além disso, pequenos objetos podem não ser detectados já que não causam variações grandes na imagem. Então isto está longe de ser um detector ideal, mas é um bom exemplo de como pensar nas imagens em termos de seus histogramas.
 
-## Conclusion
+## Conclusão
 
-Sometimes it might be useful to think of an image in terms of its histogram, rather than an array of pixels. With the histogram in hands we could apply an operation on it to see the effects on the image or use it in combination with other techniques to achieve a desired effect. OpenCV offers several functions to generate and manipulate histograms from images, my hope is that this article is able to show how to use some of them in practice.
+As vezes pode ser útil pensar nas imagens em termos de seus histogramas, ao invés de um array de pixels. Com o histograma em mãos, nós podemos manipulá-lo e observar seus efeitos na imagem ou usá-lo em combinação com outras técnicas para obter o efeito desejado. OpenCV oferece diversas funções para gerar e manipular histogramas de imagens, espero que este artigo tenha mostrado como elas podem ser utilizadas em prática.

@@ -13,11 +13,11 @@ Mesmo que os estudos em aprendizagem de máquina tenham conseguido aplicar as t�
 
 ## O processo de filtragem espacial 
 
-A operação de filtragem espacial é feita por meio da aplicação de uma máscara em uma imagem para obter uma nova imagem processada. Esta máscara é aplicada em cada pixel da imagem em um processo chamado de [convolução](https://pt.wikipedia.org/wiki/Convolu%C3%A7%C3%A3o). Esse termo deriva do conceito matemático de mesmo nome, que define uma operação onde duas funções deslizam uma sobre a outra e as partes que se sobrepõem são integradas para gerar um novo ponto da função resultante. No caso de processamento de imagens, a convolução se dá por meio do deslizamento da máscara sobre a imagem e, para cada posição do deslizamento, fazendo uma multiplicação elemento a elemento entre máscara e a imagem para gerar um novo pixel da imagem resultante.
+A operação de filtragem espacial é feita por meio da aplicação de uma máscara em uma imagem para obter uma nova imagem processada. Esta máscara é aplicada em cada pixel da imagem em um processo chamado de [convolução](https://pt.wikipedia.org/wiki/Convolu%C3%A7%C3%A3o). Esse termo deriva do conceito matemático de mesmo nome, que define uma operação onde duas funções deslizam uma sobre a outra e as partes que se sobrepõem são integradas para gerar um novo ponto da função resultante. No caso de processamento de imagens, a convolução se dá por meio do deslizamento da máscara sobre a imagem e, para cada posição do deslizamento, se faz uma multiplicação elemento a elemento entre máscara e a imagem para gerar um novo pixel da imagem resultante.
 
 ![Convolution operation](../../images/spatial-filters/convolution.png)
 
-Isto pode ser interpretado também como uma expansão de uma operação elemento a elemento na image: Se você aplicar uma operação em todos os pixels da imagem individualmente (e.g. multiplicar por um escalar), a única informação que você teria é a intensidade do pixel naquele local. Se nós queremos saber se aquele pixel faz parte de uma borda or se é afetado por ruído, isso não é o bastante. É ai que entra máscara, permitindo que a operação tenha informações sobre a vizinhança do pixel.
+Isto pode ser interpretado também como uma expansão de uma operação elemento a elemento na imagem: Se você aplicar uma operação em todos os pixels da imagem individualmente (e.g. multiplicar por um escalar), a única informação que você teria é a intensidade do pixel naquele local. Se nós queremos saber se aquele pixel faz parte de uma borda or se é afetado por ruído, isso não é o bastante. É ai que entra máscara, permitindo que a operação tenha informações sobre a vizinhança do pixel.
 
 Em processamento de imagens, esta operação é definida matematicamente pela seguinte equação:
 
@@ -183,7 +183,7 @@ $$
 	- f(x-1, y-1) - 2f(x-1, 1) - f(x-1, y+1)
 $$
 
-Which can be implemented as follows:
+Que pode ser implementado como:
 
 ```Cpp
 float sobel_vertical[] = {
