@@ -5,6 +5,7 @@ import { useTranslation } from 'gatsby-plugin-react-i18next';
 import Head from '../components/Head';
 import Layout from '../components/Layout';
 import RoundImage from '../components/RoundImage';
+import PersonalProjects from '../components/PersonalProjects.tsx';
 
 import layoutStyles from '../styles/pages/About.module.scss';
 
@@ -43,6 +44,7 @@ const AboutPage = () => {
             <p>{t('need-developer')} <Link to="/contact">{t('contact-me')}</Link></p>
           </div>
         </div>
+        <PersonalProjects />
       </Layout>
   );
 }

@@ -1,0 +1,17 @@
+{
+  "diversify": {
+    "header": "Diversify - Gerador de playlists para o Spotify",
+    "content": "Um gerador de playlist para o Spotify que busca satisfazer mutualmente, da melhor forma possível, os gostos musicais de um grupo de usuários. O gerador usa um algoritmo de clustering para detectar padrões de gosto de cada usuário e para decidir qual musica está mais próxima do gosto músical coletivo dos usuários.\n\n Um website feito com Django e React está atualmente sendo desenvolvido para hospedar o algoritmo.",
+    "url": "https://github.com/edujtm/diversify"
+  },
+  "tuyo": {
+    "header": "Tuyo - Gerenciador de playlists para o YouTube",
+    "content": "Um aplicativo nativo para Android feito utilizando Kotlin que permite o gerenciamento em grupo (i.e. copiar, colar e recortar) de playlists do YouTube. O aplicativo segue o guia de arquitetura do Android utilizando os componentes de arquitetura do Jetpack para gerenciar o ciclo de vida, injeção de dependências com Dagger e Espresso e JUnit para testes funcionais e unitários, respectivamente. \n\n Nesse projeto eu aprendi um pouco mais sobre como gerenciar o ciclo de vida dos componentes principais do Android, evitando problemas de memória, e como criar uma cache dos dados de uma API de terceiros.",
+    "url": "https://github.com/edujtm/tuyo"
+  },
+  "personal-website": {
+    "header": "Site pessoal - Gatsby.js",
+    "content": "Este website foi desenvolvido utilizando Gatsby.js e GraphQL para obter um design responsivo e produzir conteudo gratuito para pessoas interessadas em programação. O site utiliza i18next para internacionalização de todo o conteúdo do site e está atualmente sendo migrado para TypeScript.",
+    "url": "https://github.com/edujtm/edujtm.github.io"
+  }
+}
