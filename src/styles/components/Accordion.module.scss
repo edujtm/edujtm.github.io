@@ -2,14 +2,17 @@
 .accordion-container {
   
   .accordion-header {
-    display: block;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
     padding: 15px 22px;
     margin: 10px 0 0 0;
     cursor: pointer;
     color: #fb8177;
     border-bottom: 1px solid #fb8177;
     transition: ease .5s;
-    font-family: 'Zilla Slab', sans-serif;
+    font-family: Zilla Slab, sans-serif;
     font-size: 1.4rem;
     
     &:hover {
@@ -25,5 +28,10 @@
     margin: 0 0 1px 0;
     border-radius: 3px;
     white-space: pre-line;
+    
+    a {
+      font-family: Zilla Slab, sans-serif;
+      font-size: 1.2rem;
+    }
   }
 }

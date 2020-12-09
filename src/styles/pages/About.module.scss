@@ -4,13 +4,26 @@
   flex-direction: row;
   align-items: stretch;
   justify-content: center;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
 }
 
 .profile-picture {
   margin: auto 30px auto auto;
   flex: 2;
+
+  @media screen and (max-width: 768px) {
+    margin: auto;
+    flex: 1;
+  }
 }
 
 .profile-description {
   flex: 8;
+
+  @media screen and (max-width: 768px) {
+    flex: 1;
+  }
 }
