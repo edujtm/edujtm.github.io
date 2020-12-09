@@ -58,8 +58,9 @@ $$
 Applying this mask to the definition of the spatial filtering operation, we obtain:
 
 $$
-  h(x, y)= \sum_{s=-a}^{a}\sum_{t=-b}^{b} Mask(s, t) \cdot f(x + s, y+t)
+  h(x, y)= \sum_{s=-a}^{a}\sum_{t=-b}^{b} M(s, t) \cdot f(x + s, y+t)
 $$
+
 
 $$
   h(x, y) = \frac{1}{M \cdot N} \sum_{s=-a}^{a}\sum_{t=-b}^{b} f(x + s, y+t)
@@ -121,17 +122,29 @@ $$
 The partial derivatives can be approximated, using [finite difference approximation](https://en.wikipedia.org/wiki/Finite_difference), by:
 
 $$
-	\frac{\partial^{2}{f}}{\partial{x^{2}}} = f(x+1, y) + f(x-1, y) - 2f(x, y)
+	\frac{\partial^{2}{f}}{\partial{x^{2}}} = f(x+1, y) + f(x-1, y) 
 $$
 
 $$
-	\frac{\partial^{2}{f}}{\partial{y^{2}}} = f(x, y+1) + f(x, y-1) - 2f(x, y)
+	- 2f(x, y)
+$$
+
+$$
+	\frac{\partial^{2}{f}}{\partial{y^{2}}} = f(x, y+1) + f(x, y-1)
+$$
+
+$$
+	- 2f(x, y)
 $$
 
 Finally, after substituting those two equations into the laplacian, we obtain:
 
 $$
-	\nabla^{2} f = f(x+1, y)  + f(x-1, y) + f (x, y+1) + f (x, y-1) - 4f(x, y) 
+	\nabla^{2} f = f(x+1, y)  + f(x-1, y)
+$$
+
+$$
+	+ f (x, y+1) + f (x, y-1) - 4f(x, y) 
 $$
 
 Which gives us the values that are commonly used to implement the laplacian mask:
@@ -164,21 +177,29 @@ The derivatives approximations are given below:
 
 **Horizontal**
 $$
-	\frac{\partial f}{\partial x} = f(x+1, y+1) + 2 f(x, y+1) + f(x-1, y+1) 
+	\frac{\partial f}{\partial x} = f(x+1, y+1) + 2 f(x, y+1) 
 $$
 
 $$
-	- f(x+1, y-1) - 2f(x, y-1) - f(x-1, y-1)
+	\hspace{20px} + f(x-1, y+1) - f(x+1, y-1)
+$$
+
+$$
+	 - 2f(x, y-1) - f(x-1, y-1)
 $$
 
 **Vertical**
 
 $$
-	\frac{\partial f}{\partial y} = f(x+1, y-1) + 2 f(x+1, y) + f(x+1, y+1) 
+	\frac{\partial f}{\partial y} = f(x+1, y-1) + 2 f(x+1, y) 
 $$
 
 $$
-	- f(x-1, y-1) - 2f(x-1, 1) - f(x-1, y+1)
+	+ f(x+1, y+1) - f(x-1, y-1)
+$$
+
+$$
+	 - 2f(x-1, 1) - f(x-1, y+1)
 $$
 
 Which can be implemented as follows:
@@ -217,12 +238,20 @@ $$
 Using the chain rule for derivatives:
 
 $$
-  \frac{\partial}{\partial x} G(x,y) = - \frac{2x}{2 \sigma^{2}} e^{- \frac{ x^{2} + y^{2} }{ 2 \sigma^{2}} } = - \frac{1}{\sigma^{2}} \cdot x e^{- \frac{ x^{2} + y^{2} }{ 2 \sigma^{2}}}
+  \frac{\partial}{\partial x} G(x,y) = - \frac{2x}{2 \sigma^{2}} e^{- \frac{ x^{2} + y^{2} }{ 2 \sigma^{2}} } 
+$$
+
+$$
+	\hspace{55px} = - \frac{1}{\sigma^{2}} \cdot x e^{- \frac{ x^{2} + y^{2} }{ 2 \sigma^{2}}}
 $$
 
 Now we use the product rule to obtain the second derivative:
 $$
-  \frac{\partial^2}{\partial x^2} G(x,y) = - \frac{1}{\sigma^{2}} (e^{- \frac{ x^{2} + y^{2} }{ 2 \sigma^{2}}} - x \cdot ( \frac{1}{\sigma^{2}} x e^{- \frac{ x^{2} + y^{2} }{ 2 \sigma^{2}}} ))
+  \frac{\partial^2}{\partial x^2} G(x,y) = - \frac{1}{\sigma^{2}} (e^{- \frac{ x^{2} + y^{2} }{ 2 \sigma^{2}}} 
+$$
+
+$$
+	- x \cdot ( \frac{1}{\sigma^{2}} x e^{- \frac{ x^{2} + y^{2} }{ 2 \sigma^{2}}} ))
 $$
 
 $$
@@ -242,7 +271,11 @@ $$
 Which we can substitute in the laplacian equation, to obtain the mask definition:
 
 $$
-	\nabla^{2} G(x,y) = \frac{(x^{2} - \sigma^{2})}{ \sigma^4 } e^{ -\frac{ x^{2} + y^{2} }{ 2 \sigma^{2} } } + \frac{(y^{2} - \sigma^{2})}{ \sigma^4 } e^{ -\frac{ x^{2} + y^{2} }{ 2 \sigma^{2} } }
+	\nabla^{2} G(x,y) = \frac{(x^{2} - \sigma^{2})}{ \sigma^4 } e^{ -\frac{ x^{2} + y^{2} }{ 2 \sigma^{2} } } 
+$$
+
+$$
+	+ \frac{(y^{2} - \sigma^{2})}{ \sigma^4 } e^{ -\frac{ x^{2} + y^{2} }{ 2 \sigma^{2} } }
 $$
 
 $$
