@@ -74,8 +74,9 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-web-font-loader',
       options: {
-        google: {
-          families: ['Zilla Slab', 'Noticia Text']
+        custom: {
+          families: ['Zilla Slab', 'Noticia Text'],
+          urls: ["/fonts/fonts.css"]
         }
       }
     }
